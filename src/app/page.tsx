@@ -8,7 +8,7 @@ import {
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <section className="bg-amber-50 px-4 py-32 text-center">
+      <section className="bg-amber-50 px-4 py-32 text-black text-center">
         <p className="text-3xl font-bold">Welcome to</p>
         <h1 className="text-4xl font-bold">Bethany Miracle Center</h1>
         <p className="text-2xl font-bold">New York</p>
@@ -52,7 +52,7 @@ export default function Home() {
           </span>
         </div>
       </section>
-      <section className="px-4 py-6">
+      <section className="bg-white text-black px-4 py-6">
         <p className="text-4xl font-bold">Weekly Services</p>
         <span>Looking for more? We have other daily & weekly services!</span>
         <div className="flex flex-col gap-2">
