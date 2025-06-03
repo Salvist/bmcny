@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function SundayServicesSection() {
   return (
-    <section className="bg-white mb-16 md:mt-16">
+    <section className="bg-white pb-16 md:py-16">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-4 md:items-center">
         <div className="relative w-full md:w-1/2 aspect-square md:rounded-2xl overflow-hidden">
           <Image
