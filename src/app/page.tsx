@@ -1,3 +1,4 @@
+import JoinOurCommunitySection from "@/components/join_our_community_section";
 import SundayServicesSection from "@/components/sunday_services_section";
 import WeeklyServices from "@/components/weekly_services";
 import {
@@ -24,9 +25,7 @@ export default function Home() {
       </section>
       <SundayServicesSection />
       <WeeklyServices />
-      <section className="bg-lime-100 h-96">
-        <p className=""></p>
-      </section>
+      <JoinOurCommunitySection />
     </main>
   );
 }
