@@ -1,3 +1,4 @@
+import SundayServicesSection from "@/components/sunday_services_section";
 import {
   ClockIcon,
   MapIcon,
@@ -20,41 +21,7 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className="bg-orange-600 text-white px-4 py-8">
-        <div className="flex flex-col gap-2">
-          <p className="text-4xl font-bold">Sunday Services</p>
-          <span>
-            Join our weekly Sunday Services available both offline and on-site!
-          </span>
-          <p className="mt-4 text-2xl underline">Online</p>
-          <div className="flex">
-            <ClockIcon className="size-6 mr-2" />
-            <span>Time: 10AM (EST)</span>
-          </div>
-          <div className="flex">
-            <MapPinIcon className="size-6 mr-2" />
-            <span>Location: Live on Zoom</span>
-          </div>
-          <div className="flex">
-            <MegaphoneIcon className="size-6 mr-2" />
-            <span>Meeting ID: 845 4558 5721</span>
-          </div>
-        </div>
-        <div className="mt-4 flex flex-col gap-2">
-          <p className="mt-4 text-2xl underline">On-site</p>
-          <div className="flex">
-            <ClockIcon className="size-6 mr-2" />
-            <span>Time: 6PM (EST)</span>
-          </div>
-          <div className="flex">
-            <MapPinIcon className="size-6 mr-2" />
-            <span>Location: 9214 63rd Drive, Rego Park, NY, 11374</span>
-          </div>
-          <span className="text-xs">
-            Note: English translator is available upon request.
-          </span>
-        </div>
-      </section>
+      <SundayServicesSection />
       <section className="bg-white text-black px-4 py-6">
         <p className="text-4xl font-bold">Weekly Services</p>
         <span>Looking for more? We have other daily & weekly services!</span>
