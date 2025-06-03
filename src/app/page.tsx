@@ -1,4 +1,5 @@
 import SundayServicesSection from "@/components/sunday_services_section";
+import WeeklyServices from "@/components/weekly_services";
 import {
   ClockIcon,
   MapIcon,
@@ -22,40 +23,7 @@ export default function Home() {
         </div>
       </section>
       <SundayServicesSection />
-      <section className="bg-white text-black px-4 py-6">
-        <p className="text-4xl font-bold">Weekly Services</p>
-        <span>Looking for more? We have other daily & weekly services!</span>
-        <div className="flex flex-col gap-2">
-          <p className="mt-4 text-2xl underline">Morning Prayer</p>
-          <div className="flex">
-            <ClockIcon className="size-6 mr-2" />
-            <span>Day & Time: Every Monday - Saturday at 5.30AM (EST)</span>
-          </div>
-          <div className="flex">
-            <MapPinIcon className="size-6 mr-2" />
-            <span>Location: Live on Zoom & YouTube</span>
-          </div>
-          <div className="flex">
-            <MegaphoneIcon className="size-6 mr-2" />
-            <span>Meeting ID: 845 4558 5721</span>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="mt-4 text-2xl underline">Worship From Home</p>
-          <div className="flex">
-            <ClockIcon className="size-6 mr-2" />
-            <span>Day & Time: Every Thursday at 8PM (EST)</span>
-          </div>
-          <div className="flex">
-            <MapPinIcon className="size-6 mr-2" />
-            <span>Location: Live on Zoom</span>
-          </div>
-          <div className="flex">
-            <MegaphoneIcon className="size-6 mr-2" />
-            <span>Meeting ID: 845 4558 5721</span>
-          </div>
-        </div>
-      </section>
+      <WeeklyServices />
       <section className="bg-lime-100 h-96">
         <p className=""></p>
       </section>
