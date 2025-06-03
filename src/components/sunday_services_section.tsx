@@ -7,9 +7,9 @@ import Image from "next/image";
 
 export default function SundayServicesSection() {
   return (
-    <section className="max-w-4xl mx-auto mb-16 md:mt-16">
-      <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
-        <div className="relative w-2xl h-96 md:h-auto md:aspect-square rounded-2xl overflow-hidden">
+    <section className="bg-white mb-16 md:mt-16">
+      <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-4 md:items-center">
+        <div className="relative w-full md:w-1/2 aspect-square md:rounded-2xl overflow-hidden">
           <Image
             src="/worship_crowd.webp"
             alt="Worship Service"
@@ -17,7 +17,7 @@ export default function SundayServicesSection() {
             objectFit="cover"
           />
         </div>
-        <div className="bg-orange-600 text-white md:aspect-square mx-4 px-6 py-6 rounded-2xl flex flex-col gap-2 justify-center">
+        <div className="bg-orange-600 text-white mx-4 md:mx-0 md:w-1/2 md:aspect-square px-6 py-6 rounded-2xl flex flex-col gap-2 justify-center">
           <p className="text-4xl font-bold">Sunday Services</p>
           <span>
             Join our weekly Sunday Services available both offline and on-site!
