@@ -9,7 +9,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/30 backdrop-blur-sm w-full text-amber-400 p-4 z-50">
+    <header className="fixed top-0 left-0 right-0 bg-white/30 backdrop-blur-sm w-full text-orange-700 p-4 z-50">
       {/* <img /> */}
       <nav className="max-w-4xl mx-auto flex items-center">
         {/* <div className="flex lg:hidden">
@@ -25,7 +25,7 @@ export default function Header() {
         <ul>
           <Link
             href="/"
-            className="text-2xl font-bold tracking-wide"
+            className="text-2xl font-bold font-montserrat tracking-wide"
           >
             BMC NY
           </Link>

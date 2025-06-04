@@ -1,6 +1,6 @@
 export default function MainSection() {
   return (
-    <section className="relative bg-amber-50 px-4 py-48 text-black text-center flex items-center justify-center overflow-hidden">
+    <section className="relative bg-amber-50 px-4 py-32 mt-16 text-black text-center flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[url('/cross_on_top.webp')] bg-cover bg-bottom" />
       <div className="absolute inset-0 bg-amber-50/70" />
       <div className="relative z-10 w-full flex flex-col items-center justify-center">
