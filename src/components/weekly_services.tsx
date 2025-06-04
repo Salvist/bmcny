@@ -7,13 +7,15 @@ import Image from "next/image";
 
 export default function WeeklyServices() {
   return (
-    <section className="bg-orange-600 px-4 py-16 text-white">
+    <section className="bg-orange-100 px-4 py-16 text-black">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:items-center">
         <div className="order-2 md:order-1">
-          <p className="text-4xl font-bold">Weekly Services</p>
+          <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
+            WEEKLY SERVICES
+          </h2>
           <span>Looking for more? We have other daily & weekly services!</span>
           <div className="flex flex-col gap-2">
-            <p className="mt-4 text-2xl underline">Morning Prayer</p>
+            <p className="mt-4 text-2xl">Morning Prayer</p>
             <div className="flex">
               <ClockIcon className="size-6 mr-2" />
               <span>Day & Time: Every Monday - Saturday at 5.30AM (EST)</span>
@@ -28,7 +30,7 @@ export default function WeeklyServices() {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="mt-4 text-2xl underline">Worship From Home</p>
+            <p className="mt-4 text-2xl">Worship From Home</p>
             <div className="flex">
               <ClockIcon className="size-6 mr-2" />
               <span>Day & Time: Every Thursday at 8PM (EST)</span>

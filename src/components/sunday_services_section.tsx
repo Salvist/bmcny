@@ -17,12 +17,14 @@ export default function SundayServicesSection() {
             objectFit="cover"
           />
         </div>
-        <div className="bg-orange-600 text-white mx-4 md:mx-0 md:w-1/2 md:aspect-square px-6 py-6 rounded-2xl flex flex-col gap-2 justify-center">
-          <p className="text-4xl font-bold">Sunday Services</p>
+        <div className="bg-orange-100 text-black mx-4 md:mx-0 md:w-1/2 md:aspect-square px-6 py-6 rounded-2xl flex flex-col gap-2 justify-center">
+          <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
+            SUNDAY SERVICES
+          </h2>
           <span>
             Join our weekly Sunday Services available both offline and on-site!
           </span>
-          <p className="mt-4 text-2xl underline">Online</p>
+          <p className="mt-4 text-2xl">Online</p>
           <div className="flex">
             <ClockIcon className="size-6 mr-2" />
             <span>Time: 10AM (EST)</span>
@@ -36,7 +38,7 @@ export default function SundayServicesSection() {
             <span>Meeting ID: 845 4558 5721</span>
           </div>
           <div className="mt-4 flex flex-col gap-2">
-            <p className="text-2xl underline">On-site</p>
+            <p className="text-2xl">On-site</p>
             <div className="flex">
               <ClockIcon className="size-6 mr-2" />
               <span>Time: 6PM (EST)</span>
