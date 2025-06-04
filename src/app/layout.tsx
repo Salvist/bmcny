@@ -14,11 +14,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "BMC NY",
   description: "An Indonesian Church",

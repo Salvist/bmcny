@@ -3,7 +3,7 @@ export default function MainSection() {
     <section className="relative bg-amber-50 px-4 py-32 mt-16 text-black text-center flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[url('/cross_on_top.webp')] bg-cover bg-bottom" />
       <div className="absolute inset-0 bg-amber-50/70" />
-      <div className="relative z-10 w-full flex flex-col items-center justify-center font-montserrat">
+      <div className="relative z-10 w-full flex flex-col items-center justify-center">
         <p className="text-3xl font-bold">Welcome to</p>
         <h1 className="text-4xl font-bold">Bethany Miracle Center</h1>
         <p className="text-2xl font-bold">New York</p>
