@@ -2,7 +2,7 @@ export default function AboutChurchSection() {
   return (
     <section className="bg-orange-700 px-4 py-12 text-white">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:items-center">
-        <div className="order-2 md:order-1">
+        <div className="">
           <h2 className="text-4xl font-bold font-montserrat">BMC NY</h2>
           <span className="font-merriweather italic">
             Bethany Miracle Center of New York
@@ -21,6 +21,9 @@ export default function AboutChurchSection() {
             invites you to worship, connect, and walk in faith with us.
           </p>
         </div>
+        <button className="bg-yellow-400  text-orange-700 px-6 py-2 rounded-lg font-bold mt-8">
+          Join us!
+        </button>
       </div>
     </section>
   );
