@@ -1,6 +1,6 @@
 export default function LatestServicesSection() {
   return (
-    <section className="bg-orange-700">
+    <section className="bg-orange-700 px-4">
       <div className="max-w-4xl mx-auto py-8 text-white">
         <h2 className="text-4xl font-bold font-montserrat">
           WATCH OUR LATEST SERVICE
