@@ -7,7 +7,10 @@ import Image from "next/image";
 
 export default function WeeklyServices() {
   return (
-    <section className="bg-orange-100 px-4 py-8 text-black">
+    <section
+      id="weekly-services"
+      className="bg-orange-100 px-4 py-8 text-black scroll-mt-16"
+    >
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:items-center">
         <div className="order-2 md:order-1">
           <h2 className="text-4xl font-bold text-orange-700 font-montserrat">

@@ -1,6 +1,9 @@
 export default function AboutChurchSection() {
   return (
-    <section className="bg-orange-700 px-4 py-12 text-white">
+    <section
+      id="about"
+      className="bg-orange-700 px-4 py-12 text-white scroll-mt-16"
+    >
       <div className="max-w-4xl mx-auto flex flex-col">
         <div className="">
           <h2 className="text-4xl font-bold font-montserrat">BMC NY</h2>

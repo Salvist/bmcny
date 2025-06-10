@@ -13,7 +13,7 @@ export default function SundayServicesSection() {
         <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
           SUNDAY SERVICES
         </h2>
-        <p className="font-merriweather italic">
+        <p className="font-merriweather italic text-black">
           Join our Sunday services available both on-site and online!
         </p>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-start w-full">

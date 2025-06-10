@@ -2,7 +2,10 @@ import Image from "next/image";
 
 export default function JoinOurCommunitySection() {
   return (
-    <section className="bg-white text-black px-4 py-8">
+    <section
+      id="community"
+      className="bg-white text-black px-4 py-8 scroll-mt-16"
+    >
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
           JOIN OUR COMMUNITY
