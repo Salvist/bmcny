@@ -17,14 +17,14 @@ export default function MainSection() {
           An Indonesian community church filled with loving members of Christ.
         </p>
         <div className="flex gap-4">
-          <Link href="#sunday-services">
-            <button className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8">
-              Join Us This Sunday!
-            </button>
+          <Link
+            href="#sunday-services"
+            className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
+          >
+            Join Us This Sunday!
           </Link>
           <Link
             href="#latest-services"
-            scroll
             className="outline outline-orange-700 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
           >
             Watch Online
