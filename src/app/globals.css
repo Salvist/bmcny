@@ -37,3 +37,7 @@ body {
   --font-montserrat: "Montserrat", sans-serif;
   --font-merriweather: "Merriweather", serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}

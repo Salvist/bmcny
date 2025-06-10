@@ -21,9 +21,6 @@ export default function AboutChurchSection() {
             invites you to worship, connect, and walk in faith with us.
           </p>
         </div>
-        <button className="mt-8 bg-yellow-400  text-orange-700 px-6 py-2 rounded-lg font-bold">
-          Join us!
-        </button>
       </div>
     </section>
   );

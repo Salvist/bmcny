@@ -2,6 +2,7 @@ import { MapPinIcon } from "@heroicons/react/24/outline";
 import FacebookIcon from "./icons/facebook_icon";
 import InstagramIcon from "./icons/instagram_icon";
 import YoutubeIcon from "./icons/youtube_icon";
+import Link from "next/link";
 
 export default function MainSection() {
   return (
@@ -16,12 +17,18 @@ export default function MainSection() {
           An Indonesian community church filled with loving members of Christ.
         </p>
         <div className="flex gap-4">
-          <button className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8">
-            Join Us This Sunday!
-          </button>
-          <button className="outline outline-orange-700 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8">
+          <Link href="#sunday-services">
+            <button className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8">
+              Join Us This Sunday!
+            </button>
+          </Link>
+          <Link
+            href="#latest-services"
+            scroll
+            className="outline outline-orange-700 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
+          >
             Watch Online
-          </button>
+          </Link>
         </div>
 
         {/* Social Media Links */}

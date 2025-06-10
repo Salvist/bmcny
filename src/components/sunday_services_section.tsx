@@ -8,7 +8,7 @@ import LocationButton from "./ui/buttons/location_button";
 
 export default function SundayServicesSection() {
   return (
-    <section className="bg-white px-4 py-8">
+    <section id="sunday-services" className="bg-white px-4 py-8 scroll-mt-16">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
           SUNDAY SERVICES
