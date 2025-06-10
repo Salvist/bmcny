@@ -23,8 +23,8 @@ export default function SundayServicesSection() {
             </h3>
 
             <LocationButton className="text-sm" />
-            <p className="text-sm">Upper Floor</p>
-            <p className="text-sm">Every Sunday at 6PM (EST)</p>
+            <p>Upper Floor</p>
+            <p>Every Sunday at 6PM (EST)</p>
             <p className="text-xs mt-2">
               English translator is available upon request.
             </p>
@@ -34,9 +34,9 @@ export default function SundayServicesSection() {
               Sunday Service Online
             </h3>
 
-            <p className="text-sm">Every Sunday at 10AM (EST)</p>
-            <p className="text-sm">Meeting ID: 845 4558 5721</p>
-            <p className="text-sm">Password: 123456???</p>
+            <p>Every Sunday at 10AM (EST)</p>
+            <p>Meeting ID: 845 4558 5721</p>
+            <p>Password: 123456???</p>
           </div>
           <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
             <h3 className="text-xl font-bold text-orange-700 font-montserrat">
@@ -54,9 +54,9 @@ export default function SundayServicesSection() {
             <h3 className="text-xl font-bold text-orange-700 font-montserrat">
               BMC Youth
             </h3>
-            <LocationButton className="text-sm" />
-            <p className="text-sm">Lower Floor</p>
-            <p className="text-sm">Every Sunday at 6PM (EST)</p>
+            <LocationButton />
+            <p>Lower Floor</p>
+            <p>Every Sunday at 6PM (EST)</p>
             <p className="text-xs mt-2">
               Service is available for teenagers aged 13-18 years old and in
               English.
