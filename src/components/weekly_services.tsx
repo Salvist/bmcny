@@ -7,45 +7,35 @@ import Image from "next/image";
 
 export default function WeeklyServices() {
   return (
-    <section className="bg-orange-100 px-4 py-16 text-black">
+    <section className="bg-orange-100 px-4 py-8 text-black">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:items-center">
         <div className="order-2 md:order-1">
           <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
             WEEKLY SERVICES
           </h2>
-          <span>Looking for more? We have other daily & weekly services!</span>
-          <div className="flex flex-col gap-2">
-            <p className="mt-4 text-2xl">Morning Prayer</p>
-            <div className="flex">
-              <ClockIcon className="size-6 mr-2" />
-              <span>Day & Time: Every Monday - Saturday at 5.30AM (EST)</span>
-            </div>
-            <div className="flex">
-              <MapPinIcon className="size-6 mr-2" />
-              <span>Location: Live on Zoom & YouTube</span>
-            </div>
-            <div className="flex">
-              <MegaphoneIcon className="size-6 mr-2" />
-              <span>Meeting ID: 845 4558 5721</span>
-            </div>
+          <span className="font-merriweather italic">
+            Looking for more? We have other daily & weekly services!
+          </span>
+          <div className="flex flex-col">
+            <p className="mt-4 text-2xl text-orange-700 font-bold font-montserrat">
+              Morning Prayer
+            </p>
+            <span>Every Monday - Saturday at 5:30AM (EST)</span>
+            <span>Live on Zoom</span>
+            <span>Meeting ID: 845 4558 5721</span>
+            <span>Password: 123456???</span>
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="mt-4 text-2xl">Worship From Home</p>
-            <div className="flex">
-              <ClockIcon className="size-6 mr-2" />
-              <span>Day & Time: Every Thursday at 8PM (EST)</span>
-            </div>
-            <div className="flex">
-              <MapPinIcon className="size-6 mr-2" />
-              <span>Location: Live on Zoom</span>
-            </div>
-            <div className="flex">
-              <MegaphoneIcon className="size-6 mr-2" />
-              <span>Meeting ID: 845 4558 5721</span>
-            </div>
+          <div className="flex flex-col">
+            <p className="mt-4 text-2xl text-orange-700 font-bold font-montserrat">
+              Worship From Home
+            </p>
+            <span>Every Thursday at 8PM (EST)</span>
+            <span>Live on Zoom</span>
+            <span>Meeting ID: 845 4558 5721</span>
+            <span>Password: 123456???</span>
           </div>
         </div>
-        <div className="order-1 md:order-2 relative w-full md:w-1/2 aspect-square rounded-2xl overflow-hidden">
+        <div className="order-1 md:order-2 relative w-full md:w-1/2 md:aspect-square aspect-video rounded-2xl overflow-hidden">
           <Image
             src="/bible_study.webp"
             alt="Worship Crowd"

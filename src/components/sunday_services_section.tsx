@@ -11,10 +11,10 @@ export default function SundayServicesSection() {
     <section className="bg-white px-4 py-8">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
-          SERVICES
+          SUNDAY SERVICES
         </h2>
         <p className="font-merriweather italic">
-          Join our weekly Sunday Services available both offline and on-site!
+          Join our Sunday services available both on-site and online!
         </p>
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-start w-full">
           <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
@@ -22,7 +22,7 @@ export default function SundayServicesSection() {
               Sunday Service On-site
             </h3>
 
-            <LocationButton className="text-sm" />
+            <LocationButton />
             <p>Upper Floor</p>
             <p>Every Sunday at 6PM (EST)</p>
             <p className="text-xs mt-2">
@@ -33,10 +33,10 @@ export default function SundayServicesSection() {
             <h3 className="text-xl font-bold text-orange-700 font-montserrat">
               Sunday Service Online
             </h3>
-
-            <p>Every Sunday at 10AM (EST)</p>
+            <p>Live on Zoom</p>
             <p>Meeting ID: 845 4558 5721</p>
             <p>Password: 123456???</p>
+            <p>Every Sunday at 10AM (EST)</p>
           </div>
           <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
             <h3 className="text-xl font-bold text-orange-700 font-montserrat">
