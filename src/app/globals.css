@@ -38,6 +38,18 @@ body {
   --font-merriweather: "Merriweather", serif;
 }
 
+.title-section {
+  @apply text-xl sm:text-2xl font-bold font-montserrat;
+}
+
+.subtitle-section {
+  @apply text-base sm:text-lg font-merriweather italic;
+}
+
+.body-text {
+  @apply text-base sm:text-lg leading-relaxed;
+}
+
 html {
   scroll-behavior: smooth;
 }

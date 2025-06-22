@@ -6,11 +6,11 @@ export default function AboutUsSection() {
     >
       <div className="max-w-4xl mx-auto flex flex-col">
         <div className="">
-          <h2 className="text-4xl font-bold font-montserrat">BMC NY</h2>
-          <span className="font-merriweather italic">
+          <h2 className="text-3xl font-bold font-montserrat">BMC NY</h2>
+          <span className="subtitle-section">
             Bethany Miracle Center of New York
           </span>
-          <p className="mt-4">
+          <p className="mt-4 body-text">
             An Indonesian Christian church in NYC, passionate about building
             faith and sharing the Gospel. With a warm, family-oriented
             atmosphere, we offer Indonesian Sunday services with English
@@ -19,13 +19,13 @@ export default function AboutUsSection() {
             you're welcome to grow and worship with us.
           </p>
         </div>
-        <h3 className="mt-4 text-2xl font-bold font-montserrat">Vision</h3>
-        <p>
+        <h3 className="mt-8 title-section">Vision</h3>
+        <p className="mt-2 body-text">
           To be a church that is known for its love, compassion, and
           transformational impact in the community.
         </p>
-        <h3 className="mt-4 text-2xl font-bold font-montserrat">Mission</h3>
-        <p>
+        <h3 className="mt-8 title-section">Mission</h3>
+        <p className="mt-2 body-text">
           To share the love of Jesus Christ with the people of New York,
           transforming lives and communities through the power of the Gospel.
         </p>
