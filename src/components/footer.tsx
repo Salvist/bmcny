@@ -7,6 +7,7 @@ export default function Footer() {
     <footer className="bg-black text-white">
       <div className="bg-slate-800 py-4 px-4">
         <div className="max-w-4xl mx-auto flex flex-col">
+          {/* TODO: Add Logo Here */}
           <p className="text-2xl font-bold">BMC NY</p>
           <a
             href="https://maps.app.goo.gl/JWKGhHKz9nJELbUK9"
