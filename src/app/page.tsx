@@ -1,4 +1,4 @@
-import AboutChurchSection from "@/components/about_church_section";
+import AboutUsSection from "@/components/about_us_section";
 import JoinOurCommunitySection from "@/components/join_our_community_section";
 import LatestServicesSection from "@/components/latest_services_section";
 import MainSection from "@/components/main_section";
@@ -11,7 +11,7 @@ export default function Home() {
     <main className="min-h-screen">
       <UpcomingServiceBanner />
       <MainSection />
-      <AboutChurchSection />
+      <AboutUsSection />
       <SundayServicesSection />
       <WeeklyServices />
       <JoinOurCommunitySection />

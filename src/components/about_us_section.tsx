@@ -1,4 +1,4 @@
-export default function AboutChurchSection() {
+export default function AboutUsSection() {
   return (
     <section
       id="about"
@@ -24,6 +24,7 @@ export default function AboutChurchSection() {
             invites you to worship, connect, and walk in faith with us.
           </p>
         </div>
+        <p></p>
       </div>
     </section>
   );
