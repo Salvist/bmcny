@@ -24,7 +24,16 @@ export default function AboutUsSection() {
             invites you to worship, connect, and walk in faith with us.
           </p>
         </div>
-        <p></p>
+        <h3 className="mt-4 text-2xl font-bold font-montserrat">Vision</h3>
+        <p className="mt-2">
+          To be a church that is known for its love, compassion, and
+          transformational impact in the community.
+        </p>
+        <h3 className="mt-4 text-2xl font-bold font-montserrat">Mission</h3>
+        <p>
+          To share the love of Jesus Christ with the people of New York,
+          transforming lives and communities through the power of the Gospel.
+        </p>
       </div>
     </section>
   );
