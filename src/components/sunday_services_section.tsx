@@ -5,63 +5,46 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import LocationButton from "./ui/buttons/location_button";
+import ServiceCard from "./service_card";
 
 export default function SundayServicesSection() {
   return (
-    <section id="sunday-services" className="bg-white px-4 py-8 scroll-mt-16">
+    <section id="sunday-services" className="bg-white px-4 py-12 scroll-mt-16">
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
+        <h2 className="text-3xl font-bold text-orange-700 font-montserrat">
           SUNDAY SERVICES
         </h2>
-        <p className="font-merriweather italic text-black">
+        <p className="subtitle-section text-black">
           Join our Sunday services available both on-site and online!
         </p>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-start w-full">
-          <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
-            <h3 className="text-xl font-bold text-orange-700 font-montserrat">
-              Sunday Service On-site
-            </h3>
-
-            <LocationButton />
-            <p>Upper Floor</p>
-            <p>Every Sunday at 6PM (EST)</p>
-            <p className="text-xs mt-2">
-              English translator is available upon request.
-            </p>
-          </div>
-          <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
-            <h3 className="text-xl font-bold text-orange-700 font-montserrat">
-              Sunday Service Online
-            </h3>
-            <p>Live on Zoom</p>
-            <p>Meeting ID: 845 4558 5721</p>
-            <p>Password: 123456???</p>
-            <p>Every Sunday at 10AM (EST)</p>
-          </div>
-          <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
-            <h3 className="text-xl font-bold text-orange-700 font-montserrat">
-              Kids Church
-            </h3>
-            <LocationButton />
-            <p>Lower Floor</p>
-            <p>Every Sunday at 6PM (EST)</p>
-            <p className="text-xs mt-2">
-              Service is available for children aged 3-12 years old and in
-              English.
-            </p>
-          </div>
-          <div className="bg-orange-100 rounded-xl text-black px-6 py-4 flex flex-col items-start">
-            <h3 className="text-xl font-bold text-orange-700 font-montserrat">
-              BMC Youth
-            </h3>
-            <LocationButton />
-            <p>Lower Floor</p>
-            <p>Every Sunday at 6PM (EST)</p>
-            <p className="text-xs mt-2">
-              Service is available for teenagers aged 13-18 years old and in
-              English.
-            </p>
-          </div>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full">
+          <ServiceCard
+            title="Sunday Service On-site"
+            content={["Upper Floor", "Every Sunday at 6PM (EST)"]}
+            showLocationButton={true}
+            note="English translation is available upon request."
+          />
+          <ServiceCard
+            title="Sunday Service Online"
+            content={[
+              "Live on Zoom",
+              "Meeting ID: 845 4558 5721",
+              "Password: 123456???",
+              "Every Sunday at 10AM (EST)",
+            ]}
+          />
+          <ServiceCard
+            title="Kids Church"
+            content={["Lower Floor", "Every Sunday at 6PM (EST)"]}
+            showLocationButton={true}
+            note="Service is available for children aged 3-12 years old and in English."
+          />
+          <ServiceCard
+            title="BMC Youth"
+            content={["Lower Floor", "Every Sunday at 6PM (EST)"]}
+            showLocationButton={true}
+            note="Service is available for teenagers aged 13-18 years old and in English."
+          />
         </div>
       </div>
     </section>
