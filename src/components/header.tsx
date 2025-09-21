@@ -23,7 +23,7 @@ export default function Header() {
       <nav className="max-w-4xl mx-auto">
         <div className="relative flex h-12 items-center justify-between">
           {/* Logo */}
-          <div className="flex flex-1 ml-12 items-center justify-start sm:items-stretch sm:justify-start">
+          <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start pl-12 sm:pl-0">
             <div className="flex shrink-0 items-center">
               <Link
                 href="/"
