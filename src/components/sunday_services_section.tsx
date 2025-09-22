@@ -9,7 +9,11 @@ import ServiceCard from "./service_card";
 
 export default function SundayServicesSection() {
   return (
-    <section id="sunday-services" className="bg-white px-4 py-12 scroll-mt-16">
+    <section
+      id="sunday-services"
+      className="bg-white px-4 py-12 scroll-mt-16"
+      aria-labelledby="sunday-services-heading"
+    >
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl font-bold text-orange-700 font-montserrat">
           SUNDAY SERVICES

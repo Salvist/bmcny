@@ -9,7 +9,11 @@ import UpcomingEventsSection from "@/components/upcoming_events_section";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main
+      className="min-h-screen"
+      role="main"
+      aria-label="Bethany Miracle Center New York homepage"
+    >
       <UpcomingServiceBanner />
       <MainSection />
       <UpcomingEventsSection />

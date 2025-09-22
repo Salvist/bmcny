@@ -18,9 +18,15 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-orange-700 w-full text-white py-2 px-4 z-50">
-      {/* <img /> */}
-      <nav className="max-w-4xl mx-auto">
+    <header
+      className="fixed top-0 left-0 right-0 bg-orange-700 w-full text-white py-2 px-4 z-50"
+      role="banner"
+    >
+      <nav
+        className="max-w-4xl mx-auto"
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div className="relative flex h-12 items-center justify-between">
           {/* Logo */}
           <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start pl-12 sm:pl-0">
@@ -28,6 +34,7 @@ export default function Header() {
               <Link
                 href="/"
                 className="text-2xl font-bold font-montserrat tracking-wide text-white"
+                aria-label="Bethany Miracle Center New York - Home"
               >
                 BMC NY
               </Link>
@@ -35,12 +42,14 @@ export default function Header() {
 
             {/* Desktop navigation */}
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
+              <div className="flex space-x-4" role="menubar">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 hover:text-white transition-colors"
+                    role="menuitem"
+                    aria-label={`Navigate to ${item.name}`}
                   >
                     {item.name}
                   </Link>
