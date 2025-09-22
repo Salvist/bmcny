@@ -69,17 +69,6 @@ export const metadata: Metadata = {
       "Join our Indonesian Christian community in New York City. Sunday services, kids ministry, youth programs, and online worship available.",
     images: ["/bethany_members.webp"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
   // verification: {
   //   google: "your-google-verification-code", // Replace with actual verification code
   // },
