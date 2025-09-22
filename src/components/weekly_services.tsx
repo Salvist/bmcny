@@ -26,7 +26,7 @@ export default function WeeklyServices() {
             <span>Every Monday - Saturday at 5:30AM (EST)</span>
             <span>Live on Zoom</span>
             <span>Meeting ID: 845 4558 5721</span>
-            <span>Password: 123456???</span>
+            <span>Password: BMCNY</span>
           </div>
           <div className="flex flex-col">
             <p className="mt-4 text-2xl text-orange-700 font-bold font-montserrat">
@@ -35,7 +35,7 @@ export default function WeeklyServices() {
             <span>Every Thursday at 8PM (EST)</span>
             <span>Live on Zoom</span>
             <span>Meeting ID: 845 4558 5721</span>
-            <span>Password: 123456???</span>
+            <span>Password: BMCNY</span>
           </div>
         </div>
         <div className="order-1 md:order-2 relative w-full md:w-1/2 md:aspect-square aspect-video rounded-2xl overflow-hidden">

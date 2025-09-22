@@ -30,7 +30,7 @@ export const services: ServiceData[] = [
     time: "10AM (EST)",
     frequency: "Every Sunday",
     zoomMeetingId: "845 4558 5721",
-    zoomMeetingPassword: "123456???",
+    zoomMeetingPassword: "BMCNY",
   },
   {
     name: "Kids Church",
@@ -59,7 +59,7 @@ export const services: ServiceData[] = [
     time: "5:30AM (EST)",
     frequency: "Monday - Saturday",
     zoomMeetingId: "845 4558 5721",
-    zoomMeetingPassword: "123456???",
+    zoomMeetingPassword: "BMCNY",
   },
   {
     name: "Worship From Home",
@@ -68,6 +68,6 @@ export const services: ServiceData[] = [
     time: "8PM (EST)",
     frequency: "Every Thursday",
     zoomMeetingId: "845 4558 5721",
-    zoomMeetingPassword: "123456???",
+    zoomMeetingPassword: "BMCNY",
   },
 ];
