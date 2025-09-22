@@ -47,7 +47,12 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="py-4 text-center text-xs">
+      <p
+        className="py-4 text-center text-xs"
+        style={{
+          paddingBottom: `max(1rem, env(safe-area-inset-bottom))`,
+        }}
+      >
         &copy; 2025 Bethany Miracle Center. All rights reserved.
       </p>
     </footer>
