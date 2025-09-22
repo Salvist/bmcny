@@ -3,6 +3,7 @@
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
@@ -33,10 +34,17 @@ export default function Header() {
             <div className="flex shrink-0 items-center">
               <Link
                 href="/"
-                className="text-2xl font-bold font-montserrat tracking-wide text-white"
+                className="flex items-center space-x-2 text-2xl font-bold font-montserrat tracking-wide text-white"
                 aria-label="Bethany Miracle Center New York - Home"
               >
-                BMC NY
+                <Image
+                  src="/logo-wide.png"
+                  alt="BMC NY Logo"
+                  width={200}
+                  height={100}
+                  className="w-16 h-auto"
+                />
+                <span>BMC NY</span>
               </Link>
             </div>
 
@@ -98,10 +106,17 @@ export default function Header() {
                   <div className="flex items-center justify-between px-4 py-6 bg-orange-700">
                     <Link
                       href="/"
-                      className="text-2xl font-bold font-montserrat tracking-wide text-white"
+                      className="flex items-center space-x-2 text-2xl font-bold font-montserrat tracking-wide text-white"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      BMC NY
+                      <Image
+                        src="/logo-wide.png"
+                        alt="BMC NY Logo"
+                        width={200}
+                        height={100}
+                        className="w-16 h-auto"
+                      />
+                      <span>BMC NY</span>
                     </Link>
                     <button
                       type="button"
