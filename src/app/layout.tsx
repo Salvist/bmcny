@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
   title: "Bethany Miracle Center New York - Indonesian Christian Church in NYC",
   description:
     "Join Bethany Miracle Center (BMC NY), an Indonesian Christian church in New York City. Sunday services in Indonesian with English translation, kids ministry, youth programs, and online worship. Located in Rego Park, Queens.",
+  icons: "/favicon.ico",
   keywords: [
     "Indonesian church New York",
     "Christian church NYC",
@@ -31,47 +33,9 @@ export const metadata: Metadata = {
     "online church service",
     "Indonesian worship NYC",
   ],
-  authors: [{ name: "Bethany Miracle Center New York" }],
-  creator: "Bethany Miracle Center New York",
-  publisher: "Bethany Miracle Center New York",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://bmcny.church"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title:
-      "Bethany Miracle Center New York - Indonesian Christian Church in NYC",
-    description:
-      "Join our Indonesian Christian community in New York City. Sunday services, kids ministry, youth programs, and online worship available.",
-    url: "https://bmcny.church",
-    siteName: "Bethany Miracle Center New York",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/bethany_members.webp",
-        width: 1200,
-        height: 630,
-        alt: "Bethany Miracle Center congregation worshiping together",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title:
-      "Bethany Miracle Center New York - Indonesian Christian Church in NYC",
-    description:
-      "Join our Indonesian Christian community in New York City. Sunday services, kids ministry, youth programs, and online worship available.",
-    images: ["/bethany_members.webp"],
-  },
-  // verification: {
-  //   google: "your-google-verification-code", // Replace with actual verification code
-  // },
+  authors: [{ name: "Richie Budijono", url: "https://richiebudijono.com" }],
+  creator: "Richie Budijono",
+  publisher: "Richie Budijono",
 };
 
 export default function RootLayout({
@@ -87,6 +51,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
