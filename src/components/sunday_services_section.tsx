@@ -33,7 +33,7 @@ export default function SundayServicesSection() {
             content={[
               "Live on Zoom",
               "Meeting ID: 845 4558 5721",
-              "Password: 123456???",
+              "Password: BMCNY",
               "Every Sunday at 10AM (EST)",
             ]}
           />

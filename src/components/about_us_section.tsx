@@ -20,20 +20,63 @@ export default function AboutUsSection() {
             you're welcome to grow and worship with us.
           </p>
         </div>
-        <h3 className="mt-8 title-section">Vision</h3>
-        <p className="mt-2 body-text">
-          To be a church that is known for its love, compassion, and
-          transformational impact in the community.
-        </p>
-        <h3 className="mt-8 title-section">Mission</h3>
-        <p className="mt-2 body-text">
-          To share the love of Jesus Christ with the people of New York,
-          transforming lives and communities through the power of the Gospel.
-        </p>
+        {/* <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 className="title-section">Vision</h3>
+            <p className="mt-2 body-text">Successful Family</p>
+            <h3 className="mt-8 title-section">Mission</h3>
+            <p className="mt-2 body-text">Family Cell</p>
+          </div>
+
+          <div>
+            <h3 className="title-section">Values</h3>
+            <div className="mt-4 space-y-1">
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">B</span>
+                <span className="body-text">= Balance</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">E</span>
+                <span className="body-text">= Excellence</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">T</span>
+                <span className="body-text">= Team Work</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">H</span>
+                <span className="body-text">= Humility</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">A</span>
+                <span className="body-text">= Attitude</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">N</span>
+                <span className="body-text">= Noble</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="body-text font-bold">Y</span>
+                <span className="body-text">= Youthful</span>
+              </div>
+            </div>
+          </div>
+        </div> */}
       </div>
     </section>
   );
 }
+/*
+
+Values
+B = Balance
+E = Excelence
+T = Team Work
+h = Humility
+A = Attitude
+N = Noble
+Y = Youthful
+*/
 
 /*
 OLD About Church

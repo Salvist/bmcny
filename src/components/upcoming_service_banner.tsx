@@ -180,7 +180,7 @@ export default function UpcomingServiceBanner() {
 
                 {nextService?.frequency && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Frequency</h4>
+                    <h4 className="font-medium text-gray-900">Every</h4>
                     <p className="text-sm text-gray-600">
                       {nextService.frequency}
                     </p>
