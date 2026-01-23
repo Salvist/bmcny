@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function JoinOurCommunitySection() {
+  const t = useTranslations("community");
+
   return (
     <section
       id="community"
@@ -8,15 +11,13 @@ export default function JoinOurCommunitySection() {
     >
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
-          JOIN OUR COMMUNITY
+          {t("title")}
         </h2>
-        <p className="font-merriweather italic">
-          We can't wait to meet you and rejoice together in the love of Christ!
-        </p>
+        <p className="font-merriweather italic">{t("subtitle")}</p>
         <div className="mt-4 relative aspect-video rounded-2xl overflow-hidden">
           <Image
             src="/bethany_members.webp"
-            alt="Bethany Members Worshipping"
+            alt={t("imageAlt")}
             fill
             objectFit="cover"
           />

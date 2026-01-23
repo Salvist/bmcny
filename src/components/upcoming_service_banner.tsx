@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { services, ServiceData } from "../constants/services";
+import { useTranslations } from "next-intl";
 
 export default function UpcomingServiceBanner() {
   const [timeLeft, setTimeLeft] = useState("");
   const [nextService, setNextService] = useState<ServiceData | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("upcomingService");
 
   // Function to open Google Maps with the address
   const openGoogleMaps = (address: string) => {
@@ -152,10 +154,10 @@ export default function UpcomingServiceBanner() {
             setTimeLeft(`${minutes}m ${seconds}s`);
           }
         } else {
-          setTimeLeft("Service starting soon!");
+          setTimeLeft(t("serviceStartingSoon"));
         }
       } else {
-        setTimeLeft("No upcoming services");
+        setTimeLeft(t("noUpcoming"));
       }
     };
 
@@ -173,13 +175,13 @@ export default function UpcomingServiceBanner() {
       >
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <div className="flex">
-            <span className="text-xs">Upcoming Service:</span>
+            <span className="text-xs">{t("title")}</span>
             <span className="ml-1 font-bold">
-              {nextService?.name || "No upcoming services"}
+              {nextService?.name || t("noUpcoming")}
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-xs mr-1">Starts in:</span>
+            <span className="text-xs mr-1">{t("startsIn")}</span>
             <span className="font-bold text-yellow-400">{timeLeft}</span>
           </div>
         </div>
@@ -201,13 +203,15 @@ export default function UpcomingServiceBanner() {
                 as="h3"
                 className="text-lg font-medium leading-6 text-gray-900"
               >
-                {nextService?.name || "Service Information"}
+                {nextService?.name || t("serviceInformation")}
               </DialogTitle>
 
               <div className="mt-4 space-y-3">
                 {nextService?.description && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Description</h4>
+                    <h4 className="font-medium text-gray-900">
+                      {t("description")}
+                    </h4>
                     <p className="text-sm text-gray-600">
                       {nextService.description}
                     </p>
@@ -216,14 +220,14 @@ export default function UpcomingServiceBanner() {
 
                 {nextService?.time && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Time</h4>
+                    <h4 className="font-medium text-gray-900">{t("time")}</h4>
                     <p className="text-sm text-gray-600">{nextService.time}</p>
                   </div>
                 )}
 
                 {nextService?.frequency && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Every</h4>
+                    <h4 className="font-medium text-gray-900">{t("every")}</h4>
                     <p className="text-sm text-gray-600">
                       {nextService.frequency}
                     </p>
@@ -232,18 +236,20 @@ export default function UpcomingServiceBanner() {
 
                 {nextService?.meetingType && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Type</h4>
+                    <h4 className="font-medium text-gray-900">{t("type")}</h4>
                     <p className="text-sm text-gray-600 capitalize">
                       {nextService.meetingType === "on-site"
-                        ? "In-Person"
-                        : "Online"}
+                        ? t("inPerson")
+                        : t("online")}
                     </p>
                   </div>
                 )}
 
                 {nextService?.address && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Address</h4>
+                    <h4 className="font-medium text-gray-900">
+                      {t("address")}
+                    </h4>
                     <p className="text-sm text-gray-600 mb-2">
                       {nextService.address}
                     </p>
@@ -251,18 +257,24 @@ export default function UpcomingServiceBanner() {
                       onClick={() => openGoogleMaps(nextService.address!)}
                       className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                      Open in Google Maps
+                      {t("openInGoogleMaps")}
                     </button>
                   </div>
                 )}
 
                 {nextService?.zoomMeetingId && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Zoom Meeting</h4>
+                    <h4 className="font-medium text-gray-900">
+                      {t("zoomMeeting")}
+                    </h4>
                     <div className="text-sm text-gray-600 space-y-1">
-                      <p>Meeting ID: {nextService.zoomMeetingId}</p>
+                      <p>
+                        {t("meetingId")} {nextService.zoomMeetingId}
+                      </p>
                       {nextService.zoomMeetingPassword && (
-                        <p>Password: {nextService.zoomMeetingPassword}</p>
+                        <p>
+                          {t("password")} {nextService.zoomMeetingPassword}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -270,7 +282,7 @@ export default function UpcomingServiceBanner() {
 
                 {nextService?.note && (
                   <div>
-                    <h4 className="font-medium text-gray-900">Note</h4>
+                    <h4 className="font-medium text-gray-900">{t("note")}</h4>
                     <p className="text-sm text-gray-600">{nextService.note}</p>
                   </div>
                 )}
@@ -282,7 +294,7 @@ export default function UpcomingServiceBanner() {
                   className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   onClick={() => setIsOpen(false)}
                 >
-                  Close
+                  {t("close")}
                 </button>
               </div>
             </DialogPanel>

@@ -1,0 +1,153 @@
+{
+    "metadata": {
+      "title": "Bethany Miracle Center New York - Indonesian Christian Church in NYC",
+      "description": "Join Bethany Miracle Center (BMC NY), an Indonesian Christian church in New York City. Sunday services in Indonesian with English translation, kids ministry, youth programs, and online worship. Located in Rego Park, Queens.",
+      "keywords": "Indonesian church New York, Christian church NYC, Bethany Miracle Center, BMC NY, Indonesian Christian community, church Rego Park Queens, Sunday service Indonesian, kids church New York, youth ministry NYC, online church service, Indonesian worship NYC"
+    },
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "sundayServices": "Sunday Services",
+      "weeklyServices": "Weekly Services",
+      "community": "Community",
+      "latestServices": "Latest Services",
+      "openMainMenu": "Open main menu",
+      "closeMenu": "Close menu",
+      "serviceTimes": "Service Times"
+    },
+    "hero": {
+      "welcomeTo": "Welcome to",
+      "bethanyMiracleCenterNewYork": "Bethany Miracle Center",
+      "newYork": "New York",
+      "tagline": "An Indonesian community church filled with loving members of Christ.",
+      "joinUsSunday": "Join Us This Sunday!",
+      "watchOnline": "Watch Online",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "youtube": "Youtube"
+    },
+    "upcomingService": {
+      "title": "Upcoming Service:",
+      "startsIn": "Starts in:",
+      "noUpcoming": "No upcoming services",
+      "serviceStartingSoon": "Service starting soon!",
+      "serviceInformation": "Service Information",
+      "description": "Description",
+      "time": "Time",
+      "every": "Every",
+      "type": "Type",
+      "inPerson": "In-Person",
+      "online": "Online",
+      "address": "Address",
+      "openInGoogleMaps": "Open in Google Maps",
+      "zoomMeeting": "Zoom Meeting",
+      "meetingId": "Meeting ID:",
+      "password": "Password:",
+      "note": "Note",
+      "close": "Close"
+    },
+    "upcomingEvents": {
+      "title": "UPCOMING EVENTS"
+    },
+    "about": {
+      "title": "BMC NY",
+      "subtitle": "Bethany Miracle Center of New York",
+      "description": "An Indonesian Christian church in NYC, passionate about building faith and sharing the Gospel. With a warm, family-oriented atmosphere, we offer Indonesian Sunday services with English translation available, plus a dedicated kids ministry. Whether you're new to the city or seeking a Christ-centered community, you're welcome to grow and worship with us."
+    },
+    "sundayServices": {
+      "title": "SUNDAY SERVICES",
+      "subtitle": "Join our Sunday services available both on-site and online!",
+      "onSite": {
+        "title": "Sunday Service On-site",
+        "upperFloor": "Upper Floor",
+        "time": "Every Sunday at 6PM (EST)",
+        "note": "English translation is available upon request."
+      },
+      "online": {
+        "title": "Sunday Service Online",
+        "liveOnZoom": "Live on Zoom",
+        "meetingId": "Meeting ID: 845 4558 5721",
+        "password": "Password: BMCNY",
+        "time": "Every Sunday at 10AM (EST)"
+      },
+      "kids": {
+        "title": "Kids Church",
+        "lowerFloor": "Lower Floor",
+        "time": "Every Sunday at 6PM (EST)",
+        "note": "Service is available for children aged 3-12 years old and in English."
+      },
+      "youth": {
+        "title": "BMC Youth",
+        "lowerFloor": "Lower Floor",
+        "time": "Every Sunday at 6PM (EST)",
+        "note": "Service is available for teenagers aged 13-18 years old and in English."
+      }
+    },
+    "weeklyServices": {
+      "title": "WEEKLY SERVICES",
+      "subtitle": "Looking for more? We have other daily & weekly services!",
+      "morningPrayer": {
+        "title": "Morning Prayer",
+        "schedule": "Every Monday - Saturday at 5:30AM (EST)",
+        "liveOnZoom": "Live on Zoom",
+        "meetingId": "Meeting ID: 845 4558 5721",
+        "password": "Password: BMCNY"
+      },
+      "worshipFromHome": {
+        "title": "Worship From Home",
+        "schedule": "Every Thursday at 8PM (EST)",
+        "liveOnZoom": "Live on Zoom",
+        "meetingId": "Meeting ID: 845 4558 5721",
+        "password": "Password: BMCNY"
+      }
+    },
+    "community": {
+      "title": "JOIN OUR COMMUNITY",
+      "subtitle": "We can't wait to meet you and rejoice together in the love of Christ!",
+      "imageAlt": "Bethany Members Worshipping"
+    },
+    "latestServices": {
+      "title": "WATCH OUR LATEST SERVICES",
+      "subtitle": "Catch up on the most recent services, whether you're at home or on the go!"
+    },
+    "footer": {
+      "socialMedia": "Social Media",
+      "copyright": "© 2025 Bethany Miracle Center. All rights reserved."
+    },
+    "services": {
+      "sundayOnSite": {
+        "name": "Sunday Service On-site",
+        "description": "Main Sunday service held in person at the church",
+        "note": "English translation is available upon request."
+      },
+      "sundayOnline": {
+        "name": "Sunday Service Online",
+        "description": "Sunday service broadcast live on Zoom"
+      },
+      "kidsChurch": {
+        "name": "Kids Church",
+        "description": "Children's service for ages 3-12 years old in English",
+        "note": "Service is available for children aged 3-12 years old and in English."
+      },
+      "youth": {
+        "name": "BMC Youth",
+        "description": "Youth service for teenagers aged 13-18 years old in English",
+        "note": "Service is available for teenagers aged 13-18 years old and in English."
+      },
+      "morningPrayer": {
+        "name": "Morning Prayer",
+        "description": "Daily morning prayer service"
+      },
+      "worshipFromHome": {
+        "name": "Worship From Home",
+        "description": "Thursday evening worship service"
+      }
+    },
+    "common": {
+      "address": "92-14 63rd Dr, Rego Park, NY 11374",
+      "meetingId": "845 4558 5721",
+      "password": "BMCNY"
+    }
+  }
+  

@@ -3,8 +3,12 @@ import FacebookIcon from "./icons/facebook_icon";
 import InstagramIcon from "./icons/instagram_icon";
 import YoutubeIcon from "./icons/youtube_icon";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export default function MainSection() {
+  const t = useTranslations("hero");
+  const tCommon = useTranslations("common");
+
   return (
     <section
       className="relative bg-amber-50 px-4 py-24 text-black text-center flex items-center justify-center overflow-hidden"
@@ -17,29 +21,27 @@ export default function MainSection() {
       <div className="absolute inset-0 bg-amber-50/70" aria-hidden="true" />
       <div className="relative z-10 w-full flex flex-col items-center justify-center">
         <p className="text-3xl font-bold" aria-hidden="true">
-          Welcome to
+          {t("welcomeTo")}
         </p>
         <h1 id="main-heading" className="text-4xl font-bold">
-          Bethany Miracle Center
+          {t("bethanyMiracleCenterNewYork")}
         </h1>
-        <p className="text-2xl font-bold">New York</p>
-        <p className="mt-8 text-lg">
-          An Indonesian community church filled with loving members of Christ.
-        </p>
+        <p className="text-2xl font-bold">{t("newYork")}</p>
+        <p className="mt-8 text-lg">{t("tagline")}</p>
         <nav className="flex gap-4" aria-label="Main navigation">
           <Link
             href="#sunday-services"
             className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
             aria-label="Join us for Sunday service"
           >
-            Join Us This Sunday!
+            {t("joinUsSunday")}
           </Link>
           <Link
             href="#latest-services"
             className="outline outline-orange-700 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
             aria-label="Watch our online services"
           >
-            Watch Online
+            {t("watchOnline")}
           </Link>
         </nav>
 
@@ -53,7 +55,7 @@ export default function MainSection() {
           >
             <div className="flex gap-1">
               <InstagramIcon />
-              <span>Instagram</span>
+              <span>{t("instagram")}</span>
             </div>
           </a>
           <a
@@ -64,7 +66,7 @@ export default function MainSection() {
           >
             <div className="flex gap-1">
               <FacebookIcon />
-              <span>Facebook</span>
+              <span>{t("facebook")}</span>
             </div>
           </a>
           <a
@@ -75,7 +77,7 @@ export default function MainSection() {
           >
             <div className="flex gap-1">
               <YoutubeIcon />
-              <span>Youtube</span>
+              <span>{t("youtube")}</span>
             </div>
           </a>
         </nav>
@@ -88,7 +90,7 @@ export default function MainSection() {
         >
           <div className="flex gap-1 underline">
             <MapPinIcon className="size-6" aria-hidden="true" />
-            <span>92-14 63rd Dr, Rego Park, NY 11374</span>
+            <span>{tCommon("address")}</span>
           </div>
         </a>
       </div>

@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 const links = [
   {
     title: "Terus Memiliki Kepekaan",
@@ -22,7 +24,6 @@ async function getYouTubeVideos() {
     `https://www.googleapis.com/youtube/v3/channels?forHandle=${channelId}&part=contentDetails&key=${apiKey}`,
     { next: { revalidate: 3600 } } // revalidate every hour
   ).then((r) => r.json());
-  console.log(channelRes);
 
   const uploadsPlaylistId =
     channelRes.items[0].contentDetails.relatedPlaylists.uploads;
@@ -31,8 +32,6 @@ async function getYouTubeVideos() {
   const videosRes = await fetch(
     `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=3&key=${apiKey}`
   ).then((r) => r.json());
-
-  console.log(JSON.stringify(videosRes, null, 2));
 
   return videosRes.items.map((item: any) => ({
     id: item.snippet.resourceId.videoId,
@@ -44,17 +43,13 @@ async function getYouTubeVideos() {
 
 export default async function LatestServicesSection() {
   const videos = await getYouTubeVideos();
+  const t = await getTranslations("latestServices");
 
   return (
     <section id="latest-services" className="bg-orange-700 px-4 scroll-mt-16">
       <div className="max-w-4xl mx-auto py-8 text-white">
-        <h2 className="text-4xl font-bold font-montserrat">
-          WATCH OUR LATEST SERVICES
-        </h2>
-        <p className="font-merriweather italic">
-          Catch up on the most recent services, whether you're at home or on the
-          go!
-        </p>
+        <h2 className="text-4xl font-bold font-montserrat">{t("title")}</h2>
+        <p className="font-merriweather italic">{t("subtitle")}</p>
         <div className="mt-8 space-y-8">
           {videos.map((service: any, index: any) => (
             <div key={index} className="space-y-2">

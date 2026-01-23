@@ -6,8 +6,11 @@ import {
 import Image from "next/image";
 import LocationButton from "./ui/buttons/location_button";
 import ServiceCard from "./service_card";
+import { useTranslations } from "next-intl";
 
 export default function SundayServicesSection() {
+  const t = useTranslations("sundayServices");
+
   return (
     <section
       id="sunday-services"
@@ -16,38 +19,36 @@ export default function SundayServicesSection() {
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         <h2 className="text-3xl font-bold text-orange-700 font-montserrat">
-          SUNDAY SERVICES
+          {t("title")}
         </h2>
-        <p className="subtitle-section text-black">
-          Join our Sunday services available both on-site and online!
-        </p>
+        <p className="subtitle-section text-black">{t("subtitle")}</p>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full">
           <ServiceCard
-            title="Sunday Service On-site"
-            content={["Upper Floor", "Every Sunday at 6PM (EST)"]}
+            title={t("onSite.title")}
+            content={[t("onSite.upperFloor"), t("onSite.time")]}
             showLocationButton={true}
-            note="English translation is available upon request."
+            note={t("onSite.note")}
           />
           <ServiceCard
-            title="Sunday Service Online"
+            title={t("online.title")}
             content={[
-              "Live on Zoom",
-              "Meeting ID: 845 4558 5721",
-              "Password: BMCNY",
-              "Every Sunday at 10AM (EST)",
+              t("online.liveOnZoom"),
+              t("online.meetingId"),
+              t("online.password"),
+              t("online.time"),
             ]}
           />
           <ServiceCard
-            title="Kids Church"
-            content={["Lower Floor", "Every Sunday at 6PM (EST)"]}
+            title={t("kids.title")}
+            content={[t("kids.lowerFloor"), t("kids.time")]}
             showLocationButton={true}
-            note="Service is available for children aged 3-12 years old and in English."
+            note={t("kids.note")}
           />
           <ServiceCard
-            title="BMC Youth"
-            content={["Lower Floor", "Every Sunday at 6PM (EST)"]}
+            title={t("youth.title")}
+            content={[t("youth.lowerFloor"), t("youth.time")]}
             showLocationButton={true}
-            note="Service is available for teenagers aged 13-18 years old and in English."
+            note={t("youth.note")}
           />
         </div>
       </div>

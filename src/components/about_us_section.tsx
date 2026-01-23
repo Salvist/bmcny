@@ -1,4 +1,8 @@
+import { useTranslations } from "next-intl";
+
 export default function AboutUsSection() {
+  const t = useTranslations("about");
+
   return (
     <section
       id="about"
@@ -7,18 +11,9 @@ export default function AboutUsSection() {
     >
       <div className="max-w-4xl mx-auto flex flex-col">
         <div className="">
-          <h2 className="text-3xl font-bold font-montserrat">BMC NY</h2>
-          <span className="subtitle-section">
-            Bethany Miracle Center of New York
-          </span>
-          <p className="mt-4 body-text">
-            An Indonesian Christian church in NYC, passionate about building
-            faith and sharing the Gospel. With a warm, family-oriented
-            atmosphere, we offer Indonesian Sunday services with English
-            translation available, plus a dedicated kids ministry. Whether
-            you're new to the city or seeking a Christ-centered community,
-            you're welcome to grow and worship with us.
-          </p>
+          <h2 className="text-3xl font-bold font-montserrat">{t("title")}</h2>
+          <span className="subtitle-section">{t("subtitle")}</span>
+          <p className="mt-4 body-text">{t("description")}</p>
         </div>
         {/* <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>

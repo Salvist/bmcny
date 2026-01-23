@@ -1,0 +1,152 @@
+{
+    "metadata": {
+        "title": "Bethany Miracle Center New York - Gereja Kristen Indonesia di NYC",
+        "description": "Bergabunglah dengan Bethany Miracle Center (BMC NY), gereja Kristen Indonesia di New York City. Ibadah Minggu dalam bahasa Indonesia dengan terjemahan Inggris, pelayanan anak, program remaja, dan ibadah online. Berlokasi di Rego Park, Queens.",
+        "keywords": "gereja Indonesia New York, gereja Kristen NYC, Bethany Miracle Center, BMC NY, komunitas Kristen Indonesia, gereja Rego Park Queens, ibadah Minggu Indonesia, gereja anak New York, pelayanan remaja NYC, ibadah gereja online, ibadah Indonesia NYC"
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About Us",
+        "services": "Ibadah",
+        "sundayServices": "Ibadah Minggu",
+        "weeklyServices": "Ibadah Harian",
+        "community": "Komunitas",
+        "latestServices": "Rekaman Ibadah",
+        "openMainMenu": "Buka menu utama",
+        "closeMenu": "Tutup menu",
+        "serviceTimes": "Waktu Ibadah"
+    },
+    "hero": {
+        "welcomeTo": "Selamat Datang di",
+        "bethanyMiracleCenterNewYork": "Bethany Miracle Center",
+        "newYork": "New York",
+        "tagline": "Gereja komunitas Indonesia yang dipenuhi dengan anggota yang mengasihi Kristus.",
+        "joinUsSunday": "Bergabunglah Minggu Ini!",
+        "watchOnline": "Tonton Online",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "Youtube"
+    },
+    "upcomingService": {
+        "title": "Ibadah Berikutnya:",
+        "startsIn": "Dimulai dalam:",
+        "noUpcoming": "Tidak ada ibadah mendatang",
+        "serviceStartingSoon": "Ibadah segera dimulai!",
+        "serviceInformation": "Informasi Ibadah",
+        "description": "Deskripsi",
+        "time": "Waktu",
+        "every": "Setiap",
+        "type": "Tipe",
+        "inPerson": "Langsung di Gereja",
+        "online": "Online",
+        "address": "Alamat",
+        "openInGoogleMaps": "Buka di Google Maps",
+        "zoomMeeting": "Meeting Zoom",
+        "meetingId": "Meeting ID:",
+        "password": "Password:",
+        "note": "Catatan",
+        "close": "Tutup"
+    },
+    "upcomingEvents": {
+        "title": "ACARA MENDATANG"
+    },
+    "about": {
+        "title": "BMC NY",
+        "subtitle": "Bethany Miracle Center of New York",
+        "description": "Gereja Kristen Indonesia di NYC yang bersemangat dalam membangun iman dan membagikan Injil. Dengan suasana yang hangat dan berorientasi keluarga, kami menawarkan ibadah Minggu dalam bahasa Indonesia dengan terjemahan bahasa Inggris yang tersedia, ditambah pelayanan anak yang berdedikasi. Baik Anda baru di kota ini atau mencari komunitas yang berpusat pada Kristus, Anda dipersilakan untuk bertumbuh dan beribadah bersama kami."
+    },
+    "sundayServices": {
+        "title": "IBADAH MINGGU",
+        "subtitle": "Bergabunglah dengan ibadah Minggu kami yang tersedia secara langsung dan online!",
+        "onSite": {
+            "title": "Ibadah Minggu Langsung",
+            "upperFloor": "Lantai Atas",
+            "time": "Setiap Minggu pukul 6PM (EST)",
+            "note": "Terjemahan bahasa Inggris tersedia jika diminta."
+        },
+        "online": {
+            "title": "Ibadah Minggu Online",
+            "liveOnZoom": "Langsung di Zoom",
+            "meetingId": "Meeting ID: 845 4558 5721",
+            "password": "Password: BMCNY",
+            "time": "Setiap Minggu pukul 10AM (EST)"
+        },
+        "kids": {
+            "title": "Gereja Anak",
+            "lowerFloor": "Lantai Bawah",
+            "time": "Setiap Minggu pukul 6PM (EST)",
+            "note": "Ibadah tersedia untuk anak-anak usia 3-12 tahun dan dalam bahasa Inggris."
+        },
+        "youth": {
+            "title": "BMC Youth",
+            "lowerFloor": "Lantai Bawah",
+            "time": "Setiap Minggu pukul 6PM (EST)",
+            "note": "Ibadah tersedia untuk remaja usia 13-18 tahun dan dalam bahasa Inggris."
+        }
+    },
+    "weeklyServices": {
+        "title": "IBADAH HARI LAIN",
+        "subtitle": "Cari ibadah di hari lain? Kami memiliki ibadah harian & mingguan lainnya!",
+        "morningPrayer": {
+            "title": "Doa Pagi",
+            "schedule": "Setiap Senin - Sabtu pukul 5:30AM (EST)",
+            "liveOnZoom": "Langsung di Zoom",
+            "meetingId": "Meeting ID: 845 4558 5721",
+            "password": "Password: BMCNY"
+        },
+        "worshipFromHome": {
+            "title": "Ibadah dari Rumah",
+            "schedule": "Setiap Kamis pukul 8PM (EST)",
+            "liveOnZoom": "Langsung di Zoom",
+            "meetingId": "Meeting ID: 845 4558 5721",
+            "password": "Password: BMCNY"
+        }
+    },
+    "community": {
+        "title": "BERGABUNG DENGAN KOMUNITAS KAMI",
+        "subtitle": "Kami tidak sabar untuk bertemu Anda dan bersukacita bersama dalam kasih Kristus!",
+        "imageAlt": "Anggota Bethany Beribadah"
+    },
+    "latestServices": {
+        "title": "TONTON IBADAH TERBARU KAMI",
+        "subtitle": "Ikuti ibadah terbaru kami, baik saat Anda di rumah atau sedang bepergian!"
+    },
+    "footer": {
+        "socialMedia": "Media Sosial",
+        "copyright": "© 2025 Bethany Miracle Center. Hak cipta dilindungi."
+    },
+    "services": {
+        "sundayOnSite": {
+            "name": "Ibadah Minggu On-site",
+            "description": "Ibadah Minggu utama yang diadakan on-site di gereja",
+            "note": "Terjemahan bahasa Inggris tersedia jika diminta."
+        },
+        "sundayOnline": {
+            "name": "Ibadah Minggu Online",
+            "description": "Ibadah Minggu disiarkan secara online di Zoom"
+        },
+        "kidsChurch": {
+            "name": "Gereja Anak",
+            "description": "Ibadah anak untuk usia 3-12 tahun dalam bahasa Inggris",
+            "note": "Ibadah tersedia untuk anak-anak usia 3-12 tahun dan dalam bahasa Inggris."
+        },
+        "youth": {
+            "name": "BMC Youth",
+            "description": "Ibadah remaja untuk usia 13-18 tahun dalam bahasa Inggris",
+            "note": "Ibadah tersedia untuk remaja usia 13-18 tahun dan dalam bahasa Inggris."
+        },
+        "morningPrayer": {
+            "name": "Doa Pagi",
+            "description": "Ibadah doa pagi harian"
+        },
+        "worshipFromHome": {
+            "name": "Ibadah dari Rumah",
+            "description": "Ibadah malam Kamis"
+        }
+    },
+    "common": {
+        "address": "92-14 63rd Dr, Rego Park, NY 11374",
+        "meetingId": "845 4558 5721",
+        "password": "BMCNY"
+    }
+}

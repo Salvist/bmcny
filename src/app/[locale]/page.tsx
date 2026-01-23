@@ -6,8 +6,11 @@ import SundayServicesSection from "@/components/sunday_services_section";
 import WeeklyServices from "@/components/weekly_services";
 import UpcomingServiceBanner from "@/components/upcoming_service_banner";
 import UpcomingEventsSection from "@/components/upcoming_events_section";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations('HomePage');
+
   return (
     <main
       className="min-h-screen"

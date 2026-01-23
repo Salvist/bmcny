@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { events, EventData } from "@/constants/events";
+import { useTranslations } from "next-intl";
 
 export default function UpcomingEventsSection() {
   const currentDate = new Date();
+  const t = useTranslations("upcomingEvents");
 
   // Filter events that should be displayed based on display dates
   const upcomingEvents = events.filter((event: EventData) => {
@@ -21,7 +23,7 @@ export default function UpcomingEventsSection() {
     <section className="bg-white text-black px-4 py-12">
       <div className="max-w-4xl mx-auto">
         <h2 className="mb-8 text-4xl font-bold text-orange-700 font-montserrat">
-          UPCOMING EVENTS
+          {t("title")}
         </h2>
 
         <div className="space-y-8">
