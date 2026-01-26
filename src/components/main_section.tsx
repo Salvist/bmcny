@@ -4,6 +4,14 @@ import InstagramIcon from "./icons/instagram_icon";
 import YoutubeIcon from "./icons/youtube_icon";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import TiktokIcon from "./icons/tiktok_icon";
+import {
+  INSTAGRAM_LINK,
+  FACEBOOK_LINK,
+  YOUTUBE_LINK,
+  TIKTOK_LINK,
+  GOOGLE_MAPS_LINK,
+} from "@/constants/constants";
 
 export default function MainSection() {
   const t = useTranslations("hero");
@@ -48,7 +56,7 @@ export default function MainSection() {
         {/* Social Media Links */}
         <nav className="mt-12 flex gap-6" aria-label="Social media links">
           <a
-            href="https://www.instagram.com/bmc_ny/"
+            href={INSTAGRAM_LINK}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow us on Instagram"
@@ -59,7 +67,7 @@ export default function MainSection() {
             </div>
           </a>
           <a
-            href="https://www.facebook.com/BethanyMiracleCenterNework"
+            href={FACEBOOK_LINK}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow us on Facebook"
@@ -70,7 +78,7 @@ export default function MainSection() {
             </div>
           </a>
           <a
-            href="https://www.youtube.com/bmcnewyork"
+            href={YOUTUBE_LINK}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Subscribe to our YouTube channel"
@@ -80,9 +88,20 @@ export default function MainSection() {
               <span>{t("youtube")}</span>
             </div>
           </a>
+          <a
+            href={TIKTOK_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Subscribe to our YouTube channel"
+          >
+            <div className="flex gap-1">
+              <TiktokIcon />
+              <span>Tiktok</span>
+            </div>
+          </a>
         </nav>
         <a
-          href="https://maps.app.goo.gl/JWKGhHKz9nJELbUK9"
+          href={GOOGLE_MAPS_LINK}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4"

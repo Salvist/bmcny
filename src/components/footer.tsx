@@ -1,6 +1,14 @@
 import FacebookIcon from "./icons/facebook_icon";
 import InstagramIcon from "./icons/instagram_icon";
 import YoutubeIcon from "./icons/youtube_icon";
+import TiktokIcon from "./icons/tiktok_icon";
+import {
+  INSTAGRAM_LINK,
+  FACEBOOK_LINK,
+  YOUTUBE_LINK,
+  TIKTOK_LINK,
+  GOOGLE_MAPS_LINK,
+} from "@/constants/constants";
 
 export default function Footer() {
   return (
@@ -10,7 +18,7 @@ export default function Footer() {
           {/* TODO: Add Logo Here */}
           <p className="text-2xl font-bold">BMC NY</p>
           <a
-            href="https://maps.app.goo.gl/JWKGhHKz9nJELbUK9"
+            href={GOOGLE_MAPS_LINK}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-300 hover:text-white transition-colors no-underline"
@@ -20,7 +28,7 @@ export default function Footer() {
           <p className="mt-4 font-bold">Social Media</p>
           <div className="mt-2 flex gap-6">
             <a
-              href="https://www.instagram.com/bmc_ny/"
+              href={INSTAGRAM_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-300 transition-colors"
@@ -28,7 +36,7 @@ export default function Footer() {
               <InstagramIcon />
             </a>
             <a
-              href="https://www.facebook.com/BethanyMiracleCenterNework"
+              href={FACEBOOK_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-300 transition-colors"
@@ -36,12 +44,20 @@ export default function Footer() {
               <FacebookIcon />
             </a>
             <a
-              href="https://www.youtube.com/bmcnewyork"
+              href={YOUTUBE_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-gray-300 transition-colors"
             >
               <YoutubeIcon />
+            </a>
+            <a
+              href={TIKTOK_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-gray-300 transition-colors"
+            >
+              <TiktokIcon />
             </a>
           </div>
         </div>
