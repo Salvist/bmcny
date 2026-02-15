@@ -62,7 +62,7 @@ export default function MainSection() {
         </nav>
 
         {/* Social Media Links */}
-        <nav className="mt-12 flex gap-6" aria-label="Social media links">
+        <nav className="mt-12 flex gap-6 flex-wrap justify-center" aria-label="Social media links">
           <a
             href={INSTAGRAM_LINK}
             target="_blank"
