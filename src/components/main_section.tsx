@@ -5,6 +5,8 @@ import YoutubeIcon from "./icons/youtube_icon";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import TiktokIcon from "./icons/tiktok_icon";
+import { Suspense } from "react";
+import VideoBackground from "./video_background";
 import {
   INSTAGRAM_LINK,
   FACEBOOK_LINK,
@@ -19,13 +21,19 @@ export default function MainSection() {
 
   return (
     <section
-      className="relative bg-amber-50 px-4 py-24 text-black text-center flex items-center justify-center overflow-hidden"
+      className="relative bg-amber-50 px-4 py-32 text-black text-center flex items-center justify-center overflow-hidden"
       aria-labelledby="main-heading"
     >
-      <div
-        className="absolute inset-0 bg-[url('/cross_on_top.webp')] bg-cover bg-bottom"
-        aria-hidden="true"
-      />
+      <Suspense
+        fallback={
+          <div
+            className="absolute inset-0 bg-[url('/cross_on_top.webp')] bg-cover bg-bottom"
+            aria-hidden="true"
+          />
+        }
+      >
+        <VideoBackground />
+      </Suspense>
       <div className="absolute inset-0 bg-amber-50/70" aria-hidden="true" />
       <div className="relative z-10 w-full flex flex-col items-center justify-center">
         <p className="text-3xl font-bold" aria-hidden="true">
