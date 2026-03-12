@@ -2,7 +2,7 @@ import Image from "next/image";
 import { events, EventData } from "@/constants/events";
 import { useTranslations } from "next-intl";
 
-export default function UpcomingEventsSection() {
+export default function EventsSection() {
   const currentDate = new Date();
   const t = useTranslations("upcomingEvents");
 

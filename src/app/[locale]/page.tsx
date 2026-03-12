@@ -5,7 +5,7 @@ import MainSection from "@/components/main_section";
 import SundayServicesSection from "@/components/sunday_services_section";
 import WeeklyServices from "@/components/weekly_services";
 import UpcomingServiceBanner from "@/components/upcoming_service_banner";
-import UpcomingEventsSection from "@/components/upcoming_events_section";
+import EventsSection from "@/components/events_section";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
     >
       <UpcomingServiceBanner />
       <MainSection />
-      <UpcomingEventsSection />
+      <EventsSection />
       <AboutUsSection />
       <SundayServicesSection />
       <WeeklyServices />
