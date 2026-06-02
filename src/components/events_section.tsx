@@ -1,10 +1,12 @@
 import Image from "next/image";
-import { events, EventData } from "@/constants/events";
-import { useTranslations } from "next-intl";
+import { EventData } from "@/constants/events";
+import { getEvents } from "@/lib/events";
+import { getTranslations } from "next-intl/server";
 
-export default function EventsSection() {
+export default async function EventsSection() {
   const currentDate = new Date();
-  const t = useTranslations("upcomingEvents");
+  const t = await getTranslations("upcomingEvents");
+  const events = await getEvents();
 
   // Filter events that should be displayed based on display dates
   const upcomingEvents = events.filter((event: EventData) => {

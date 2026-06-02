@@ -12,6 +12,16 @@ interface CalendarDayModalProps {
   items: CalendarItem[];
 }
 
+const weekdayNames = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 function openGoogleMaps(address: string) {
   const encodedAddress = encodeURIComponent(address);
   window.open(
@@ -31,6 +41,26 @@ function formatEventDateRange(start?: Date, end?: Date): string {
   if (start.getTime() === end.getTime()) return startStr;
   const endStr = end.toLocaleDateString("en-US", opts);
   return `${startStr} – ${endStr}`;
+}
+
+function formatWeekdayList(days: number[]): string {
+  const labels = days.map((day) => weekdayNames[day]).filter(Boolean);
+
+  if (labels.length === 0) return "";
+  if (labels.length === 1) return labels[0];
+  if (labels.length === 2) return labels.join(" and ");
+  return `${labels.slice(0, -1).join(", ")}, and ${
+    labels[labels.length - 1]
+  }`;
+}
+
+function formatEventSchedule(event: NonNullable<CalendarItem["event"]>): string {
+  const dateRange = formatEventDateRange(event.startDate, event.endDate);
+
+  if (event.recurrenceType !== "weekly") return dateRange;
+
+  const weekdays = formatWeekdayList(event.recurrenceDays);
+  return weekdays ? `Every ${weekdays}, ${dateRange}` : dateRange;
 }
 
 export default function CalendarDayModal({
@@ -185,19 +215,36 @@ export default function CalendarDayModal({
                         {t("dateRange")}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {formatEventDateRange(
-                          item.event.startDate,
-                          item.event.endDate
-                        )}
+                        {formatEventSchedule(item.event)}
                       </p>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-medium text-gray-500">
-                        {t("location")}
-                      </p>
-                      <p className="text-sm text-gray-600">{item.event.location}</p>
-                    </div>
+                    {item.event.meetingType === "onsite" && (
+                      <div>
+                        <p className="text-xs font-medium text-gray-500">
+                          {t("location")}
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {item.event.location}
+                        </p>
+                      </div>
+                    )}
+
+                    {item.event.zoomMeetingId && (
+                      <div>
+                        <p className="text-xs font-medium text-gray-500">
+                          Zoom Meeting
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Meeting ID: {item.event.zoomMeetingId}
+                        </p>
+                        {item.event.zoomPassword && (
+                          <p className="mt-2 text-sm text-gray-600">
+                            Password: {item.event.zoomPassword}
+                          </p>
+                        )}
+                      </div>
+                    )}
 
                     {item.event.imagePath && (
                       <div className="relative w-full aspect-video rounded-lg overflow-hidden">

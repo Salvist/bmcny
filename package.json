@@ -11,6 +11,8 @@
   "dependencies": {
     "@headlessui/react": "^2.2.8",
     "@heroicons/react": "^2.2.0",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.107.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/blob": "^2.2.0",
     "country-flag-icons": "^1.6.7",

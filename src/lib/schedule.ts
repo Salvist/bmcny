@@ -1,4 +1,4 @@
-import { events, EventData } from "@/constants/events";
+import { EventData } from "@/constants/events";
 import { services, ServiceData } from "@/constants/services";
 
 export type CalendarItemKind = "service" | "event";
@@ -54,6 +54,11 @@ function serviceRunsOnDayOfWeek(service: ServiceData, dayOfWeek: number): boolea
   return false;
 }
 
+function eventRunsOnDate(event: EventData, date: Date): boolean {
+  if (event.recurrenceType !== "weekly") return true;
+  return event.recurrenceDays.includes(date.getDay());
+}
+
 export function getServiceOccurrencesInMonth(
   service: ServiceData,
   year: number,
@@ -103,13 +108,15 @@ export function getEventOccurrencesInMonth(
 
     while (cursor <= end) {
       const day = startOfDay(cursor);
-      items.push({
-        kind: "event",
-        id: `event-${event.name}-${toDateKey(day)}`,
-        date: day,
-        title: event.name,
-        event,
-      });
+      if (eventRunsOnDate(event, day)) {
+        items.push({
+          kind: "event",
+          id: `event-${event.name}-${toDateKey(day)}`,
+          date: day,
+          title: event.name,
+          event,
+        });
+      }
       cursor.setDate(cursor.getDate() + 1);
     }
   }
@@ -189,7 +196,8 @@ export function getNextServiceTime(
 
 export function getCalendarItemsForMonth(
   year: number,
-  month: number
+  month: number,
+  eventList: EventData[] = []
 ): CalendarItem[] {
   const items: CalendarItem[] = [];
 
@@ -209,7 +217,7 @@ export function getCalendarItemsForMonth(
     }
   }
 
-  items.push(...getEventOccurrencesInMonth(events, year, month));
+  items.push(...getEventOccurrencesInMonth(eventList, year, month));
 
   return items;
 }
