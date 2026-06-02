@@ -50,6 +50,31 @@
     "upcomingEvents": {
       "title": "UPCOMING EVENTS"
     },
+    "calendar": {
+      "title": "CHURCH CALENDAR",
+      "legendService": "Recurring service",
+      "legendEvent": "Special event",
+      "serviceLabel": "Service",
+      "eventLabel": "Event",
+      "location": "Location",
+      "dateRange": "Date",
+      "close": "Close",
+      "today": "Today",
+      "agendaEmpty": "No scheduled services or events this month.",
+      "weekEmpty": "No services or events this week.",
+      "previousWeek": "Previous week",
+      "nextWeek": "Next week",
+      "dayAriaLabel": "{date}, {count, plural, one {# item} other {# items}}",
+      "weekdays": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
     "about": {
       "title": "BMC NY",
       "subtitle": "Bethany Miracle Center of New York",

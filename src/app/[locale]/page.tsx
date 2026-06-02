@@ -3,6 +3,7 @@ import JoinOurCommunitySection from "@/components/join_our_community_section";
 import LatestServicesSection from "@/components/latest_services_section";
 import MainSection from "@/components/main_section";
 import SundayServicesSection from "@/components/sunday_services_section";
+import CalendarSection from "@/components/calendar_section";
 import WeeklyServices from "@/components/weekly_services";
 import UpcomingServiceBanner from "@/components/upcoming_service_banner";
 import EventsSection from "@/components/events_section";
@@ -22,6 +23,7 @@ export default function Home() {
       <EventsSection />
       <AboutUsSection />
       <SundayServicesSection />
+      <CalendarSection />
       <WeeklyServices />
       <JoinOurCommunitySection />
       <LatestServicesSection />

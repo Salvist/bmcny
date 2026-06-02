@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { services, ServiceData } from "../constants/services";
+import { getNextServiceTime } from "@/lib/schedule";
 import { useTranslations } from "next-intl";
 
 export default function UpcomingServiceBanner() {
@@ -20,100 +21,6 @@ export default function UpcomingServiceBanner() {
     );
   };
 
-  // Helper function to parse time string (e.g., "6PM (EST)" -> {hour: 18, minute: 0})
-  const parseTime = (
-    timeStr: string | undefined
-  ): { hour: number; minute: number } | null => {
-    if (!timeStr) return null;
-    const match = timeStr.match(/(\d+):?(\d+)?(AM|PM)/i);
-    if (!match) return null;
-
-    let hour = parseInt(match[1]);
-    const minute = match[2] ? parseInt(match[2]) : 0;
-    const period = match[3].toUpperCase();
-
-    if (period === "PM" && hour !== 12) hour += 12;
-    if (period === "AM" && hour === 12) hour = 0;
-
-    return { hour, minute };
-  };
-
-  // Helper function to get next occurrence of a service
-  const getNextServiceTime = (
-    service: ServiceData
-  ): { service: ServiceData; nextTime: Date } | null => {
-    const now = new Date();
-    const time = parseTime(service.time);
-    if (!time) return null;
-
-    const { hour, minute } = time;
-
-    // Handle different frequency types
-    if (service.frequency?.includes("Sunday")) {
-      // Next Sunday
-      const nextOccurrence = new Date(now);
-      nextOccurrence.setHours(hour, minute, 0, 0);
-
-      const currentDay = now.getDay();
-      const daysUntilSunday = currentDay === 0 ? 0 : 7 - currentDay;
-
-      // If it's Sunday but time has passed, go to next Sunday
-      if (daysUntilSunday === 0 && nextOccurrence <= now) {
-        nextOccurrence.setDate(now.getDate() + 7);
-      } else if (daysUntilSunday > 0) {
-        nextOccurrence.setDate(now.getDate() + daysUntilSunday);
-      }
-
-      return { service, nextTime: nextOccurrence };
-    } else if (service.frequency?.includes("Monday - Saturday")) {
-      // Next occurrence Monday through Saturday
-      const nextOccurrence = new Date(now);
-      nextOccurrence.setHours(hour, minute, 0, 0);
-
-      const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-
-      // If it's today and time hasn't passed yet, and it's Mon-Sat
-      if (currentDay >= 1 && currentDay <= 6 && nextOccurrence > now) {
-        return { service, nextTime: nextOccurrence };
-      }
-
-      // Find next Monday-Saturday
-      let daysToAdd = 1;
-      let targetDay = (currentDay + daysToAdd) % 7;
-
-      // Skip Sunday (day 0)
-      while (targetDay === 0) {
-        daysToAdd++;
-        targetDay = (currentDay + daysToAdd) % 7;
-      }
-
-      nextOccurrence.setDate(now.getDate() + daysToAdd);
-      return { service, nextTime: nextOccurrence };
-    } else if (service.frequency?.includes("Thursday")) {
-      // Next Thursday
-      const nextOccurrence = new Date(now);
-      nextOccurrence.setHours(hour, minute, 0, 0);
-
-      const currentDay = now.getDay();
-      const thursdayDay = 4; // Thursday is day 4
-
-      let daysUntilThursday = (thursdayDay - currentDay + 7) % 7;
-
-      // If it's Thursday but time has passed, go to next Thursday
-      if (daysUntilThursday === 0 && nextOccurrence <= now) {
-        daysUntilThursday = 7;
-      }
-
-      if (daysUntilThursday > 0) {
-        nextOccurrence.setDate(now.getDate() + daysUntilThursday);
-      }
-
-      return { service, nextTime: nextOccurrence };
-    }
-
-    return null;
-  };
-
   useEffect(() => {
     const calculateNextService = () => {
       const now = new Date();
@@ -122,7 +29,7 @@ export default function UpcomingServiceBanner() {
 
       // Find the next upcoming service
       services.forEach((service) => {
-        const nextOccurrence = getNextServiceTime(service);
+        const nextOccurrence = getNextServiceTime(service, now);
         if (nextOccurrence && nextOccurrence.nextTime > now) {
           if (!closestTime || nextOccurrence.nextTime < closestTime) {
             closestService = nextOccurrence.service;
