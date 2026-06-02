@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
-const ADMIN_HOSTS = new Set(["admin.bmcny.com", "admin.localhost"]);
+const ADMIN_HOSTS = new Set(["admin.bmcny.church", "admin.localhost"]);
 
 function getHostname(request: NextRequest) {
   return (request.headers.get("host") ?? "").split(":")[0].toLowerCase();
