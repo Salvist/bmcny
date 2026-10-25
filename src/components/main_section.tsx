@@ -21,7 +21,7 @@ export default function MainSection() {
 
   return (
     <section
-      className="relative bg-amber-50 px-4 py-32 text-black text-center flex items-center justify-center overflow-hidden"
+      className="relative bg-off-white px-4 py-32 text-charcoal text-center flex items-center justify-center overflow-hidden"
       aria-labelledby="main-heading"
     >
       <Suspense
@@ -34,7 +34,7 @@ export default function MainSection() {
       >
         <VideoBackground />
       </Suspense>
-      <div className="absolute inset-0 bg-amber-50/70" aria-hidden="true" />
+      <div className="absolute inset-0 bg-off-white/70" aria-hidden="true" />
       <div className="relative z-10 w-full flex flex-col items-center justify-center">
         <p className="text-3xl font-bold" aria-hidden="true">
           {t("welcomeTo")}
@@ -47,14 +47,14 @@ export default function MainSection() {
         <nav className="flex gap-4" aria-label="Main navigation">
           <Link
             href="#sunday-services"
-            className="bg-yellow-400 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
+            className="bg-gold text-charcoal hover:bg-gold-hover focus-visible:outline-charcoal px-6 py-2 rounded-lg font-bold mt-8"
             aria-label="Join us for Sunday service"
           >
             {t("joinUsSunday")}
           </Link>
           <Link
             href="#latest-services"
-            className="outline outline-orange-700 text-orange-700 px-6 py-2 rounded-lg font-bold mt-8"
+            className="outline outline-charcoal text-charcoal hover:bg-white/70 focus-visible:outline-charcoal px-6 py-2 rounded-lg font-bold mt-8"
             aria-label="Watch our online services"
           >
             {t("watchOnline")}

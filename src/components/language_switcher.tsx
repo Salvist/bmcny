@@ -30,7 +30,7 @@ export default function LanguageSwitcher() {
     <button
       onClick={() => switchLocale(targetLocale)}
       disabled={isPending}
-      className="transition-all rounded hover:opacity-80"
+      className="transition-all rounded hover:opacity-80 focus-visible:outline-gold"
       aria-label={`Switch to ${languageName}`}
       title={languageName}
     >

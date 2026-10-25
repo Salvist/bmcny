@@ -46,7 +46,7 @@ export default async function LatestServicesSection() {
   const t = await getTranslations("latestServices");
 
   return (
-    <section id="latest-services" className="bg-orange-700 px-4 scroll-mt-16">
+    <section id="latest-services" className="bg-charcoal px-4 scroll-mt-16">
       <div className="max-w-4xl mx-auto py-8 text-white">
         <h2 className="text-4xl font-bold font-montserrat">{t("title")}</h2>
         <p className="font-merriweather italic">{t("subtitle")}</p>

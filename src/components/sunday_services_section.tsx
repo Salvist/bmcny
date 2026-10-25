@@ -18,10 +18,10 @@ export default function SundayServicesSection() {
       aria-labelledby="sunday-services-heading"
     >
       <div className="max-w-4xl mx-auto flex flex-col items-center">
-        <h2 className="text-3xl font-bold text-orange-700 font-montserrat">
+        <h2 className="text-3xl font-bold text-charcoal font-montserrat">
           {t("title")}
         </h2>
-        <p className="subtitle-section text-black">{t("subtitle")}</p>
+        <p className="subtitle-section text-charcoal">{t("subtitle")}</p>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-full">
           <ServiceCard
             title={t("onSite.title")}

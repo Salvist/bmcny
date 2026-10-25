@@ -13,16 +13,16 @@ export default function WeeklyServices() {
   return (
     <section
       id="weekly-services"
-      className="bg-orange-100 px-4 py-8 text-black scroll-mt-16"
+      className="bg-off-white px-4 py-8 text-charcoal scroll-mt-16"
     >
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 md:items-center">
         <div className="order-2 md:order-1">
-          <h2 className="text-4xl font-bold text-orange-700 font-montserrat">
+          <h2 className="text-4xl font-bold text-charcoal font-montserrat">
             {t("title")}
           </h2>
           <span className="font-merriweather italic">{t("subtitle")}</span>
           <div className="flex flex-col">
-            <p className="mt-4 text-2xl text-orange-700 font-bold font-montserrat">
+            <p className="mt-4 text-2xl text-charcoal font-bold font-montserrat">
               {t("morningPrayer.title")}
             </p>
             <span>{t("morningPrayer.schedule")}</span>
@@ -31,7 +31,7 @@ export default function WeeklyServices() {
             <span>{t("morningPrayer.password")}</span>
           </div>
           <div className="flex flex-col">
-            <p className="mt-4 text-2xl text-orange-700 font-bold font-montserrat">
+            <p className="mt-4 text-2xl text-charcoal font-bold font-montserrat">
               {t("worshipFromHome.title")}
             </p>
             <span>{t("worshipFromHome.schedule")}</span>

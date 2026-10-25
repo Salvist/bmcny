@@ -22,9 +22,9 @@ export default async function EventsSection() {
   }
 
   return (
-    <section className="bg-white text-black px-4 py-12">
+    <section className="bg-white text-charcoal px-4 py-12">
       <div className="max-w-4xl mx-auto">
-        <h2 className="mb-8 text-4xl font-bold text-orange-700 font-montserrat">
+        <h2 className="mb-8 text-4xl font-bold text-charcoal font-montserrat">
           {t("title")}
         </h2>
 

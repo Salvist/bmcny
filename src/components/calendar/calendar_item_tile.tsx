@@ -42,7 +42,7 @@ export function CalendarItemTile({
     return (
       <ItemTile
         label={item.title}
-        className="bg-teal-600 text-white"
+        className="bg-charcoal text-white"
         size={size}
       >
         {item.title}
@@ -54,9 +54,9 @@ export function CalendarItemTile({
   const label = `${timeStr ? `${timeStr} ` : ""}${item.title}`;
 
   return (
-    <ItemTile label={label} className="bg-orange-500 text-white" size={size}>
+    <ItemTile label={label} className="bg-gold text-charcoal" size={size}>
       {timeStr && (
-        <span className="text-orange-100 lowercase">{timeStr} </span>
+        <span className="text-charcoal lowercase">{timeStr} </span>
       )}
       {item.title}
     </ItemTile>

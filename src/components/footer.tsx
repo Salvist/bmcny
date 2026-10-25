@@ -12,8 +12,8 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
-      <div className="bg-slate-800 py-4 px-4">
+    <footer className="bg-charcoal text-white">
+      <div className="bg-charcoal py-4 px-4">
         <div className="max-w-4xl mx-auto flex flex-col">
           {/* TODO: Add Logo Here */}
           <p className="text-2xl font-bold">BMC NY</p>
@@ -21,7 +21,7 @@ export default function Footer() {
             href={GOOGLE_MAPS_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-300 hover:text-white transition-colors no-underline"
+            className="text-neutral-300 hover:text-white transition-colors no-underline"
           >
             92-14 63rd Dr, Rego Park, NY 11374
           </a>
@@ -31,7 +31,7 @@ export default function Footer() {
               href={INSTAGRAM_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-300 transition-colors"
+              className="text-white hover:text-neutral-300 transition-colors"
             >
               <InstagramIcon />
             </a>
@@ -39,7 +39,7 @@ export default function Footer() {
               href={FACEBOOK_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-300 transition-colors"
+              className="text-white hover:text-neutral-300 transition-colors"
             >
               <FacebookIcon />
             </a>
@@ -47,7 +47,7 @@ export default function Footer() {
               href={YOUTUBE_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-300 transition-colors"
+              className="text-white hover:text-neutral-300 transition-colors"
             >
               <YoutubeIcon />
             </a>
@@ -55,7 +55,7 @@ export default function Footer() {
               href={TIKTOK_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-gray-300 transition-colors"
+              className="text-white hover:text-neutral-300 transition-colors"
             >
               <TiktokIcon />
             </a>

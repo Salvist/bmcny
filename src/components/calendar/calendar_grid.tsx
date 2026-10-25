@@ -6,7 +6,7 @@ import { CalendarItemTile } from "./calendar_item_tile";
 const MAX_VISIBLE_ITEMS = 4;
 const CELL_MIN_HEIGHT = "min-h-[6.5rem]";
 const CELL_BORDER =
-  "border-r border-b border-orange-200 [&:nth-child(7n)]:border-r-0";
+  "border-r border-b border-neutral-200 [&:nth-child(7n)]:border-r-0";
 
 interface CalendarGridProps {
   cells: (Date | null)[];
@@ -32,7 +32,7 @@ function DayCellContent({
   return (
     <>
       <span
-        className={`text-sm font-semibold shrink-0 ${isToday ? "text-orange-700" : "text-gray-900"}`}
+        className={`text-sm font-semibold shrink-0 ${isToday ? "text-charcoal" : "text-neutral-900"}`}
       >
         {date.getDate()}
       </span>
@@ -42,7 +42,7 @@ function DayCellContent({
             <CalendarItemTile key={item.id} item={item} size="sm" />
           ))}
           {hiddenCount > 0 && (
-            <p className="text-[10px] text-gray-500 px-0.5">+{hiddenCount} more</p>
+            <p className="text-[10px] text-neutral-500 px-0.5">+{hiddenCount} more</p>
           )}
         </div>
       )}
@@ -59,7 +59,7 @@ export default function CalendarGrid({
   dayAriaLabel,
 }: CalendarGridProps) {
   return (
-    <div className="mt-6 overflow-hidden rounded-lg border border-orange-200">
+    <div className="mt-6 overflow-hidden rounded-lg border border-neutral-200">
       <div
         className="grid grid-cols-7 [&>*:nth-last-child(-n+7)]:border-b-0"
         role="grid"
@@ -67,7 +67,7 @@ export default function CalendarGrid({
         {weekdayLabels.map((label) => (
           <div
             key={label}
-            className={`${CELL_BORDER} text-center text-xs font-semibold text-orange-700 py-2 bg-orange-50/60`}
+            className={`${CELL_BORDER} text-center text-xs font-semibold text-charcoal py-2 bg-off-white/60`}
           >
             {label}
           </div>
@@ -77,7 +77,7 @@ export default function CalendarGrid({
             return (
               <div
                 key={`empty-${index}`}
-                className={`${CELL_MIN_HEIGHT} ${CELL_BORDER} bg-gray-50/40`}
+                className={`${CELL_MIN_HEIGHT} ${CELL_BORDER} bg-neutral-50/40`}
                 aria-hidden="true"
               />
             );
@@ -92,9 +92,9 @@ export default function CalendarGrid({
             CELL_MIN_HEIGHT,
             CELL_BORDER,
             "p-1.5 flex flex-col text-left transition-colors",
-            isToday ? "ring-2 ring-inset ring-orange-500 z-[1]" : "",
+            isToday ? "ring-2 ring-inset ring-charcoal z-[1]" : "",
             hasItems
-              ? "bg-orange-50 hover:bg-orange-100 cursor-pointer"
+              ? "bg-off-white hover:bg-neutral-100 cursor-pointer"
               : "bg-white",
           ].join(" ");
 

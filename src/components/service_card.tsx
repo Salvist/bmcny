@@ -14,8 +14,8 @@ export default function ServiceCard({
   note,
 }: ServiceCardProps) {
   return (
-    <div className="bg-orange-100 rounded-xl text-black px-6 py-4 gap-1 flex flex-col items-start">
-      <h3 className="text-xl font-bold text-orange-700 font-montserrat">
+    <div className="bg-off-white rounded-xl text-charcoal px-6 py-4 gap-1 flex flex-col items-start">
+      <h3 className="text-xl font-bold text-charcoal font-montserrat">
         {title}
       </h3>
       {showLocationButton && <LocationButton />}

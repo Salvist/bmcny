@@ -87,7 +87,7 @@ export default function CalendarDayModal({
       className="relative z-50 focus:outline-none"
       onClose={onClose}
     >
-      <div className="fixed inset-0 z-50 w-screen overflow-y-auto bg-black/40">
+      <div className="fixed inset-0 z-50 w-screen overflow-y-auto bg-charcoal/40">
         <div className="flex min-h-full items-center justify-center p-4">
           <DialogPanel
             transition
@@ -95,7 +95,7 @@ export default function CalendarDayModal({
           >
             <DialogTitle
               as="h3"
-              className="text-lg font-bold text-orange-700 font-montserrat"
+              className="text-lg font-bold text-charcoal font-montserrat"
             >
               {formattedDate}
             </DialogTitle>
@@ -105,19 +105,19 @@ export default function CalendarDayModal({
                 item.kind === "service" && item.service ? (
                   <article
                     key={item.id}
-                    className="border-l-4 border-orange-500 pl-4 space-y-2"
+                    className="border-l-4 border-gold pl-4 space-y-2"
                   >
-                    <span className="text-xs font-medium uppercase tracking-wide text-orange-600">
+                    <span className="text-xs font-medium uppercase tracking-wide text-charcoal">
                       {t("serviceLabel")}
                     </span>
-                    <h4 className="font-bold text-gray-900">{item.service.name}</h4>
+                    <h4 className="font-bold text-neutral-900">{item.service.name}</h4>
 
                     {item.service.description && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("description")}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-600">
                           {item.service.description}
                         </p>
                       </div>
@@ -125,19 +125,19 @@ export default function CalendarDayModal({
 
                     {item.service.time && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("time")}
                         </p>
-                        <p className="text-sm text-gray-600">{item.service.time}</p>
+                        <p className="text-sm text-neutral-600">{item.service.time}</p>
                       </div>
                     )}
 
                     {item.service.frequency && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("every")}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-600">
                           {item.service.frequency}
                         </p>
                       </div>
@@ -145,10 +145,10 @@ export default function CalendarDayModal({
 
                     {item.service.meetingType && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("type")}
                         </p>
-                        <p className="text-sm text-gray-600 capitalize">
+                        <p className="text-sm text-neutral-600 capitalize">
                           {item.service.meetingType === "on-site"
                             ? tService("inPerson")
                             : tService("online")}
@@ -158,16 +158,16 @@ export default function CalendarDayModal({
 
                     {item.service.address && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("address")}
                         </p>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-neutral-600 mb-2">
                           {item.service.address}
                         </p>
                         <button
                           type="button"
                           onClick={() => openGoogleMaps(item.service!.address!)}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                          className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-charcoal bg-gold hover:bg-gold-hover"
                         >
                           {tService("openInGoogleMaps")}
                         </button>
@@ -176,14 +176,14 @@ export default function CalendarDayModal({
 
                     {item.service.zoomMeetingId && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("zoomMeeting")}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-600">
                           {tService("meetingId")} {item.service.zoomMeetingId}
                         </p>
                         {item.service.zoomMeetingPassword && (
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-neutral-600">
                             {tService("password")}{" "}
                             {item.service.zoomMeetingPassword}
                           </p>
@@ -193,38 +193,38 @@ export default function CalendarDayModal({
 
                     {item.service.note && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {tService("note")}
                         </p>
-                        <p className="text-sm text-gray-600">{item.service.note}</p>
+                        <p className="text-sm text-neutral-600">{item.service.note}</p>
                       </div>
                     )}
                   </article>
                 ) : item.kind === "event" && item.event ? (
                   <article
                     key={item.id}
-                    className="border-l-4 border-teal-600 pl-4 space-y-2"
+                    className="border-l-4 border-charcoal pl-4 space-y-2"
                   >
-                    <span className="text-xs font-medium uppercase tracking-wide text-teal-700">
+                    <span className="text-xs font-medium uppercase tracking-wide text-charcoal">
                       {t("eventLabel")}
                     </span>
-                    <h4 className="font-bold text-gray-900">{item.event.name}</h4>
+                    <h4 className="font-bold text-neutral-900">{item.event.name}</h4>
 
                     <div>
-                      <p className="text-xs font-medium text-gray-500">
+                      <p className="text-xs font-medium text-neutral-500">
                         {t("dateRange")}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-neutral-600">
                         {formatEventSchedule(item.event)}
                       </p>
                     </div>
 
                     {item.event.meetingType === "onsite" && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           {t("location")}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-600">
                           {item.event.location}
                         </p>
                       </div>
@@ -232,14 +232,14 @@ export default function CalendarDayModal({
 
                     {item.event.zoomMeetingId && (
                       <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-neutral-500">
                           Zoom Meeting
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-600">
                           Meeting ID: {item.event.zoomMeetingId}
                         </p>
                         {item.event.zoomPassword && (
-                          <p className="mt-2 text-sm text-gray-600">
+                          <p className="mt-2 text-sm text-neutral-600">
                             Password: {item.event.zoomPassword}
                           </p>
                         )}
@@ -264,7 +264,7 @@ export default function CalendarDayModal({
             <div className="mt-6">
               <button
                 type="button"
-                className="inline-flex justify-center rounded-md bg-orange-100 px-4 py-2 text-sm font-medium text-orange-900 hover:bg-orange-200"
+                className="inline-flex justify-center rounded-md bg-off-white px-4 py-2 text-sm font-medium text-charcoal hover:bg-neutral-200"
                 onClick={onClose}
               >
                 {t("close")}

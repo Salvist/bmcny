@@ -73,15 +73,15 @@ export default function CalendarInteractive({
 
   return (
     <>
-      <p className="mt-1 text-lg text-gray-700">{monthYearLabel}</p>
+      <p className="mt-1 text-lg text-neutral-700">{monthYearLabel}</p>
 
       <div className="mt-4 flex flex-wrap gap-6 text-sm">
         <div className="flex items-center gap-2">
-          <span className="size-3 rounded-full bg-orange-500" aria-hidden="true" />
+          <span className="size-3 rounded-full bg-gold" aria-hidden="true" />
           <span>{t("legendService")}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="size-3 rounded-full bg-teal-600" aria-hidden="true" />
+          <span className="size-3 rounded-full bg-charcoal" aria-hidden="true" />
           <span>{t("legendEvent")}</span>
         </div>
       </div>

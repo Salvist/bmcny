@@ -59,7 +59,7 @@ export default function CalendarAgendaList({
   const weekRangeLabel = formatWeekRange(currentWeek);
 
   if (weeks.length === 0) {
-    return <p className="mt-6 text-sm text-gray-600">{t("agendaEmpty")}</p>;
+    return <p className="mt-6 text-sm text-neutral-600">{t("agendaEmpty")}</p>;
   }
 
   return (
@@ -67,7 +67,7 @@ export default function CalendarAgendaList({
       <div className="flex items-center justify-between gap-2">
         <button
           type="button"
-          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-200 text-orange-700 hover:bg-orange-100 disabled:opacity-40 disabled:pointer-events-none"
+          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 text-charcoal hover:bg-neutral-100 disabled:opacity-40 disabled:pointer-events-none"
           onClick={() => setWeekIndex((i) => i - 1)}
           disabled={!canGoPrev}
           aria-label={t("previousWeek")}
@@ -75,13 +75,13 @@ export default function CalendarAgendaList({
           <ChevronLeftIcon className="size-5" aria-hidden="true" />
         </button>
 
-        <p className="text-sm font-semibold text-gray-800 text-center font-montserrat">
+        <p className="text-sm font-semibold text-neutral-800 text-center font-montserrat">
           {weekRangeLabel}
         </p>
 
         <button
           type="button"
-          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-orange-200 text-orange-700 hover:bg-orange-100 disabled:opacity-40 disabled:pointer-events-none"
+          className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-neutral-200 text-charcoal hover:bg-neutral-100 disabled:opacity-40 disabled:pointer-events-none"
           onClick={() => setWeekIndex((i) => i + 1)}
           disabled={!canGoNext}
           aria-label={t("nextWeek")}
@@ -91,7 +91,7 @@ export default function CalendarAgendaList({
       </div>
 
       {weekDays.length === 0 ? (
-        <p className="mt-4 text-sm text-gray-600 text-center">{t("weekEmpty")}</p>
+        <p className="mt-4 text-sm text-neutral-600 text-center">{t("weekEmpty")}</p>
       ) : (
         <div className="mt-4 flex flex-col gap-3" role="list">
           {weekDays.map(({ key, date, items }) => {
@@ -106,18 +106,18 @@ export default function CalendarAgendaList({
               <article key={key} role="listitem" className="flex flex-col gap-1.5">
                 <button
                   type="button"
-                  className="flex flex-col gap-1.5 w-full text-left rounded-lg p-2 -mx-2 hover:bg-orange-100/80 transition-colors"
+                  className="flex flex-col gap-1.5 w-full text-left rounded-lg p-2 -mx-2 hover:bg-neutral-100/80 transition-colors"
                   onClick={() => onDayClick(date, items)}
                   aria-label={dayAriaLabel(date, items.length)}
                 >
                   <h3
                     className={`text-sm font-bold font-montserrat ${
-                      isToday ? "text-orange-700" : "text-gray-900"
+                      isToday ? "text-charcoal" : "text-neutral-900"
                     }`}
                   >
                     {dateHeader}
                     {isToday && (
-                      <span className="ml-2 text-xs font-normal text-orange-600">
+                      <span className="ml-2 text-xs font-normal text-charcoal">
                         ({t("today")})
                       </span>
                     )}

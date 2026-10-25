@@ -6,7 +6,7 @@ export default function AboutUsSection() {
   return (
     <section
       id="about"
-      className="bg-orange-700 px-4 py-12 text-white scroll-mt-16"
+      className="bg-charcoal px-4 py-12 text-white scroll-mt-16"
       aria-labelledby="about-heading"
     >
       <div className="max-w-4xl mx-auto flex flex-col">

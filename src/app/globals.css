@@ -4,7 +4,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2B2A28;
 }
 
 @theme inline {
@@ -14,13 +14,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -28,8 +21,9 @@ body {
 }
 
 @theme {
-  --color-gold: #F4B400;
-  --color-charcoal: #2E2E2E;
+  --color-gold: #F4C542;
+  --color-gold-hover: #E3B536;
+  --color-charcoal: #2B2A28;
   --color-orange-accent: #FF8C42;
   --color-off-white: #FAF9F6;
   --color-rich-gray: #333333;

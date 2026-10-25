@@ -33,7 +33,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 bg-orange-700 w-full text-white py-2 px-4 z-50"
+      className="fixed top-0 left-0 right-0 bg-charcoal w-full text-white py-2 px-4 z-50"
       role="banner"
     >
       <nav
@@ -47,7 +47,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-orange-600 hover:text-white focus:outline-none"
+              className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold hover:text-white focus:outline-none"
             >
               <span className="absolute -inset-0.5" />
               <span className="sr-only">{t("openMainMenu")}</span>
@@ -79,7 +79,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 hover:text-white transition-colors"
+                className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold hover:text-white transition-colors"
                 role="menuitem"
                 aria-label={`Navigate to ${item.name}`}
               >
@@ -89,7 +89,7 @@ export default function Header() {
 
             {/* Services Dropdown */}
             <Menu as="div" className="relative">
-              <MenuButton className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 transition-colors">
+              <MenuButton className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold transition-colors">
                 {t("services")}
                 <ChevronDownIcon className="size-4" />
               </MenuButton>
@@ -102,7 +102,7 @@ export default function Header() {
                     <MenuItem key={item.name}>
                       <Link
                         href={item.href}
-                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-orange-100 data-[focus]:text-orange-900"
+                        className="block px-4 py-2 text-sm text-neutral-700 data-[focus]:bg-gold data-[focus]:text-charcoal"
                       >
                         {item.name}
                       </Link>
@@ -114,7 +114,7 @@ export default function Header() {
 
             <Link
               href="#community"
-              className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 hover:text-white transition-colors"
+              className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold hover:text-white transition-colors"
             >
               {t("community")}
             </Link>
@@ -136,7 +136,7 @@ export default function Header() {
         {/* Blurred backdrop */}
         <DialogBackdrop
           transition
-          className="fixed inset-0 bg-gray-600/50 backdrop-blur-sm transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
+          className="fixed inset-0 bg-neutral-600/50 backdrop-blur-sm transition-opacity duration-300 ease-linear data-[closed]:opacity-0"
         />
 
         {/* Sliding panel */}
@@ -149,7 +149,7 @@ export default function Header() {
               >
                 <div className="flex h-full flex-col overflow-hidden bg-white shadow-xl">
                   {/* Header */}
-                  <div className="flex items-center justify-between px-4 py-6 bg-orange-700">
+                  <div className="flex items-center justify-between px-4 py-6 bg-charcoal">
                     <Link
                       href="/"
                       className="flex items-center space-x-2 text-2xl font-bold font-montserrat tracking-wide text-white"
@@ -167,7 +167,7 @@ export default function Header() {
                     <button
                       type="button"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="relative rounded-md p-2 text-white hover:bg-orange-600"
+                      className="relative rounded-md p-2 text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold"
                     >
                       <span className="absolute -inset-0.5" />
                       <span className="sr-only">{t("closeMenu")}</span>
@@ -183,7 +183,7 @@ export default function Header() {
                           key={item.name}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block rounded-lg px-4 py-3 text-lg font-medium text-orange-700 hover:bg-orange-50 hover:text-orange-800 transition-colors"
+                          className="block rounded-lg px-4 py-3 text-lg font-medium text-charcoal hover:bg-neutral-100 hover:text-charcoal transition-colors"
                         >
                           {item.name}
                         </Link>
@@ -191,7 +191,7 @@ export default function Header() {
 
                       {/* Services submenu */}
                       <div className="pl-4">
-                        <p className="px-4 py-2 text-sm font-semibold text-gray-500 uppercase">
+                        <p className="px-4 py-2 text-sm font-semibold text-neutral-500 uppercase">
                           {t("services")}
                         </p>
                         {servicesMenu.map((item) => (
@@ -199,7 +199,7 @@ export default function Header() {
                             key={item.name}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block rounded-lg px-4 py-2 text-base font-medium text-orange-600 hover:bg-orange-50 hover:text-orange-800 transition-colors"
+                            className="block rounded-lg px-4 py-2 text-base font-medium text-charcoal hover:bg-neutral-100 hover:text-charcoal transition-colors"
                           >
                             {item.name}
                           </Link>
@@ -209,7 +209,7 @@ export default function Header() {
                       <Link
                         href="#community"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block rounded-lg px-4 py-3 text-lg font-medium text-orange-700 hover:bg-orange-50 hover:text-orange-800 transition-colors"
+                        className="block rounded-lg px-4 py-3 text-lg font-medium text-charcoal hover:bg-neutral-100 hover:text-charcoal transition-colors"
                       >
                         {t("community")}
                       </Link>
@@ -222,9 +222,9 @@ export default function Header() {
                   </div>
 
                   {/* Footer info */}
-                  <div className="border-t border-orange-100 px-4 py-6">
-                    <div className="text-sm text-gray-600">
-                      <p className="font-semibold text-orange-700">
+                  <div className="border-t border-neutral-200 px-4 py-6">
+                    <div className="text-sm text-neutral-600">
+                      <p className="font-semibold text-charcoal">
                         {t("serviceTimes")}
                       </p>
                       <p>Sunday: 6PM (EST) - On-site</p>
