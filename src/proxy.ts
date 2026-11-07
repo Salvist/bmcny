@@ -22,7 +22,11 @@ function getCleanAdminPath(pathname: string) {
 
 function getAdminRewritePath(pathname: string) {
   if (pathname === "/") return "/admin";
-  if (pathname === "/login" || pathname.startsWith("/events/")) {
+  if (
+    pathname === "/login" ||
+    pathname === "/prayer-requests" ||
+    pathname.startsWith("/events/")
+  ) {
     return `/admin${pathname}`;
   }
 

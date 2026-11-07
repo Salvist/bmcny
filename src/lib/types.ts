@@ -21,3 +21,33 @@ export interface EventRecord {
 export interface EventFormState {
   error?: string;
 }
+
+export interface PrayerRequestRecord {
+  id: string;
+  name: string | null;
+  contact: string;
+  prayer_request: string;
+  created_at: string;
+}
+
+export interface PrayerRequestValues {
+  name: string;
+  contact: string;
+  prayer_request: string;
+}
+
+export type PrayerRequestValidationError =
+  | "nameTooLong"
+  | "contactRequired"
+  | "contactTooLong"
+  | "contactInvalid"
+  | "prayerRequired"
+  | "prayerTooLong";
+
+export interface PrayerRequestFormState {
+  status: "idle" | "error" | "success";
+  fieldErrors?: Partial<
+    Record<keyof PrayerRequestValues, PrayerRequestValidationError>
+  >;
+  error?: "storageError";
+}

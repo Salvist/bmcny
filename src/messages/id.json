@@ -11,10 +11,36 @@
         "sundayServices": "Ibadah Minggu",
         "weeklyServices": "Ibadah Harian",
         "community": "Komunitas",
+        "prayerRequest": "Permohonan Doa",
         "latestServices": "Rekaman Ibadah",
         "openMainMenu": "Buka menu utama",
         "closeMenu": "Tutup menu",
         "serviceTimes": "Waktu Ibadah"
+    },
+    "prayerRequest": {
+        "title": "Apa yang dapat kami doakan untuk Anda?",
+        "description": "Anda tidak perlu menghadapinya sendiri. Bagikan permohonan doa Anda, dan tim gereja kami akan turut mendoakan Anda.",
+        "name": "Nama",
+        "optional": "opsional",
+        "contact": "Email atau nomor telepon",
+        "contactHelp": "Masukkan alamat email atau nomor telepon beserta kode negara atau kode area.",
+        "request": "Permohonan doa",
+        "requestHelp": "Tuliskan hal yang ingin Anda doakan (maksimal 5.000 karakter).",
+        "privacy": "Permohonan doa dan informasi kontak Anda bersifat pribadi dan hanya dapat dibaca oleh admin gereja yang berwenang.",
+        "submit": "Kirim permohonan doa",
+        "submissionConsent": "Dengan mengirimkan permohonan doa, Anda setuju untuk menerima tindak lanjut dari gereja kami",
+        "submitting": "Mengirim...",
+        "success": "Permohonan doa Anda telah diterima. Tim gereja kami akan turut mendoakan Anda.",
+        "checkFields": "Silakan periksa kolom yang ditandai dan coba lagi.",
+        "errors": {
+            "nameTooLong": "Nama maksimal 120 karakter.",
+            "contactRequired": "Silakan masukkan alamat email atau nomor telepon Anda.",
+            "contactTooLong": "Informasi kontak maksimal 254 karakter.",
+            "contactInvalid": "Masukkan alamat email yang valid atau nomor telepon dengan 7–15 digit.",
+            "prayerRequired": "Silakan tuliskan permohonan doa Anda.",
+            "prayerTooLong": "Permohonan doa maksimal 5.000 karakter.",
+            "storageError": "Permohonan doa Anda belum dapat disimpan. Isian Anda tetap tersimpan di formulir; silakan coba lagi."
+        }
     },
     "hero": {
         "welcomeTo": "Selamat Datang di",

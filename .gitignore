@@ -41,5 +41,9 @@ yarn-error.log*
 next-env.d.ts
 .env*.local
 
-/supabase
+# Keep local Supabase files ignored while including the prayer request migration.
+/supabase/*
+!/supabase/migrations/
+/supabase/migrations/*
+!/supabase/migrations/*_create_prayer_requests.sql
 /assets
