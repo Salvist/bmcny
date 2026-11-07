@@ -46,4 +46,5 @@ next-env.d.ts
 !/supabase/migrations/
 /supabase/migrations/*
 !/supabase/migrations/*_create_prayer_requests.sql
+!/supabase/migrations/20261107195000_update_prayer_request_fields.sql
 /assets

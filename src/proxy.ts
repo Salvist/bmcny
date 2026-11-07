@@ -24,6 +24,7 @@ function getAdminRewritePath(pathname: string) {
   if (pathname === "/") return "/admin";
   if (
     pathname === "/login" ||
+    pathname === "/events" ||
     pathname === "/prayer-requests" ||
     pathname.startsWith("/events/")
   ) {

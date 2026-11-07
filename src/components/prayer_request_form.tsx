@@ -8,7 +8,7 @@ import {
   EMPTY_PRAYER_REQUEST,
   PRAYER_REQUEST_LIMITS,
 } from "@/lib/prayer-requests";
-import type { PrayerRequestFormState } from "@/lib/types";
+import type { PrayerRequestFormState } from "@/types/prayer_request";
 
 const fieldClass =
   "mt-2 block w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-orange-600 focus:ring-2 focus:ring-orange-200 aria-invalid:border-red-600";
@@ -25,7 +25,7 @@ export function PrayerRequestForm() {
       if (nextState.status === "success") {
         setValues({ ...EMPTY_PRAYER_REQUEST });
       } else if (nextState.fieldErrors) {
-        const firstField = (["prayer_request", "name", "contact"] as const).find(
+        const firstField = (["text", "name", "phone_number", "email"] as const).find(
           (name) => nextState.fieldErrors?.[name],
         );
         const field = firstField
@@ -74,25 +74,25 @@ export function PrayerRequestForm() {
         </label>
         <textarea
           id="prayer-text"
-          name="prayer_request"
+          name="text"
           required
           rows={7}
-          maxLength={PRAYER_REQUEST_LIMITS.prayer_request}
-          value={values.prayer_request}
+          maxLength={PRAYER_REQUEST_LIMITS.text}
+          value={values.text}
           onChange={(event) =>
-            setValues({ ...values, prayer_request: event.target.value })
+            setValues({ ...values, text: event.target.value })
           }
           readOnly={pending}
-          aria-invalid={Boolean(state.fieldErrors?.prayer_request)}
-          aria-describedby={`prayer-text-help${state.fieldErrors?.prayer_request ? " prayer-text-error" : ""}`}
+          aria-invalid={Boolean(state.fieldErrors?.text)}
+          aria-describedby={`prayer-text-help${state.fieldErrors?.text ? " prayer-text-error" : ""}`}
           className={`${fieldClass} resize-y`}
         />
         <p id="prayer-text-help" className="mt-2 text-sm text-zinc-500">
           {t("requestHelp")}
         </p>
-        {state.fieldErrors?.prayer_request && (
+        {state.fieldErrors?.text && (
           <p id="prayer-text-error" className="mt-2 text-sm text-red-700">
-            {t(`errors.${state.fieldErrors.prayer_request}`)}
+            {t(`errors.${state.fieldErrors.text}`)}
           </p>
         )}
       </div>
@@ -125,36 +125,20 @@ export function PrayerRequestForm() {
         )}
       </div>
 
-      <div>
-        <label htmlFor="prayer-contact" className="font-medium text-zinc-800">
-          {t("contact")}
-        </label>
-        <input
-          id="prayer-contact"
-          name="contact"
-          type="text"
-          autoCapitalize="none"
-          spellCheck={false}
-          required
-          maxLength={PRAYER_REQUEST_LIMITS.contact}
-          value={values.contact}
-          onChange={(event) =>
-            setValues({ ...values, contact: event.target.value })
-          }
-          readOnly={pending}
-          aria-invalid={Boolean(state.fieldErrors?.contact)}
-          aria-describedby={`prayer-contact-help${state.fieldErrors?.contact ? " prayer-contact-error" : ""}`}
-          className={fieldClass}
-        />
-        <p id="prayer-contact-help" className="mt-2 text-sm text-zinc-500">
-          {t("contactHelp")}
-        </p>
-        {state.fieldErrors?.contact && (
-          <p id="prayer-contact-error" className="mt-2 text-sm text-red-700">
-            {t(`errors.${state.fieldErrors.contact}`)}
-          </p>
-        )}
-      </div>
+      <p id="contact-help" className="text-sm text-zinc-500">{t("contactHelp")}</p>
+      {(["phone_number", "email"] as const).map((field) => (
+        <div key={field}>
+          <label htmlFor={field} className="font-medium text-zinc-800">{t(field)}</label>
+          <input id={field} name={field} type={field === "email" ? "email" : "tel"}
+            autoComplete={field === "email" ? "email" : "tel"}
+            maxLength={PRAYER_REQUEST_LIMITS[field]} value={values[field]}
+            onChange={(event) => setValues({ ...values, [field]: event.target.value })}
+            readOnly={pending} aria-invalid={Boolean(state.fieldErrors?.[field])}
+            aria-describedby={state.fieldErrors?.[field] ? field + "-error contact-help" : "contact-help"}
+            className={fieldClass} />
+          {state.fieldErrors?.[field] && <p id={field + "-error"} className="mt-2 text-sm text-red-700">{t(`errors.${state.fieldErrors[field]}`)}</p>}
+        </div>
+      ))}
 
       <p className="text-sm leading-relaxed text-zinc-600">{t("privacy")}</p>
       <SubmitButton

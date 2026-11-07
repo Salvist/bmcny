@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BMCNY Admin",
   description: "Bethany Miracle Center New York admin panel",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@
 
 import { validatePrayerRequest } from "@/lib/prayer-requests";
 import { createClient } from "@/lib/supabase/server";
-import type { PrayerRequestFormState } from "@/lib/types";
+import type { PrayerRequestFormState } from "@/types/prayer_request";
 
 export async function submitPrayerRequest(
   _state: PrayerRequestFormState,
@@ -19,8 +19,9 @@ export async function submitPrayerRequest(
     // Do not select the inserted row: visitors have insert-only access.
     const { error } = await supabase.from("prayer_requests").insert({
       name: values.name || null,
-      contact: values.contact,
-      prayer_request: values.prayer_request,
+      phone_number: values.phone_number || null,
+      email: values.email || null,
+      text: values.text,
     });
 
     if (error) {

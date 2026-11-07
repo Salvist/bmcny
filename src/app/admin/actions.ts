@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import type { EventFormState } from "@/lib/types";
+import type { EventFormState } from "@/types/event";
 
 const IMAGE_BUCKET = "event-images";
 const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
@@ -16,6 +16,13 @@ const ALLOWED_IMAGE_TYPES = new Set([
 ]);
 const MEETING_TYPES = new Set(["onsite", "online"]);
 const RECURRENCE_TYPES = new Set(["continuous", "weekly"]);
+
+function revalidateEventPages() {
+  // Refresh both the public website and the rewritten admin routes.
+  revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath("/admin/events");
+}
 
 function getString(formData: FormData, key: string): string {
   const value = formData.get(key);
@@ -206,7 +213,7 @@ export async function signIn(formData: FormData) {
   const supabase = await createClient();
 
   if (!email || !password) {
-    redirect("/admin/login?error=missing");
+    redirect("/login?error=missing");
   }
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -215,23 +222,23 @@ export async function signIn(formData: FormData) {
   });
 
   if (error) {
-    redirect("/admin/login?error=credentials");
+    redirect("/login?error=credentials");
   }
 
   const { isAdmin } = await requireAdmin();
 
   if (!isAdmin) {
     await supabase.auth.signOut();
-    redirect("/admin/login?error=unauthorized");
+    redirect("/login?error=unauthorized");
   }
 
-  redirect("/admin");
+  redirect("/");
 }
 
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/admin/login");
+  redirect("/login");
 }
 
 export async function createEvent(
@@ -256,15 +263,13 @@ export async function createEvent(
       ...imagePayload,
     });
 
-    if (error) return { error: error.message };
-  } catch (error) {
-    return {
-      error: error instanceof Error ? error.message : "Failed to upload image.",
-    };
+    if (error) return { error: "The event could not be created. Please try again." };
+  } catch {
+    return { error: "The event could not be created. Please try again." };
   }
 
-  revalidatePath("/");
-  redirect("/admin");
+  revalidateEventPages();
+  redirect("/events");
 }
 
 export async function updateEvent(
@@ -295,19 +300,18 @@ export async function updateEvent(
       })
       .eq("id", id);
 
-    if (error) return { error: error.message };
+    if (error) return { error: "Your changes could not be saved. Please try again." };
 
     if (imagePayload && currentImagePath) {
       await supabase.storage.from(IMAGE_BUCKET).remove([currentImagePath]);
     }
-  } catch (error) {
-    return {
-      error: error instanceof Error ? error.message : "Failed to update event.",
-    };
+  } catch {
+    return { error: "Your changes could not be saved. Please try again." };
   }
 
-  revalidatePath("/");
-  redirect("/admin");
+  revalidateEventPages();
+  revalidatePath(`/admin/events/${id}`);
+  redirect("/events");
 }
 
 export async function toggleEvent(formData: FormData) {
@@ -322,7 +326,8 @@ export async function toggleEvent(formData: FormData) {
       .eq("id", id);
   }
 
-  revalidatePath("/");
+  revalidateEventPages();
+  if (id) revalidatePath(`/admin/events/${id}`);
 }
 
 export async function deleteEvent(formData: FormData) {
@@ -338,5 +343,6 @@ export async function deleteEvent(formData: FormData) {
     await supabase.storage.from(IMAGE_BUCKET).remove([imagePath]);
   }
 
-  revalidatePath("/");
+  revalidateEventPages();
+  if (id) revalidatePath(`/admin/events/${id}`);
 }

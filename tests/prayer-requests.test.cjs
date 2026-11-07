@@ -39,8 +39,9 @@ function form(overrides = {}) {
   const data = new FormData();
   for (const [key, value] of Object.entries({
     name: "",
-    contact: "visitor@example.com",
-    prayer_request: "Please pray for our family.\nThank you.",
+    email: "visitor@example.com",
+    phone_number: "",
+    text: "Please pray for our family.\nThank you.",
     ...overrides,
   }))
     data.set(key, value);
@@ -57,79 +58,33 @@ test("names and contacts are trimmed while prayer line breaks remain", () => {
   const { values } = validatePrayerRequest(
     form({
       name: "  Visitor  ",
-      contact: " visitor@example.com ",
-      prayer_request: "  First line\nSecond line  ",
+      email: " visitor@example.com ",
+      text: "  First line\nSecond line  ",
     }),
   );
   assert.deepEqual(values, {
     name: "Visitor",
-    contact: "visitor@example.com",
-    prayer_request: "First line\nSecond line",
+    email: "visitor@example.com",
+    phone_number: "",
+    text: "First line\nSecond line",
   });
 });
 
-test("formatted local and international phone numbers are accepted", () => {
-  for (const contact of [
-    "+1 (212) 555-0123",
-    "0812-3456-7890",
-    "1234567",
-    "+123456789012345",
-  ]) {
-    assert.deepEqual(
-      validatePrayerRequest(form({ contact })).fieldErrors,
-      {},
-      contact,
-    );
+test("phone only and both contact methods are accepted", () => {
+  for (const phone_number of ["+1 (212) 555-0123", "0812-3456-7890", "1234567", "+123456789012345"]) {
+    assert.deepEqual(validatePrayerRequest(form({ email: "", phone_number })).fieldErrors, {});
+    assert.deepEqual(validatePrayerRequest(form({ phone_number })).fieldErrors, {});
   }
 });
-
-test("invalid email addresses, phone numbers and whitespace are rejected", () => {
-  for (const contact of [
-    "name@",
-    "name@example",
-    "hello",
-    "123456",
-    "1234567890123456",
-    "212-CALL-NOW",
-    "++12125550123",
-  ]) {
-    assert.equal(
-      validatePrayerRequest(form({ contact })).fieldErrors.contact,
-      "contactInvalid",
-      contact,
-    );
-  }
-  assert.deepEqual(
-    validatePrayerRequest(form({ contact: " \t", prayer_request: " \n " }))
-      .fieldErrors,
-    {
-      contact: "contactRequired",
-      prayer_request: "prayerRequired",
-    },
-  );
+test("each supplied contact is validated even when the other is valid", () => {
+  for (const email of ["name@", "name@example", "hello"]) assert.equal(validatePrayerRequest(form({ email, phone_number: "1234567" })).fieldErrors.email, "emailInvalid");
+  for (const phone_number of ["123456", "1234567890123456", "212-CALL-NOW", "++12125550123"]) assert.equal(validatePrayerRequest(form({ phone_number })).fieldErrors.phone_number, "phoneInvalid");
+  assert.deepEqual(validatePrayerRequest(form({ email: " ", text: " " })).fieldErrors, { email: "contactRequired", phone_number: "contactRequired", text: "prayerRequired" });
 });
-
-test("length boundaries are accepted and oversized fields are rejected", () => {
-  const boundary = {
-    name: "n".repeat(120),
-    contact: `${"a".repeat(242)}@example.com`,
-    prayer_request: "p".repeat(5000),
-  };
+test("length limits are enforced", () => {
+  const boundary = { name: "n".repeat(120), email: "a".repeat(242) + "@example.com", text: "p".repeat(5000) };
   assert.deepEqual(validatePrayerRequest(form(boundary)).fieldErrors, {});
-  assert.deepEqual(
-    validatePrayerRequest(
-      form({
-        name: `${boundary.name}n`,
-        contact: `${boundary.contact}m`,
-        prayer_request: `${boundary.prayer_request}p`,
-      }),
-    ).fieldErrors,
-    {
-      name: "nameTooLong",
-      contact: "contactTooLong",
-      prayer_request: "prayerTooLong",
-    },
-  );
+  assert.deepEqual(validatePrayerRequest(form({ name: boundary.name + "n", email: boundary.email + "m", text: boundary.text + "p", phone_number: "1".repeat(255) })).fieldErrors, { name: "nameTooLong", email: "emailTooLong", text: "prayerTooLong", phone_number: "phoneTooLong" });
 });
 
 function actionWithClient(createClient) {
@@ -144,10 +99,10 @@ test("validation failures never access the database", async () => {
   });
   const result = await submit(
     { status: "idle" },
-    form({ prayer_request: " " }),
+    form({ text: " " }),
   );
   assert.equal(result.status, "error");
-  assert.equal(result.fieldErrors.prayer_request, "prayerRequired");
+  assert.equal(result.fieldErrors.text, "prayerRequired");
   assert.equal(result.error, undefined);
 });
 
@@ -166,13 +121,14 @@ test("successful submissions insert trimmed values, null name and no returned ro
   }));
   const result = await submit(
     { status: "idle" },
-    form({ name: " ", contact: " visitor@example.com " }),
+    form({ name: " ", email: " visitor@example.com " }),
   );
   assert.deepEqual(result, { status: "success" });
   assert.deepEqual(saved, {
     name: null,
-    contact: "visitor@example.com",
-    prayer_request: "Please pray for our family.\nThank you.",
+    email: "visitor@example.com",
+    phone_number: null,
+    text: "Please pray for our family.\nThank you.",
   });
 });
 
@@ -211,28 +167,53 @@ test("English and Indonesian contain matching prayer form and error messages", (
   assert.ok(en.nav.prayerRequest && id.nav.prayerRequest);
 });
 
-async function renderInbox(response, page, requireAdminOverride) {
+async function renderInbox(response, page, requireAdminOverride, focus = {}) {
   let range;
-  const query = {
-    select() {
-      return this;
-    },
-    order() {
-      return this;
-    },
-    range(start, end) {
-      range = [start, end];
-      return Promise.resolve(response);
-    },
+  const queries = [];
+  const from = (table) => {
+    assert.equal(table, "prayer_requests");
+    const call = { orders: [] };
+    queries.push(call);
+    return {
+      select(fields, options) {
+        call.fields = fields;
+        call.options = options;
+        return this;
+      },
+      eq(field, value) {
+        call.eq = [field, value];
+        return this;
+      },
+      maybeSingle() {
+        call.maybeSingle = true;
+        return Promise.resolve(focus.targetResponse ?? { data: null, error: null });
+      },
+      or(filter) {
+        call.or = filter;
+        return Promise.resolve(focus.precedingResponse ?? { count: 0, error: null });
+      },
+      order(field, options) {
+        call.orders.push([field, options]);
+        return this;
+      },
+      range(start, end) {
+        range = [start, end];
+        call.range = range;
+        return Promise.resolve(response);
+      },
+    };
   };
   const { default: Inbox } = loadModule(
-    "src/app/admin/prayer-requests/page.tsx",
+    "src/app/admin/(workspace)/prayer-requests/page.tsx",
     {
       "@/lib/auth": {
         requireAdmin:
           requireAdminOverride ??
-          (async () => ({ supabase: { from: () => query } })),
+          (async () => ({ supabase: { from } })),
       },
+      "@/components/prayer_request_editor": loadModule("src/components/prayer_request_editor.tsx", {
+        "@/app/admin/(workspace)/prayer-requests/actions": { updatePrayerRequest: async () => ({ status: "success" }) },
+      }),
       "next/link": {
         __esModule: true,
         default: ({ children, ...props }) =>
@@ -240,19 +221,24 @@ async function renderInbox(response, page, requireAdminOverride) {
       },
     },
   );
-  const element = await Inbox({ searchParams: Promise.resolve({ page }) });
+  const element = await Inbox({ searchParams: Promise.resolve({ page, request: focus.request }) });
   return {
     html: require("react-dom/server").renderToStaticMarkup(element),
     range,
+    queries,
   };
 }
 
 const inboxFixture = {
   id: "test-id",
   name: null,
-  contact: "visitor@example.com",
-  prayer_request: "First line\n<script>literal text</script>",
+  email: "visitor@example.com",
+  phone_number: null,
+  text: "First line\n<script>literal text</script>",
   created_at: "2026-11-07T17:00:00Z",
+  updated_at: "2026-11-07T17:00:00Z",
+  status: "pending",
+  notes: null,
 };
 
 test("the admin inbox renders private entries, optional names and New York times", async () => {
@@ -262,7 +248,7 @@ test("the admin inbox renders private entries, optional names and New York times
     error: null,
   });
   assert.deepEqual(range, [0, 49]);
-  assert.match(html, /Not provided/);
+  assert.match(html, /Name not provided/);
   assert.match(html, /visitor@example.com/);
   assert.match(html, /Nov 7, 2026, 12:00 PM/);
   assert.match(html, /First line\n&lt;script&gt;literal text&lt;\/script&gt;/);
@@ -314,4 +300,160 @@ test("the inbox requires authorization before reading submissions", async () => 
       }),
     /Unauthorized/,
   );
+});
+
+const focusedRequest = {
+  id: "12345678-1234-1234-1234-123456789abc",
+  created_at: "2026-11-01T17:00:00+00:00",
+};
+
+test("a focused request resolves its current page using timestamp and id ordering", async () => {
+  const { html, range, queries } = await renderInbox(
+    { data: [{ ...inboxFixture, ...focusedRequest }], count: 151, error: null },
+    "1",
+    undefined,
+    {
+      request: focusedRequest.id,
+      targetResponse: { data: focusedRequest, error: null },
+      precedingResponse: { count: 101, error: null },
+    },
+  );
+  assert.deepEqual(range, [100, 149]);
+  assert.equal(queries.length, 3);
+  assert.equal(queries[0].fields, "id, created_at");
+  assert.deepEqual(queries[0].eq, ["id", focusedRequest.id]);
+  assert.equal(queries[0].maybeSingle, true);
+  assert.deepEqual(queries[1].options, { count: "exact", head: true });
+  assert.equal(
+    queries[1].or,
+    `created_at.gt.${focusedRequest.created_at},and(created_at.eq.${focusedRequest.created_at},id.gt.${focusedRequest.id})`,
+  );
+  assert.deepEqual(queries[2].orders, [["created_at", { ascending: false }], ["id", { ascending: false }]]);
+  assert.match(html, /Page 3/);
+  assert.match(html, new RegExp(`id="request-${focusedRequest.id}"`));
+  assert.match(html, /href="\/prayer-requests\?page=2"/);
+  assert.match(html, /href="\/prayer-requests\?page=4"/);
+});
+
+test("focused request pages change exactly at the 50-row boundary", async () => {
+  for (const [preceding, expectedRange] of [
+    [0, [0, 49]],
+    [49, [0, 49]],
+    [50, [50, 99]],
+    [99, [50, 99]],
+    [100, [100, 149]],
+  ]) {
+    const { range } = await renderInbox(
+      { data: [], count: 151, error: null },
+      "9",
+      undefined,
+      {
+        request: focusedRequest.id,
+        targetResponse: { data: focusedRequest, error: null },
+        precedingResponse: { count: preceding, error: null },
+      },
+    );
+    assert.deepEqual(range, expectedRange, `${preceding} newer requests`);
+  }
+});
+
+test("missing or unavailable focused requests fall back to latest submissions with friendly notices", async () => {
+  for (const scenario of [
+    { targetResponse: { data: null, error: null }, notice: /This request is no longer available/, queryCount: 2 },
+    { targetResponse: { data: null, error: { message: "private lookup details" } }, notice: /This request could not be located/, queryCount: 2 },
+    { targetResponse: { data: focusedRequest, error: null }, precedingResponse: { count: null, error: { message: "private count details" } }, notice: /This request could not be located/, queryCount: 3 },
+    { targetResponse: { data: focusedRequest, error: null }, precedingResponse: { count: null, error: null }, notice: /This request could not be located/, queryCount: 3 },
+  ]) {
+    const { html, range, queries } = await renderInbox(
+      { data: [inboxFixture], count: 1, error: null },
+      "6",
+      undefined,
+      { request: focusedRequest.id, ...scenario },
+    );
+    assert.deepEqual(range, [0, 49]);
+    assert.equal(queries.length, scenario.queryCount);
+    assert.match(html, scenario.notice);
+    assert.match(html, /Showing the latest submissions/);
+    assert.match(html, /role="status"/);
+    assert.match(html, /visitor@example\.com/);
+    assert.doesNotMatch(html, /private lookup details|private count details/);
+  }
+});
+
+test("malformed focused request parameters never enter lookup or count filters", async () => {
+  for (const request of [
+    undefined, "", "not-a-uuid", `${focusedRequest.id},id.gt.anything`,
+    `${focusedRequest.id}'`, [focusedRequest.id], [focusedRequest.id, focusedRequest.id],
+  ]) {
+    const { html, range, queries } = await renderInbox(
+      { data: [inboxFixture], count: 51, error: null },
+      "2",
+      undefined,
+      { request },
+    );
+    assert.deepEqual(range, [50, 99]);
+    assert.equal(queries.length, 1);
+    assert.equal(queries[0].eq, undefined);
+    assert.equal(queries[0].or, undefined);
+    assert.equal(queries[0].maybeSingle, undefined);
+    assert.doesNotMatch(html, /This request could not be located|This request is no longer available/);
+  }
+});
+
+function updateAction(requireAdmin, revalidatePath = () => {}) {
+  return loadModule("src/app/admin/(workspace)/prayer-requests/actions.ts", {
+    "@/lib/auth": { requireAdmin },
+    "next/cache": { revalidatePath },
+  }).updatePrayerRequest;
+}
+
+function updateForm(status, notes = "") {
+  const data = new FormData();
+  data.set("status", status);
+  data.set("notes", notes);
+  data.set("text", "Untrusted replacement");
+  return data;
+}
+
+test("admin saves allow all statuses and send only status and trimmed notes", async () => {
+  for (const status of ["pending", "ongoing", "prayed", "rejected"]) {
+    let saved;
+    const refreshed = [];
+    const update = updateAction(async () => ({ supabase: { from(table) {
+      assert.equal(table, "prayer_requests");
+      return { update(payload) { saved = payload; return this; },
+        eq(field, value) { assert.equal(field, "id"); assert.equal(value, focusedRequest.id); return this; },
+        select(fields) { assert.equal(fields, "id"); return this; },
+        maybeSingle: async () => ({ data: { id: focusedRequest.id }, error: null }),
+      };
+    } } }), (path) => refreshed.push(path));
+    assert.deepEqual(await update(focusedRequest.id, { status: "idle" }, updateForm(status, "  Follow up\nTomorrow  ")), { status: "success" });
+    assert.deepEqual(saved, { status, notes: "Follow up\nTomorrow" });
+    assert.deepEqual(refreshed, ["/admin/prayer-requests"]);
+  }
+});
+
+test("admin update requires authorization before database access", async () => {
+  const update = updateAction(async () => { throw new Error("Unauthorized"); });
+  await assert.rejects(() => update(focusedRequest.id, { status: "idle" }, updateForm("pending")), /Unauthorized/);
+});
+
+test("invalid statuses, identifiers and oversized notes never reach the database", async () => {
+  const update = updateAction(async () => ({ supabase: { from() { throw new Error("Database must not be called"); } } }));
+  for (const [id, status, notes] of [[focusedRequest.id, "invalid", ""], ["invalid-id", "pending", ""], [focusedRequest.id, "pending", "n".repeat(5001)]]) {
+    const result = await update(id, { status: "idle" }, updateForm(status, notes));
+    assert.equal(result.status, "error");
+    assert.match(result.error, /Choose a valid status/);
+  }
+});
+
+test("missing rows, database failures and exceptions show friendly save errors", async () => {
+  for (const response of [{ data: null, error: null }, { data: null, error: { message: "private details" } }, new Error("private connection")]) {
+    const update = updateAction(async () => ({ supabase: { from() { return {
+      update() { return this; }, eq() { return this; }, select() { return this; },
+      async maybeSingle() { if (response instanceof Error) throw response; return response; },
+    }; } } }), () => { throw new Error("Failed saves must not refresh"); });
+    const result = await update(focusedRequest.id, { status: "idle" }, updateForm("pending"));
+    assert.deepEqual(result, { status: "error", error: "Could not save this request. Please try again." });
+  }
 });

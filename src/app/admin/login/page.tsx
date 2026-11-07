@@ -20,7 +20,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const error = params.error ? errorMessages[params.error] : null;
 
   if (user && isAdmin) {
-    redirect("/admin");
+    redirect("/");
   }
 
   return (

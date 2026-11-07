@@ -1,15 +1,18 @@
-import type { PrayerRequestFormState, PrayerRequestValues } from "@/lib/types";
+import type { PrayerRequestFormState, PrayerRequestValues } from "@/types/prayer_request";
+
 
 export const PRAYER_REQUEST_LIMITS = {
   name: 120,
-  contact: 254,
-  prayer_request: 5000,
+  email: 254,
+  phone_number: 254,
+  text: 5000,
 } as const;
 
 export const EMPTY_PRAYER_REQUEST: PrayerRequestValues = {
   name: "",
-  contact: "",
-  prayer_request: "",
+  email: "",
+  phone_number: "",
+  text: "",
 };
 
 export function validatePrayerRequest(formData: FormData) {
@@ -20,8 +23,9 @@ export function validatePrayerRequest(formData: FormData) {
 
   const values: PrayerRequestValues = {
     name: getText("name"),
-    contact: getText("contact"),
-    prayer_request: getText("prayer_request"),
+    email: getText("email"),
+    phone_number: getText("phone_number"),
+    text: getText("text"),
   };
   const fieldErrors: NonNullable<PrayerRequestFormState["fieldErrors"]> = {};
 
@@ -29,28 +33,31 @@ export function validatePrayerRequest(formData: FormData) {
     fieldErrors.name = "nameTooLong";
   }
 
-  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.contact);
-  const digitCount = values.contact.replace(/\D/g, "").length;
-  const isPhone =
-    /^\+?[0-9 ().-]+$/.test(values.contact) &&
-    digitCount >= 7 &&
-    digitCount <= 15;
-
-  if (!values.contact) {
-    fieldErrors.contact = "contactRequired";
-  } else if (values.contact.length > PRAYER_REQUEST_LIMITS.contact) {
-    fieldErrors.contact = "contactTooLong";
-  } else if (!isEmail && !isPhone) {
-    fieldErrors.contact = "contactInvalid";
+  if (!values.email && !values.phone_number) {
+    fieldErrors.email = "contactRequired";
+    fieldErrors.phone_number = "contactRequired";
+  }
+  if (values.email.length > PRAYER_REQUEST_LIMITS.email) {
+    fieldErrors.email = "emailTooLong";
+  } else if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+    fieldErrors.email = "emailInvalid";
+  }
+  const digitCount = values.phone_number.replace(/\D/g, "").length;
+  if (values.phone_number.length > PRAYER_REQUEST_LIMITS.phone_number) {
+    fieldErrors.phone_number = "phoneTooLong";
+  } else if (values.phone_number && (!/^\+?[0-9 ().-]+$/.test(values.phone_number) || digitCount < 7 || digitCount > 15)) {
+    fieldErrors.phone_number = "phoneInvalid";
   }
 
-  if (!values.prayer_request) {
-    fieldErrors.prayer_request = "prayerRequired";
+  if (!values.text) {
+    fieldErrors.text = "prayerRequired";
   } else if (
-    values.prayer_request.length > PRAYER_REQUEST_LIMITS.prayer_request
+    values.text.length > PRAYER_REQUEST_LIMITS.text
   ) {
-    fieldErrors.prayer_request = "prayerTooLong";
+    fieldErrors.text = "prayerTooLong";
   }
 
   return { values, fieldErrors };
 }
+
+export const PRAYER_REQUEST_STATUSES = ["pending", "ongoing", "prayed", "rejected"] as const;
