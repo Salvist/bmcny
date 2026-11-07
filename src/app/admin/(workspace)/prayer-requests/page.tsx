@@ -1,4 +1,4 @@
-import { PrayerRequestEditor } from "@/components/prayer_request_editor";
+import { PrayerRequestEditor } from "./prayer_request_editor";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth";

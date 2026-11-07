@@ -211,8 +211,8 @@ async function renderInbox(response, page, requireAdminOverride, focus = {}) {
           requireAdminOverride ??
           (async () => ({ supabase: { from } })),
       },
-      "@/components/prayer_request_editor": loadModule("src/components/prayer_request_editor.tsx", {
-        "@/app/admin/(workspace)/prayer-requests/actions": { updatePrayerRequest: async () => ({ status: "success" }) },
+      "./prayer_request_editor": loadModule("src/app/admin/(workspace)/prayer-requests/prayer_request_editor.tsx", {
+        "./actions": { updatePrayerRequest: async () => ({ status: "success" }) },
       }),
       "next/link": {
         __esModule: true,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { updatePrayerRequest } from "@/app/admin/(workspace)/prayer-requests/actions";
+import { updatePrayerRequest } from "./actions";
 import { PRAYER_REQUEST_STATUSES } from "@/lib/prayer-requests";
 import type { PrayerRequest, PrayerRequestUpdateState } from "@/types/prayer_request";
 
