@@ -24,7 +24,7 @@
       "optional": "optional",
       "phone_number": "Phone number",
       "email": "Email",
-      "contactHelp": "Provide at least one: phone number (including country or area code) or email.",
+      "contactHelp": "Please provide either your phone number or email address. You can fill in both if you prefer. For phone numbers, include the country or area code.",
       "request": "Prayer request",
       "requestHelp": "Share what you would like us to pray for (up to 5,000 characters).",
       "privacy": "Your prayer request and contact information are private and can only be read by authorized church admins.",

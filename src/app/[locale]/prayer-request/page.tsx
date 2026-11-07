@@ -25,7 +25,7 @@ export default function PrayerRequestPage() {
       if (nextState.status === "success") {
         setValues({ ...EMPTY_PRAYER_REQUEST });
       } else if (nextState.fieldErrors) {
-        const firstField = (["text", "name", "phone_number", "email"] as const).find(
+        const firstField = (["text", "name", "email", "phone_number"] as const).find(
           (name) => nextState.fieldErrors?.[name],
         );
         const field = firstField
@@ -136,9 +136,12 @@ export default function PrayerRequestPage() {
             </div>
 
             <p id="contact-help" className="text-sm text-zinc-500">{t("contactHelp")}</p>
-            {(["phone_number", "email"] as const).map((field) => (
-              <div key={field}>
-                <label htmlFor={field} className="font-medium text-zinc-800">{t(field)}</label>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {(["email", "phone_number"] as const).map((field) => (
+              <div key={field} className="flex min-w-0 flex-col">
+                <label htmlFor={field} className="flex-1 font-medium text-zinc-800">
+                  {t(field)}
+                </label>
                 <input id={field} name={field} type={field === "email" ? "email" : "tel"}
                   autoComplete={field === "email" ? "email" : "tel"}
                   maxLength={PRAYER_REQUEST_LIMITS[field]} value={values[field]}
@@ -149,6 +152,7 @@ export default function PrayerRequestPage() {
                 {state.fieldErrors?.[field] && <p id={field + "-error"} className="mt-2 text-sm text-red-700">{t(`errors.${state.fieldErrors[field]}`)}</p>}
               </div>
             ))}
+            </div>
 
             <p className="text-sm leading-relaxed text-zinc-600">{t("privacy")}</p>
             <SubmitButton
