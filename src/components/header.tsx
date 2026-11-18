@@ -10,7 +10,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -21,14 +21,15 @@ export default function Header() {
   const t = useTranslations("nav");
 
   const servicesMenu = [
-    { name: t("sundayServices"), href: "#sunday-services" },
-    { name: t("weeklyServices"), href: "#weekly-services" },
-    { name: t("latestServices"), href: "#latest-services" },
+    { name: t("sundayServices"), href: "/#sunday-services" },
+    { name: t("weeklyServices"), href: "/#weekly-services" },
+    { name: t("latestServices"), href: "/#latest-services" },
   ];
 
   const navigation = [
     { name: t("home"), href: "/" },
-    { name: t("about"), href: "#about" },
+    { name: t("about"), href: "/#about" },
+    { name: t("prayerRequest"), href: "/prayer-request" },
   ];
 
   return (
@@ -37,13 +38,13 @@ export default function Header() {
       role="banner"
     >
       <nav
-        className="max-w-4xl mx-auto"
+        className="max-w-6xl mx-auto"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="relative flex h-12 items-center justify-between">
           {/* Mobile menu button */}
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -56,7 +57,7 @@ export default function Header() {
           </div>
 
           {/* Logo - Left */}
-          <div className="flex items-center pl-12 sm:pl-0">
+          <div className="flex shrink-0 items-center pl-12 lg:pl-0">
             <Link
               href="/"
               className="flex items-center space-x-2 text-2xl font-bold font-montserrat tracking-wide text-white"
@@ -74,7 +75,7 @@ export default function Header() {
           </div>
 
           {/* Desktop navigation - Center */}
-          <div className="hidden sm:flex sm:items-center sm:space-x-4 absolute left-1/2 transform -translate-x-1/2">
+          <div className="hidden lg:flex lg:items-center lg:gap-1">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -113,7 +114,7 @@ export default function Header() {
             </Menu>
 
             <Link
-              href="#community"
+              href="/#community"
               className="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus-visible:bg-neutral-800 focus-visible:text-gold hover:text-white transition-colors"
             >
               {t("community")}
@@ -121,7 +122,7 @@ export default function Header() {
           </div>
 
           {/* Language Switcher - Right */}
-          <div className="hidden sm:flex sm:items-center">
+          <div className="hidden shrink-0 lg:flex lg:items-center">
             <LanguageSwitcher />
           </div>
         </div>
@@ -207,7 +208,7 @@ export default function Header() {
                       </div>
 
                       <Link
-                        href="#community"
+                        href="/#community"
                         onClick={() => setMobileMenuOpen(false)}
                         className="block rounded-lg px-4 py-3 text-lg font-medium text-charcoal hover:bg-neutral-100 hover:text-charcoal transition-colors"
                       >

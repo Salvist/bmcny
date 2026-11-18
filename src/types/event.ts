@@ -1,4 +1,4 @@
-export interface EventRecord {
+export interface ChurchEvent {
   id: string;
   name: string;
   location: string;

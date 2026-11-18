@@ -1,17 +1,18 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import Link from "next/link";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { createEvent, updateEvent } from "@/app/admin/actions";
-import type { EventRecord } from "@/lib/types";
+import type { ChurchEvent } from "@/types/event";
 import { SubmitButton } from "@/components/submit_button";
 
 interface EventFormProps {
-  event?: EventRecord;
+  event?: ChurchEvent;
 }
 
 const fieldClass =
-  "mt-1 w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-950 outline-none transition focus:border-orange-600 focus:ring-2 focus:ring-orange-200";
-const labelClass = "text-sm font-medium text-zinc-700";
+  "mt-1 block min-h-11 w-full min-w-0 rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-950 outline-none transition focus:border-orange-600 focus:ring-2 focus:ring-orange-200";
+const labelClass = "block text-sm font-medium text-zinc-700";
 const weekdays = [
   { value: 0, label: "Sun" },
   { value: 1, label: "Mon" },
@@ -25,6 +26,10 @@ const weekdays = [
 export function EventForm({ event }: EventFormProps) {
   const action = event ? updateEvent : createEvent;
   const [state, formAction] = useActionState(action, {});
+  const errorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (state.error) errorRef.current?.focus();
+  }, [state]);
   const initialMeetingType =
     event?.meeting_type ?? (event?.zoom_meeting_id ? "online" : "onsite");
   const [meetingType, setMeetingType] = useState<"onsite" | "online">(
@@ -51,7 +56,7 @@ export function EventForm({ event }: EventFormProps) {
       )}
 
       {state.error && (
-        <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div ref={errorRef} role="alert" tabIndex={-1} className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {state.error}
         </div>
       )}
@@ -187,7 +192,7 @@ export function EventForm({ event }: EventFormProps) {
             {weekdays.map((day) => (
               <label
                 key={day.value}
-                className="flex items-center gap-2 rounded-md border border-zinc-200 px-3 py-2 text-sm font-medium text-zinc-700"
+                className="flex min-h-11 items-center gap-2 rounded-md border border-zinc-200 px-3 py-2 text-sm font-medium text-zinc-700"
               >
                 <input
                   type="checkbox"
@@ -247,7 +252,7 @@ export function EventForm({ event }: EventFormProps) {
         />
       </label>
 
-      <label className="flex items-center gap-3 text-sm font-medium text-zinc-700">
+      <label className="flex min-h-11 items-center gap-3 text-sm font-medium text-zinc-700">
         <input
           type="checkbox"
           name="is_published"
@@ -257,12 +262,15 @@ export function EventForm({ event }: EventFormProps) {
         Published
       </label>
 
-      <SubmitButton
-        className="inline-flex min-h-10 items-center justify-center rounded-md bg-orange-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-800 disabled:cursor-not-allowed disabled:opacity-60"
-        pendingLabel={event ? "Updating..." : "Creating..."}
-      >
-        {event ? "Update event" : "Create event"}
-      </SubmitButton>
+      <div className="flex flex-wrap gap-3 border-t border-zinc-200 pt-5">
+        <SubmitButton
+          className="admin-button-primary"
+          pendingLabel={event ? "Saving..." : "Creating..."}
+        >
+          {event ? "Save changes" : "Create Event"}
+        </SubmitButton>
+        <Link href="/events" className="admin-button-secondary">Cancel</Link>
+      </div>
     </form>
   );
 }

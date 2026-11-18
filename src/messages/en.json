@@ -11,10 +11,42 @@
       "sundayServices": "Sunday Services",
       "weeklyServices": "Weekly Services",
       "community": "Community",
+      "prayerRequest": "Prayer Request",
       "latestServices": "Latest Services",
       "openMainMenu": "Open main menu",
       "closeMenu": "Close menu",
       "serviceTimes": "Service Times"
+    },
+    "prayerRequest": {
+      "title": "How can we pray for you?",
+      "description": "You don’t have to carry it alone. Our church team will pray with you.",
+      "name": "Name",
+      "optional": "optional",
+      "phone_number": "Phone number",
+      "email": "Email",
+      "contactTitle": "How can we reach you?",
+      "contactHelp": "Please provide an email address or phone number.",
+      "phoneHelp": "Include your country or area code.",
+      "request": "Prayer request",
+      "requestHelp": "Up to 5,000 characters.",
+      "submit": "Send prayer request",
+      "submissionConsent": "By sending your request, you agree to a follow-up from our church.",
+      "submitting": "Sending...",
+      "successTitle": "We received your prayer request.",
+      "success": "Our church team will pray with you.",
+      "sendAnother": "Send another request",
+      "checkFields": "Please check the highlighted fields and try again.",
+      "errors": {
+        "nameTooLong": "Please keep your name to 120 characters or fewer.",
+        "contactRequired": "Please enter your email address or phone number.",
+        "emailTooLong": "Please keep your email to 254 characters or fewer.",
+        "emailInvalid": "Enter a valid email address.",
+        "phoneTooLong": "Please keep your phone number to 254 characters or fewer.",
+        "phoneInvalid": "Enter a phone number with 7–15 digits.",
+        "prayerRequired": "Please enter your prayer request.",
+        "prayerTooLong": "Please keep your prayer request to 5,000 characters or fewer.",
+        "storageError": "We couldn't save your prayer request. Your entries are still here; please try again."
+      }
     },
     "hero": {
       "welcomeTo": "Welcome to",
@@ -175,4 +207,3 @@
       "password": "BMCNY"
     }
   }
-  

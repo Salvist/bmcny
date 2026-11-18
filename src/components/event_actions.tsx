@@ -1,9 +1,9 @@
 import { deleteEvent, toggleEvent } from "@/app/admin/actions";
-import type { EventRecord } from "@/lib/types";
+import type { ChurchEvent } from "@/types/event";
 import { SubmitButton } from "@/components/submit_button";
 
 interface EventActionsProps {
-  event: EventRecord;
+  event: ChurchEvent;
 }
 
 export function EventActions({ event }: EventActionsProps) {
@@ -17,7 +17,7 @@ export function EventActions({ event }: EventActionsProps) {
           value={event.is_published ? "true" : "false"}
         />
         <SubmitButton
-          className="rounded-md border border-zinc-300 px-3 py-2 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 disabled:opacity-60"
+          className="admin-button-secondary"
           pendingLabel="Saving..."
         >
           {event.is_published ? "Unpublish" : "Publish"}
@@ -28,7 +28,7 @@ export function EventActions({ event }: EventActionsProps) {
         <input type="hidden" name="id" value={event.id} />
         <input type="hidden" name="image_path" value={event.image_path} />
         <SubmitButton
-          className="rounded-md border border-red-200 px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-50 disabled:opacity-60"
+          className="inline-flex min-h-11 items-center justify-center rounded-md border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-700 transition hover:bg-red-50 disabled:opacity-60"
           pendingLabel="Deleting..."
         >
           Delete
