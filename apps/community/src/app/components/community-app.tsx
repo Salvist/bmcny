@@ -36,8 +36,6 @@ type CommunityState = ReturnType<typeof scheduleData> & {
   provider?: Provider;
   personalShifts: Gathering[];
   scheduleItems: Gathering[];
-  department: string;
-  setDepartment: (value: string) => void;
   day: string;
   setDay: (value: string) => void;
   signIn: (value?: Provider) => void;
@@ -77,7 +75,6 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
   }
   const [tools, setTools] = useState(false);
   const [reset, setReset] = useState(false);
-  const [department, setDepartment] = useState("");
   const [day, setDay] = useState("");
   if (pathname !== previousPath) {
     setPreviousPath(pathname);
@@ -172,7 +169,7 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
   return (
     <CommunityContext.Provider value={{
       data, demo, provider, rosters, gatherings, personalShifts, scheduleItems,
-      department, setDepartment, day, setDay, signIn, change, preview, setItem,
+      day, setDay, signIn, change, preview, setItem,
     }}>
     <div className="app">
       <aside className="rail">
@@ -241,7 +238,6 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
               const value = String(new FormData(e.currentTarget).get("persona"));
               change(s => value === "visitor" ? { ...switchMember(s, "alex", false), volunteer: false } :
                 switchMember(s, value === "leader" ? "jo" : value, value === "leader"));
-              setDepartment("");
               setDay("");
               setTools(false);
               router.push(value === "visitor" ? "/schedule" : "/serving");

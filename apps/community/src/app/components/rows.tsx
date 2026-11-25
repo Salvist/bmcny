@@ -2,7 +2,7 @@ import { dateLabel, time, type Demo, type Gathering } from "../model/bulletin";
 import { Icon } from "./icons";
 
 export function label(item: Gathering, demo: Demo) {
-  if (item.kind === "Assignment") return demo.shifts[item.id] ?? item.initial;
+  if (item.kind === "Assignment") return demo.shifts[item.id] === "Coverage requested" ? "Coverage requested" : undefined;
   if (demo.registrations[item.id]) return "Registered";
   if (demo.saved[item.id]) return "Saved";
 }

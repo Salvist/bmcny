@@ -4,7 +4,9 @@ import type { bulletin } from "./bulletin";
 export const directory: Record<string, string> = {
   alex: "Alex Morgan", maya: "Maya Chen", sam: "Sam Rivera", jo: "Jo Park",
 };
-export const departments = ["Music", "Online Meetings", "Welcome", "Hospitality"] as const;
+export const departments = [
+  "PAW and AVL", "User and Floor Manager", "Content", "Youth and Kids", "Multimedia", "Online",
+] as const;
 export type Department = typeof departments[number];
 export type Duty = {
   id: string; member: string; role: string; arrival: number; finish: number; instructions: string;
@@ -19,8 +21,51 @@ export type Scheduling = {
 export function initialScheduling(): Scheduling {
   return {
     member: "alex", leader: false, members: {
-      Music: ["alex", "maya", "sam"], "Online Meetings": ["alex", "jo"], Welcome: [], Hospitality: [],
+      "PAW and AVL": ["alex", "maya", "sam"],
+      "User and Floor Manager": ["jo"],
+      Content: [],
+      "Youth and Kids": [],
+      Multimedia: [],
+      Online: ["alex", "jo"],
     }, published: {}, drafts: {}, accounts: {},
+  };
+}
+const legacyDepartments: Record<string, Department> = {
+  Music: "PAW and AVL",
+  "Online Meetings": "Online",
+};
+function asDepartment(name: string): Department | undefined {
+  return (departments as readonly string[]).includes(name) ? name as Department : legacyDepartments[name];
+}
+export function normalizeScheduling(saved: Scheduling | undefined): Scheduling {
+  const fresh = initialScheduling();
+  if (!saved?.members) return fresh;
+  const members = { ...fresh.members };
+  const replaced = new Set<Department>();
+  for (const department of departments) {
+    const list = saved.members[department];
+    if (Array.isArray(list)) {
+      members[department] = list;
+      replaced.add(department);
+    }
+  }
+  for (const [name, list] of Object.entries(saved.members)) {
+    const department = legacyDepartments[name];
+    if (department && !replaced.has(department) && Array.isArray(list)) members[department] = list;
+  }
+  function migrate(records: Record<string, Roster> | undefined) {
+    const next: Record<string, Roster> = {};
+    for (const roster of Object.values(records ?? {})) {
+      const department = roster?.gathering ? asDepartment(roster.department) : undefined;
+      if (!department) continue;
+      const migrated = { ...roster, department };
+      next[rosterKey(department, roster.gathering)] = migrated;
+    }
+    return next;
+  }
+  return {
+    ...fresh, ...saved, members,
+    published: migrate(saved.published), drafts: migrate(saved.drafts), accounts: saved.accounts ?? {},
   };
 }
 export function switchMember(demo: Demo, member: string, leader: boolean): Demo {
@@ -54,13 +99,13 @@ export function scheduleData(data: ReturnType<typeof bulletin>, state: Schedulin
   }
   for (const gathering of services.filter(g => g.title === data.worship.title)) {
     const week = Math.round((Date.parse(gathering.date) - Date.UTC(2026, 10, 29)) / 604800000);
-    seed("Music", gathering, [
+    seed("PAW and AVL", gathering, [
       { id: "keys-" + gathering.id, member: week % 2 === 0 ? "alex" : "sam", role: "Keyboard", arrival: 1035, finish: 1155, instructions: "Meet the music team on stage for sound check." },
       { id: "vocals-" + gathering.id, member: "maya", role: "Vocals", arrival: 1035, finish: 1155, instructions: "Join the keyboard player for sound check." },
     ]);
   }
   for (const gathering of services.filter(g => g.title === "Sunday Worship Online")) {
-    seed("Online Meetings", gathering, [
+    seed("Online", gathering, [
       { id: "zoom-" + gathering.id, member: "alex", role: "Zoom operator", arrival: 585, finish: 675, instructions: "Open the Zoom room and check the host audio before worship." },
     ]);
   }
@@ -75,7 +120,7 @@ export function assignments(rosters: Record<string, Roster>, member: string): Ga
   return Object.values(rosters).flatMap(({ department, gathering, duties }) => duties.filter(d => d.member === member).map(d => ({
     ...gathering, kind: "Assignment" as const, category: department, audience: department,
     title: d.role, gatheringTitle: gathering.title, rosterId: rosterKey(department, gathering),
-    id: d.id, arrival: d.arrival, finish: d.finish, text: d.instructions, initial: d.initial ?? "Pending" as const,
+    id: d.id, arrival: d.arrival, finish: d.finish, text: d.instructions, initial: d.initial,
   }))).sort(compare);
 }
 export function warnings(roster: Roster, published: Record<string, Roster>, demo: Demo) {
@@ -100,7 +145,7 @@ export function publish(demo: Demo, roster: Roster, published: Record<string, Ro
   const previous = published[key]?.duties ?? [];
   for (const duty of roster.duties) {
     const old = previous.find(d => d.id === duty.id);
-    if (!old || old.member !== duty.member || old.role !== duty.role || old.arrival !== duty.arrival || old.finish !== duty.finish) shifts[duty.id] = "Pending";
+    if (!old || old.member !== duty.member || old.role !== duty.role || old.arrival !== duty.arrival || old.finish !== duty.finish) delete shifts[duty.id];
   }
   const drafts = { ...demo.scheduling.drafts };
   delete drafts[key];

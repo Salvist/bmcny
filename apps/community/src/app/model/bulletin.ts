@@ -1,4 +1,4 @@
-import { initialScheduling, type Scheduling } from "./scheduling";
+import { initialScheduling, normalizeScheduling, type Scheduling } from "./scheduling";
 export const address = "92-14 63rd Dr, Rego Park, NY 11374";
 export const directions =
   "https://www.google.com/maps/search/?api=1&query=" +
@@ -53,7 +53,8 @@ export function emptyDemo(): Demo {
   };
 }
 export function restoreDemo(saved: Demo | null): Demo {
-  return saved?.scheduling ? saved : emptyDemo();
+  if (!saved?.scheduling) return emptyDemo();
+  return { ...saved, scheduling: normalizeScheduling(saved.scheduling) };
 }
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 export function dateLabel(day: string, options: Intl.DateTimeFormatOptions) {

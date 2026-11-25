@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { Change } from "@/app/components/detail";
-import { Lineup } from "@/app/components/lineup";
 import { dateLabel, time, type Demo, type Gathering } from "@/app/model/bulletin";
 import { departments, directory, publish, rosterKey, warnings, type Department, type Duty, type Roster } from "@/app/model/scheduling";
 
@@ -10,15 +9,6 @@ function minutes(value: string) {
   if (!value) return NaN;
   const [hours, mins] = value.split(":").map(Number);
   return hours * 60 + mins;
-}
-
-export function TeamRosters({ rosters }: { rosters: Roster[] }) {
-  return <section className="serving-section"><h2>Team Rosters</h2>
-    {rosters.length ? rosters.map(r => <details key={rosterKey(r.department, r.gathering)}>
-      <summary><strong>{r.department}</strong> · {r.gathering.title}<small>{dayLabel(r.gathering.date)} · {time(r.gathering.minutes)} ET</small></summary>
-      <Lineup roster={r} />
-    </details>) : <p>No published rosters for this selection.</p>}
-  </section>;
 }
 
 function Editor({ roster, published, demo, change }: {
@@ -31,7 +21,7 @@ function Editor({ roster, published, demo, change }: {
   const current = { ...roster, duties };
   const alerts = warnings(current, published, demo);
   const signature = JSON.stringify([current, alerts]);
-  const members = demo.scheduling.members[roster.department];
+  const members = demo.scheduling.members[roster.department] ?? [];
   function edit(next: Duty[]) {
     setDuties(next);
     setAck("");
@@ -69,7 +59,7 @@ function Editor({ roster, published, demo, change }: {
           <label>Finish time (ET)<input required type="time" value={Number.isFinite(d.finish) ? clockValue(d.finish) : ""} onInput={e => patch(d.id, { finish: minutes(e.currentTarget.value) })} /></label>
         </div>
         <label>Serving instructions<input value={d.instructions} onChange={e => patch(d.id, { instructions: e.target.value })} /></label>
-        <div className="actions"><span>{live ? "Published · " + (demo.shifts[d.id] ?? live.initial ?? "Pending") : "Unpublished assignment"}</span>
+        <div className="actions"><span>{live ? "Published" + (demo.shifts[d.id] === "Coverage requested" ? " · Coverage requested" : "") : "Unpublished assignment"}</span>
           <button type="button" className="text-btn" onClick={() => edit(duties.filter(old => old.id !== d.id))}>Remove assignment</button></div>
       </fieldset>;
     })}
@@ -88,12 +78,12 @@ function Editor({ roster, published, demo, change }: {
 export function LeaderSchedule({ demo, change, published, gatherings }: {
   demo: Demo; change: Change; published: Record<string, Roster>; gatherings: Gathering[];
 }) {
-  const [department, setDepartment] = useState<Department>("Music");
+  const [department, setDepartment] = useState<Department>("PAW and AVL");
   const [selected, setSelected] = useState("");
   const gathering = gatherings.find(g => g.id === selected) ?? gatherings.find(g => g.title === "Sunday Worship")!;
   const key = rosterKey(department, gathering);
   const roster = demo.scheduling.drafts[key] ?? published[key] ?? { department, gathering, duties: [] };
-  const members = demo.scheduling.members[department];
+  const members = demo.scheduling.members[department] ?? [];
   const available = Object.keys(directory).filter(m => !members.includes(m));
   return <section className="serving-section"><h2>Department scheduling</h2>
     <div className="roster-fields">
@@ -104,7 +94,7 @@ export function LeaderSchedule({ demo, change, published, gatherings }: {
       {available.length > 0 && <form className="actions" onSubmit={e => {
         e.preventDefault();
         const member = String(new FormData(e.currentTarget).get("member"));
-        change(s => ({ ...s, scheduling: { ...s.scheduling, members: { ...s.scheduling.members, [department]: [...new Set([...s.scheduling.members[department], member])] } } }));
+        change(s => ({ ...s, scheduling: { ...s.scheduling, members: { ...s.scheduling.members, [department]: [...new Set([...(s.scheduling.members[department] ?? []), member])] } } }));
       }}><label>Sample directory<select name="member">{available.map(m => <option key={m} value={m}>{directory[m]}</option>)}</select></label><button className="secondary">Add member</button></form>}
     </details>
     {demo.scheduling.drafts[key] && <p className="tag">Saved draft</p>}

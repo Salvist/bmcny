@@ -14,6 +14,7 @@ import { Dialog } from "./detail-dialog";
 import { Icon } from "./icons";
 
 import { Lineup } from "./lineup";
+import { label } from "./rows";
 import type { Roster } from "../model/scheduling";
 
 export type Change = (update: (s: Demo) => Demo) => void;
@@ -42,7 +43,7 @@ export function Detail({
   const reg = demo.registrations[item.id]?.person;
   const saved = !!demo.saved[item.id];
   const occurrence = dateLabel(item.date, { month: "short", day: "numeric", year: "numeric" });
-  const status = demo.shifts[item.id] ?? item.initial;
+  const status = label(item, demo);
   function shift(next: Status) {
     change((s) => ({ ...s, shifts: { ...s.shifts, [item.id]: next } }));
   }
@@ -127,29 +128,12 @@ export function Detail({
       {item.kind === "Assignment" ? (
         <>
           {roster && <><h3>Team roster</h3><Lineup roster={roster}/></>}
-          <span className="tag" role="status">
-            {status}
-          </span>
-          <div className="actions">
-            {status === "Pending" && (
-              <>
-                <button className="primary" onClick={() => shift("Confirmed")}>
-                  Confirm assignment
-                </button>
-                <button className="secondary" onClick={() => shift("Declined")}>
-                  Decline
-                </button>
-              </>
-            )}
-            {status === "Confirmed" && (
-              <button
-                className="primary"
-                onClick={() => shift("Coverage requested")}
-              >
-                Request coverage
-              </button>
-            )}
-          </div>
+          {status === "Coverage requested" && <span className="tag" role="status">{status}</span>}
+          {status !== "Coverage requested" && (
+            <div className="actions">
+              <button className="primary" onClick={() => shift("Coverage requested")}>Request coverage</button>
+            </div>
+          )}
         </>
       ) : (
         <>

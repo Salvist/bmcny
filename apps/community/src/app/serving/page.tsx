@@ -5,14 +5,14 @@ import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { Icon } from "@/app/components/icons";
 import { ProfileSignIn } from "@/app/components/profile-sign-in";
 import { label, Rows } from "@/app/components/rows";
-import { compare, dateLabel } from "@/app/model/bulletin";
-import { departments, directory } from "@/app/model/scheduling";
-import { LeaderSchedule, TeamRosters } from "./components/team-rosters";
+import { dateLabel } from "@/app/model/bulletin";
+import { directory } from "@/app/model/scheduling";
+import { LeaderSchedule } from "./components/team-rosters";
 
 export default function ServingPage() {
   const {
     data, demo, provider, rosters, gatherings, personalShifts,
-    department, setDepartment, day, setDay, signIn, change, preview, setItem,
+    day, setDay, signIn, change, preview, setItem,
   } = useCommunity();
   if (!data) return <BulletinLoading />;
   if (!provider) return <ProfileSignIn onContinue={signIn} />;
@@ -30,17 +30,13 @@ export default function ServingPage() {
         <div className="empty">
           <Icon name="schedule" size={30} />
           <h3>Serving is for volunteers</h3>
-          <p>Assignments, team rosters, and availability appear here when you serve at the church.</p>
+          <p>Assignments and availability appear here when you serve at the church.</p>
           <button className="secondary" onClick={preview}>{persona}</button>
         </div>
       </>
     );
   }
 
-  const memberships = departments.filter(d => demo.scheduling.members[d].includes(demo.scheduling.member));
-  const teamRosters = Object.values(rosters).filter(r => memberships.includes(r.department) &&
-    (!department || r.department === department) && r.gathering.date >= data.today && r.duties.length).sort((a, b) => compare(a.gathering, b.gathering));
-  const assignments = personalShifts.filter(i => !department || i.category === department);
   return (
     <>
       <div className="schedule-toolbar">
@@ -51,21 +47,17 @@ export default function ServingPage() {
       <section>
         <div className="section-head">
           <h2>Assignments</h2>
-          <label className="schedule-filter">Department filter<select value={department} onChange={e => setDepartment(e.target.value)}>
-            <option value="">All departments</option>{memberships.map(d => <option key={d}>{d}</option>)}
-          </select></label>
         </div>
-        {assignments.length ? (
-          <Rows items={assignments} demo={demo} open={setItem} />
+        {personalShifts.length ? (
+          <Rows items={personalShifts} demo={demo} open={setItem} />
         ) : (
           <div className="empty">
             <Icon name="schedule" size={30} />
-            <h3>{department ? "No assignments in " + department : "No upcoming assignments"}</h3>
+            <h3>No upcoming assignments</h3>
             <p>Published rosters for your departments show up here.</p>
           </div>
         )}
       </section>
-      <TeamRosters rosters={teamRosters} />
       <section className="availability">
         <div className="section-head">
           <h2>Availability</h2>
@@ -125,7 +117,7 @@ export default function ServingPage() {
               .map((i) => (
                 <button className="conflict" key={i.id} onClick={() => setItem(i)}>
                   Assignment conflict · {i.title} ·{" "}
-                  {label(i, demo) === "Confirmed" ? "Request coverage" : label(i, demo)}{" "}
+                  {label(i, demo) === "Coverage requested" ? "Coverage requested" : "Request coverage"}{" "}
                   <Icon name="arrow" size={14} />
                 </button>
               ))}
