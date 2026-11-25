@@ -1,49 +1,39 @@
 "use client";
 
-import Link from "next/link";
-import { BulletinLoading, useCommunity } from "@/app/components/community-app";
+import { useCommunity } from "@/app/components/community-app";
 import { Icon } from "@/app/components/icons";
-import { ProfileSignIn } from "@/app/components/profile-sign-in";
 import { label, Rows } from "@/app/components/rows";
 import { dateLabel } from "@/app/model/bulletin";
-import { directory } from "@/app/model/scheduling";
-import { LeaderSchedule } from "./components/team-rosters";
+import { ServingShell } from "./components/serving-shell";
 
 export default function ServingPage() {
-  const {
-    data, demo, provider, rosters, gatherings, personalShifts,
-    day, setDay, signIn, change, preview, setItem,
-  } = useCommunity();
-  if (!data) return <BulletinLoading />;
-  if (!provider) return <ProfileSignIn onContinue={signIn} />;
+  return (
+    <ServingShell>
+      <MyServing />
+    </ServingShell>
+  );
+}
 
-  const persona = demo.volunteer
-    ? (demo.scheduling.leader ? "Department leader" : directory[demo.scheduling.member]) + " · Switch view"
-    : "Explore volunteer scheduling";
+function MyServing() {
+  const {
+    data, demo, personalShifts,
+    day, setDay, change, preview, setItem,
+  } = useCommunity();
+  if (!data) return null;
 
   if (!demo.volunteer) {
     return (
-      <>
-        <div className="schedule-toolbar">
-          <Link href="/profile" className="text-btn">Back to Profile</Link>
-        </div>
-        <div className="empty">
-          <Icon name="schedule" size={30} />
-          <h3>Serving is for volunteers</h3>
-          <p>Assignments and availability appear here when you serve at the church.</p>
-          <button className="secondary" onClick={preview}>{persona}</button>
-        </div>
-      </>
+      <div className="empty">
+        <Icon name="schedule" size={30} />
+        <h3>Serving is for volunteers</h3>
+        <p>Assignments and availability appear here when you serve at the church.</p>
+        <button className="secondary" onClick={preview}>Explore volunteer scheduling</button>
+      </div>
     );
   }
 
   return (
     <>
-      <div className="schedule-toolbar">
-        <Link href="/profile" className="text-btn">Back to Profile</Link>
-        <button className="secondary" onClick={preview}>{persona}</button>
-      </div>
-      {demo.scheduling.leader && <LeaderSchedule demo={demo} change={change} published={rosters} gatherings={gatherings} />}
       <section>
         <div className="section-head">
           <h2>Assignments</h2>
@@ -113,7 +103,7 @@ export default function ServingPage() {
               </button>
             </div>
             {personalShifts
-              .filter((i) => i.date === d && label(i, demo) !== "Declined")
+              .filter((i) => i.date === d)
               .map((i) => (
                 <button className="conflict" key={i.id} onClick={() => setItem(i)}>
                   Assignment conflict · {i.title} ·{" "}

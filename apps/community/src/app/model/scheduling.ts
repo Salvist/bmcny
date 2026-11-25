@@ -80,6 +80,16 @@ export function switchMember(demo: Demo, member: string, leader: boolean): Demo 
   return { ...demo, ...personal, volunteer: true, scheduling: { ...s, member, leader, accounts } };
 }
 export const rosterKey = (department: Department, gathering: Gathering) => department + "/" + gathering.id;
+export type RosterStatus = "Published" | "Draft" | "Needs review" | "Not scheduled";
+export const departmentFrom = (value: string | null): Department =>
+  (departments as readonly string[]).includes(value ?? "") ? value as Department : departments[0];
+export function rosterStatus(department: Department, gathering: Gathering, published: Record<string, Roster>, demo: Demo): RosterStatus {
+  const key = rosterKey(department, gathering);
+  const roster = demo.scheduling.drafts[key] ?? published[key];
+  if (!roster?.duties.length) return "Not scheduled";
+  if (warnings(roster, published, demo).length) return "Needs review";
+  return demo.scheduling.drafts[key] ? "Draft" : "Published";
+}
 function moveWeek(g: Gathering, weeks = 1): Gathering {
   const day = new Date(g.date + "T12:00:00Z");
   day.setUTCDate(day.getUTCDate() + 7 * weeks);

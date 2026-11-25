@@ -12,7 +12,7 @@ require.extensions[".ts"] = (module, filename) => {
   module._compile(outputText, filename);
 };
 const { bulletin, emptyDemo, restoreDemo } = require("../src/app/model/bulletin.ts");
-const { assignments, publish, rosterKey, scheduleData, switchMember, warnings } = require("../src/app/model/scheduling.ts");
+const { assignments, publish, rosterKey, rosterStatus, scheduleData, switchMember, warnings } = require("../src/app/model/scheduling.ts");
 
 const data = bulletin(new Date("2026-11-24T17:00:00Z"));
 const published = demo => scheduleData(data, demo.scheduling).rosters;
@@ -86,6 +86,17 @@ test("member data survives a reload and preview persona changes", () => {
   for (const field of ["saved", "shifts", "registrations", "unavailable"]) {
     assert.deepEqual(demo[field], alex[field]);
   }
+});
+
+test("roster status follows drafts, publication and empty departments", () => {
+  let demo = emptyDemo();
+  const rosters = published(demo);
+  const sunday = Object.values(rosters).find(r => r.department === "PAW and AVL");
+  assert.equal(rosterStatus("PAW and AVL", sunday.gathering, rosters, demo), "Published");
+  assert.equal(rosterStatus("Content", sunday.gathering, rosters, demo), "Not scheduled");
+  const key = rosterKey("PAW and AVL", sunday.gathering);
+  demo = { ...demo, scheduling: { ...demo.scheduling, drafts: { [key]: sunday } } };
+  assert.equal(rosterStatus("PAW and AVL", sunday.gathering, rosters, demo), "Draft");
 });
 
 test("Zoom roster is still available during Sunday worship in New York", () => {

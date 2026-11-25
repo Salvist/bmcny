@@ -59,7 +59,7 @@ export function BulletinLoading() {
 export default function CommunityApp({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const tab = routes[pathname];
+  const tab = routes[pathname] ?? (pathname.startsWith("/serving/") ? "serving" : undefined);
   const currentServiceView = tab === "events" || tab === "services" ? tab : undefined;
   const [previousPath, setPreviousPath] = useState(pathname);
   const [memberDemo, setDemo] = useState<Demo>(emptyDemo);
