@@ -158,14 +158,14 @@ export function bulletin(now: Date) {
     audience: "Everyone",
   };
   const events = [
-    make("study", next([3], 1140), {
+    make("study", "2026-11-25", {
       ...event,
       title: "Community Bible Study",
       minutes: 1140,
       category: "Bible study",
       text: "Bring your Bible and join a small-group conversation. First-time visitors are welcome.",
     }),
-    make("table", next([6], 720), {
+    make("table", "2026-11-28", {
       ...event,
       title: "Community Lunch",
       minutes: 720,
@@ -173,7 +173,7 @@ export function bulletin(now: Date) {
       rsvp: true,
       text: "Pull up a chair for a shared lunch with the BMCNY community. Reserve a place so the hospitality team can plan the table.",
     }),
-    make("welcome", next([0], 1170), {
+    make("welcome", "2026-11-29", {
       ...event,
       title: "Newcomers’ Welcome",
       minutes: 1170,
@@ -181,6 +181,6 @@ export function bulletin(now: Date) {
       rsvp: true,
       text: "Meet the welcome team after Sunday worship and get to know your church community.",
     }),
-  ].sort(compare);
+  ].filter(event => event.date > today || (event.date === today && event.minutes > minute)).sort(compare);
   return { today, minute, worship, services, events };
 }

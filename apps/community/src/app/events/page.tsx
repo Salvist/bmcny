@@ -14,7 +14,7 @@ export default function EventsPage() {
       <div className="section-head">
         <h2>Upcoming events</h2>
       </div>
-      <Rows items={data.events} demo={demo} open={setItem} />
+      {data.events.length ? <Rows items={data.events} demo={demo} open={setItem} /> : <p>No upcoming events.</p>}
     </section>
   );
 }

@@ -30,6 +30,7 @@ export function Rows({
               {dateLabel(i.date, { weekday: "short" })} ·{" "}
               {i.arrival !== undefined ? "Arrive at " : ""}
               {time(i.arrival ?? i.minutes)} · {i.gatheringTitle ? i.gatheringTitle + " at " + time(i.minutes) + " ET" : i.place}
+              {i.kind === "Event" && (i.rsvp ? " · RSVP" : " · Drop in")}
             </span>
           </span>
           {label(i, demo) && <span className="tag">{label(i, demo)}</span>}

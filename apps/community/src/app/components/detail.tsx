@@ -38,6 +38,7 @@ export function Detail({
   const promptTitle = intent === "save" ? "Sign in to save this gathering" : "Sign in to RSVP";
   const reg = demo.registrations[item.id]?.person;
   const saved = !!demo.saved[item.id];
+  const occurrence = dateLabel(item.date, { month: "short", day: "numeric", year: "numeric" });
   const status = demo.shifts[item.id] ?? item.initial;
   function shift(next: Status) {
     change((s) => ({ ...s, shifts: { ...s.shifts, [item.id]: next } }));
@@ -63,13 +64,12 @@ export function Detail({
         <div>
           <Icon name="events" />
           <span>
-            {dateLabel(item.date, {
+            {item.kind === "Service" && item.recurrence ? item.recurrence : dateLabel(item.date, {
               weekday: "long",
               month: "long",
               day: "numeric",
               year: "numeric",
             })}
-            <small>{item.recurrence}</small>
           </span>
         </div>
         <div>
@@ -112,7 +112,7 @@ export function Detail({
           <div>
             <Icon name="schedule" />
             {item.rsvp
-              ? "Registration available · Demo RSVP"
+              ? "RSVP · Demo registration"
               : "Drop in · No registration required"}
           </div>
         )}
@@ -229,6 +229,7 @@ export function Detail({
               >
                 <Icon name={saved ? "check" : "schedule"} />
                 {saved ? "Remove saved item" : "Save to schedule"}
+                {item.kind === "Service" && ` · ${occurrence}`}
               </button>
               {reg && (
                 <button
@@ -252,7 +253,7 @@ export function Detail({
       {intent && (
         <Dialog title={promptTitle} onClose={() => setIntent(undefined)}>
           <h2>{promptTitle}</h2>
-          <p>{item.title}</p>
+          <p>{item.title}{item.kind === "Service" && ` · ${occurrence}`}</p>
           <AccountChoices onContinue={(provider) => {
             onSignIn(provider);
             if (intent === "save") {
