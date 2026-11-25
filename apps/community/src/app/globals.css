@@ -121,8 +121,7 @@ i {
   gap: 5px;
   margin-top: 55px;
 }
-.rail nav a,
-.rail-bottom button {
+.rail nav a {
   display: flex;
   align-items: center;
   gap: 13px;
@@ -134,18 +133,11 @@ i {
   background: #dee6d8;
   color: var(--green);
 }
-.rail nav a:hover,
-.rail-bottom button:hover {
+.rail nav a:hover {
   background: #e7e9dd;
 }
 .rail-bottom {
   margin-top: auto;
-}
-.rail-bottom button {
-  font-size: 12px;
-  gap: 8px;
-  width: 100%;
-  padding: 12px 6px;
 }
 .rail-bottom small {
   border-top: 1px solid var(--rule);
@@ -182,9 +174,25 @@ i {
   font-size: 12px;
   color: var(--muted);
 }
-.mobile-preview,
 .bottom-nav {
   display: none;
+}
+.service-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 20px;
+  background: var(--rail);
+  border-radius: 10px;
+}
+.service-switch a {
+  padding: 10px 20px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+.service-switch a[aria-current] {
+  color: white;
+  background: var(--green);
 }
 .page-heading {
   padding: 27px 0 22px;
@@ -638,14 +646,6 @@ hr {
   .masthead > span:first-child svg,
   .masthead .local {
     display: none;
-  }
-  .mobile-preview {
-    display: grid;
-    place-items: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--wash);
   }
   .page-heading {
     padding: 22px 0 18px;

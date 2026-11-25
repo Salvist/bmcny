@@ -14,16 +14,25 @@ import { Detail, Dialog, type Change } from "./detail";
 import { Icon } from "./icons";
 
 const tabs = {
-  week: "This Week",
-  events: "Events",
+  week: "Home",
   services: "Services",
+  events: "Events",
+  profile: "Profile",
   schedule: "My Schedule",
 } as const;
 type Tab = keyof typeof tabs;
-const keys = Object.keys(tabs) as Tab[];
+const destinations = [
+  ["week", "home"],
+  ["services", "services"],
+  ["profile", "person"],
+] as const;
 const storageKey = "bmcny-community-v1";
+const serviceViews = ["services", "events"] as const;
+type ServiceView = (typeof serviceViews)[number];
+const serviceViewKey = "bmcny-community-service-view";
 function currentTab(): Tab {
-  return keys.find((key) => key === window.location.hash.slice(1)) ?? "week";
+  const hash = window.location.hash.slice(1);
+  return Object.hasOwn(tabs, hash) ? (hash as Tab) : "week";
 }
 function label(item: Gathering, demo: Demo) {
   if (item.kind === "Assignment") return demo.shifts[item.id] ?? item.initial;
@@ -103,6 +112,7 @@ export default function Home() {
   const [demo, setDemo] = useState<Demo>(emptyDemo);
   const [data, setData] = useState<ReturnType<typeof bulletin>>();
   const [tab, setTab] = useState<Tab>("week");
+  const [lastServiceView, setLastServiceView] = useState<ServiceView>("services");
   const [item, setItem] = useState<Gathering>();
   const [tools, setTools] = useState(false);
   const [reset, setReset] = useState(false);
@@ -110,7 +120,16 @@ export default function Home() {
   useEffect(() => {
     const refresh = () => setData(bulletin(new Date()));
     const nav = () => {
-      setTab(currentTab());
+      const next = currentTab();
+      setTab(next);
+      if (next === "events" || next === "services") {
+        setLastServiceView(next);
+        try {
+          localStorage.setItem(serviceViewKey, next);
+        } catch {
+          /* The selection remains available in memory. */
+        }
+      }
       setItem(undefined);
       setTools(false);
       window.scrollTo(0, 0);
@@ -125,6 +144,13 @@ export default function Home() {
       }
     }
     requestAnimationFrame(() => {
+      try {
+        if (localStorage.getItem(serviceViewKey) === "events") {
+          setLastServiceView("events");
+        }
+      } catch {
+        /* Use Services for the first visit. */
+      }
       restore();
       refresh();
       nav();
@@ -167,9 +193,14 @@ export default function Home() {
   ])
     schedule.set(i.id, i);
   const scheduleItems = [...schedule.values()].sort(compare);
-  const navigation = keys.map((k) => (
-    <a key={k} href={"#" + k} aria-current={tab === k ? "page" : undefined}>
-      <Icon name={k} />
+  const section = tab === "events" ? "services" : tab === "schedule" ? "profile" : tab;
+  const navigation = destinations.map(([k, icon]) => (
+    <a
+      key={k}
+      href={"#" + (k === "services" ? lastServiceView : k)}
+      aria-current={section === k ? (tab === "schedule" ? "location" : "page") : undefined}
+    >
+      <Icon name={icon} />
       <span>{tabs[k]}</span>
     </a>
   ));
@@ -187,11 +218,6 @@ export default function Home() {
         </a>
         <nav aria-label="Main navigation">{navigation}</nav>
         <div className="rail-bottom">
-          <button onClick={preview}>
-            <Icon name="person" />
-            <span>Preview as {demo.volunteer ? "volunteer" : "visitor"}</span>
-            <Icon name="down" size={13} />
-          </button>
           <small>
             Bethany Miracle Center
             <br />
@@ -204,13 +230,6 @@ export default function Home() {
           <span>
             <Icon name="week" size={17} /> Community bulletin
           </span>
-          <button
-            className="mobile-preview"
-            onClick={preview}
-            aria-label="Preview settings"
-          >
-            <Icon name="person" size={17} />
-          </button>
           <span className="local">
             <i /> New York, NY
           </span>
@@ -224,7 +243,7 @@ export default function Home() {
               year: "numeric",
             })}
           </span>
-          <h1>{tabs[tab]}</h1>
+          <h1>{tab === "events" ? tabs.services : tabs[tab]}</h1>
         </div>
         {tab === "week" && (
           <>
@@ -285,28 +304,38 @@ export default function Home() {
             </div>
           </>
         )}
-        {tab === "events" && (
+        {section === "services" && (
           <section>
+            <nav className="service-switch" aria-label="Services views">
+              {serviceViews.map((view) => (
+                <a key={view} href={"#" + view} aria-current={tab === view ? "page" : undefined}>
+                  {tabs[view]}
+                </a>
+              ))}
+            </nav>
             <div className="section-head">
-              <h2>Upcoming events</h2>
-            </div>
-            <Rows items={data.events} demo={demo} open={setItem} />
-          </section>
-        )}
-        {tab === "services" && (
-          <section>
-            <div className="section-head">
-              <h2>Next gatherings</h2>
+              <h2>{tab === "events" ? "Upcoming events" : "Weekly services"}</h2>
             </div>
             <Rows
-              items={[...data.services].sort(compare)}
+              items={tab === "events" ? data.events : [...data.services].sort(compare)}
               demo={demo}
               open={setItem}
             />
           </section>
         )}
+        {tab === "profile" && (
+          <div className="actions">
+            <button className="secondary" onClick={preview}>
+              <Icon name="person" /> Preview settings
+            </button>
+            <a className="secondary" href="#schedule">
+              <Icon name="schedule" /> My Schedule
+            </a>
+          </div>
+        )}
         {tab === "schedule" && (
           <>
+            <a href="#profile" className="text-btn">Back to Profile</a>
             <section>
               <div className="section-head">
                 <h2>Your agenda</h2>

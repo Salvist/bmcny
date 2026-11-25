@@ -1,4 +1,5 @@
 const lines = {
+  home: "M3 10.5 12 3l9 7.5 M5 9v12h5v-7h4v7h5V9",
   week: "M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3z M12 6v15",
   events: "M4 6h16v15H4z M4 10h16 M8 3v5 M16 3v5 M8 14h2 M14 14h2",
   services: "M3 21h18 M5 21V11l7-5 7 5v10 M10 21v-6h4v6 M12 2v4 M10 4h4",
