@@ -97,9 +97,9 @@ function Notifications({ demo, save, close }: { demo: Demo; save: Save<Preferenc
   </Dialog>;
 }
 
-export function MemberPage({ demo, provider, saveProfile, savePreferences, onPreview, onSignOut, children }: {
+export function MemberPage({ demo, provider, saveProfile, savePreferences, onPreview, onSignOut, serving, children }: {
   demo: Demo; provider: Provider; saveProfile: Save<MemberProfile>; savePreferences: Save<Preferences>;
-  onPreview: () => void; onSignOut: () => void; children: ReactNode;
+  onPreview: () => void; onSignOut: () => void; serving?: ReactNode; children: ReactNode;
 }) {
   const [panel, setPanel] = useState<"details" | "notifications" | "provider">();
   const close = () => setPanel(undefined);
@@ -110,12 +110,18 @@ export function MemberPage({ demo, provider, saveProfile, savePreferences, onPre
       <button className="secondary" onClick={() => setPanel("details")}>Edit profile</button>
     </section>
     <div className="member-columns">
-      <section><h2>My Schedule</h2>
-        {children || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming gatherings</h3>
-          <div className="actions"><Link href="/services">Browse services</Link><Link href="/events">Browse events</Link></div>
-        </div>}
-        <Link className="member-link" href="/schedule">View schedule <Icon name="arrow" size={16} /></Link>
-      </section>
+      <div>
+        <section><h2>My Schedule</h2>
+          {children || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming gatherings</h3>
+            <div className="actions"><Link href="/services">Browse services</Link><Link href="/events">Browse events</Link></div>
+          </div>}
+          <Link className="member-link" href="/schedule">View schedule <Icon name="arrow" size={16} /></Link>
+        </section>
+        {serving !== undefined && <section className="member-serving"><h2>Serving</h2>
+          {serving || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming assignments</h3></div>}
+          <Link className="member-link" href="/serving">View serving schedule <Icon name="arrow" size={16} /></Link>
+        </section>}
+      </div>
       <section><h2>Account settings</h2>
         <div className="member-settings">
           <button onClick={() => setPanel("details")}><Icon name="person" />Personal details<Icon name="chevron" size={16}/></button>

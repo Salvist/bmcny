@@ -16,6 +16,7 @@ const tabs = {
   events: "Events",
   profile: "Profile",
   schedule: "My Schedule",
+  serving: "Serving",
 } as const;
 type Tab = keyof typeof tabs;
 const destinations = [
@@ -26,7 +27,7 @@ const destinations = [
 const storageKey = "bmcny-community-v1";
 type ServiceView = "services" | "events";
 const serviceViewKey = "bmcny-community-service-view";
-const routes: Partial<Record<string, Tab>> = { "/": "week", "/services": "services", "/events": "events", "/profile": "profile", "/schedule": "schedule" };
+const routes: Partial<Record<string, Tab>> = { "/": "week", "/services": "services", "/events": "events", "/profile": "profile", "/schedule": "schedule", "/serving": "serving" };
 
 
 type CommunityState = ReturnType<typeof scheduleData> & {
@@ -157,12 +158,12 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
   ])
     schedule.set(i.id, i);
   const scheduleItems = [...schedule.values()].sort(compare);
-  const section = tab === "events" ? "services" : tab === "schedule" ? "profile" : tab;
+  const section = tab === "events" ? "services" : tab === "schedule" || tab === "serving" ? "profile" : tab;
   const navigation = destinations.map(([k, icon]) => (
     <Link
       key={k}
       href={k === "week" ? "/" : k === "services" ? "/" + (currentServiceView ?? lastServiceView) : "/" + k}
-      aria-current={section === k ? (tab === "schedule" ? "location" : "page") : undefined}
+      aria-current={section === k ? (tab === "schedule" || tab === "serving" ? "location" : "page") : undefined}
     >
       <Icon name={icon} />
       <span>{tabs[k]}</span>
@@ -243,7 +244,7 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
               setDepartment("");
               setDay("");
               setTools(false);
-              router.push("/schedule");
+              router.push(value === "visitor" ? "/schedule" : "/serving");
             }}>
               <label>Preview as<select name="persona" defaultValue={!demo.volunteer ? "visitor" : demo.scheduling.leader ? "leader" : demo.scheduling.member}>
                 <option value="visitor">Visitor</option>

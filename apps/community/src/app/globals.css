@@ -918,6 +918,7 @@ body:has(dialog[open]) {
 .member-link, .member-footer button, .member-empty a { color: var(--green); text-decoration: underline; text-underline-offset: 4px; }
 .member-link, .member-provider { display: inline-flex; align-items: center; gap: 8px; }
 .member-link, .member-footer { margin-top: 15px; }
+.member-serving { margin-top: 36px; }
 .member-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
 .member-footer button { padding: 5px 0; }
 .member-footer button:last-child { color: var(--muted); font-size: 13px; }
