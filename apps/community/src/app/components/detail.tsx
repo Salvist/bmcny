@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useState } from "react";
 import {
   address,
   directions,
@@ -7,60 +7,35 @@ import {
   type Demo,
   type Gathering,
   type Status,
-} from "./bulletin";
+} from "../model/bulletin";
+import { AccountChoices, type Provider } from "./account";
+import { Dialog } from "./detail-dialog";
 import { Icon } from "./icons";
 
-export function Dialog({
-  title,
-  onClose,
-  children,
-}: {
-  title: string;
-  onClose: () => void;
-  children: ReactNode;
-}) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = ref.current!;
-    dialog.showModal();
-    const before = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      dialog.close();
-      document.body.style.overflow = before;
-    };
-  }, []);
-  return (
-    <dialog
-      ref={ref}
-      aria-label={title}
-      onCancel={onClose}
-      onClick={(e) => {
-        if (e.target === ref.current) onClose();
-      }}
-    >
-      <div className="sheet">
-        <button className="close" aria-label="Close" onClick={onClose}>
-          <Icon name="close" />
-        </button>
-        {children}
-      </div>
-    </dialog>
-  );
-}
+import { Lineup } from "./lineup";
+import type { Roster } from "../model/scheduling";
+
 export type Change = (update: (s: Demo) => Demo) => void;
 export function Detail({
   item,
+  roster,
   demo,
   change,
+  signedIn,
+  onSignIn,
   onClose,
 }: {
   item: Gathering;
+  roster?: Roster;
   demo: Demo;
   change: Change;
+  signedIn: boolean;
+  onSignIn: (provider: Provider) => void;
   onClose: () => void;
 }) {
   const [form, setForm] = useState(false);
+  const [intent, setIntent] = useState<"save" | "rsvp">();
+  const promptTitle = intent === "save" ? "Sign in to save this gathering" : "Sign in to RSVP";
   const reg = demo.registrations[item.id]?.person;
   const saved = !!demo.saved[item.id];
   const status = demo.shifts[item.id] ?? item.initial;
@@ -103,7 +78,8 @@ export function Detail({
             {item.arrival !== undefined ? (
               <>
                 <strong>Arrive at {time(item.arrival)}</strong>
-                <small>Service starts at {time(item.minutes)} ET</small>
+                <small>{item.gatheringTitle ?? "Service"} starts at {time(item.minutes)} ET</small>
+                {item.finish !== undefined && <small>Finish at {time(item.finish)} ET</small>}
               </>
             ) : (
               time(item.minutes) + " ET"
@@ -143,6 +119,7 @@ export function Detail({
       </div>
       {item.kind === "Assignment" ? (
         <>
+          {roster && <><h3>Team roster</h3><Lineup roster={roster}/></>}
           <span className="tag" role="status">
             {status}
           </span>
@@ -230,21 +207,25 @@ export function Detail({
           ) : (
             <div className="actions">
               {item.rsvp && !reg && (
-                <button className="primary" onClick={() => setForm(true)}>
+                <button className="primary" onClick={() => signedIn ? setForm(true) : setIntent("rsvp")}>
                   RSVP
                 </button>
               )}
               <button
                 className={item.rsvp ? "secondary" : "primary"}
                 aria-pressed={saved}
-                onClick={() =>
+                onClick={() => {
+                  if (!signedIn) {
+                    setIntent("save");
+                    return;
+                  }
                   change((s) => {
                     const items = { ...s.saved };
                     if (saved) delete items[item.id];
                     else items[item.id] = item;
                     return { ...s, saved: items };
-                  })
-                }
+                  });
+                }}
               >
                 <Icon name={saved ? "check" : "schedule"} />
                 {saved ? "Remove saved item" : "Save to schedule"}
@@ -265,7 +246,24 @@ export function Detail({
               )}
             </div>
           )}
+          {saved && <p role="status">Saved to your schedule</p>}
         </>
+      )}
+      {intent && (
+        <Dialog title={promptTitle} onClose={() => setIntent(undefined)}>
+          <h2>{promptTitle}</h2>
+          <p>{item.title}</p>
+          <AccountChoices onContinue={(provider) => {
+            onSignIn(provider);
+            if (intent === "save") {
+              change((s) => ({ ...s, saved: { ...s.saved, [item.id]: item } }));
+            } else {
+              setForm(true);
+            }
+            setIntent(undefined);
+          }} />
+          <button className="text-btn preview-error" onClick={() => setIntent(undefined)}>Keep browsing</button>
+        </Dialog>
       )}
     </Dialog>
   );

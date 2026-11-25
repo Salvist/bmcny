@@ -1,3 +1,4 @@
+import { initialScheduling, type Scheduling } from "./scheduling";
 export const address = "92-14 63rd Dr, Rego Park, NY 11374";
 export const directions =
   "https://www.google.com/maps/search/?api=1&query=" +
@@ -16,13 +17,22 @@ export type Gathering = {
   recurrence?: string;
   rsvp?: boolean;
   online?: boolean;
+  gatheringTitle?: string;
+  rosterId?: string;
+  finish?: number;
   arrival?: number;
   initial?: "Pending" | "Confirmed";
 };
 export type Status =
   "Pending" | "Confirmed" | "Declined" | "Coverage requested";
 export type Registration = { name: string; email: string };
+export type MemberProfile = Registration & { phone: string; photo: string };
+export type Preferences = { gatherings: boolean; rsvps: boolean; assignments: boolean };
+export const sampleAccount = { name: "Alex Morgan", email: "alex@example.com" };
 export type Demo = {
+  profile: MemberProfile;
+  preferences: Preferences;
+  scheduling: Scheduling;
   volunteer: boolean;
   saved: Record<string, Gathering>;
   registrations: Record<string, { item: Gathering; person: Registration }>;
@@ -31,12 +41,18 @@ export type Demo = {
 };
 export function emptyDemo(): Demo {
   return {
+    profile: { ...sampleAccount, phone: "", photo: "" },
+    preferences: { gatherings: false, rsvps: false, assignments: false },
+    scheduling: initialScheduling(),
     volunteer: false,
     saved: {},
     registrations: {},
     shifts: {},
     unavailable: [],
   };
+}
+export function restoreDemo(saved: Demo | null): Demo {
+  return saved?.scheduling ? saved : emptyDemo();
 }
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 export function dateLabel(day: string, options: Intl.DateTimeFormatOptions) {
@@ -74,11 +90,10 @@ export function bulletin(now: Date) {
   const today = [part("year"), part("month"), part("day")].join("-");
   const minute = Number(part("hour")) * 60 + Number(part("minute"));
   const start = new Date(today + "T12:00:00Z");
-  function next(days: number[], at: number, weeks = 0) {
+  function next(days: number[], at: number) {
     const d = new Date(start);
     if (at <= minute) d.setUTCDate(d.getUTCDate() + 1);
     while (!days.includes(d.getUTCDay())) d.setUTCDate(d.getUTCDate() + 1);
-    d.setUTCDate(d.getUTCDate() + weeks * 7);
     return iso(d);
   }
   function make(
@@ -167,32 +182,5 @@ export function bulletin(now: Date) {
       text: "Meet the welcome team after Sunday worship and get to know your church community.",
     }),
   ].sort(compare);
-  const shift = {
-    ...onsite,
-    kind: "Assignment" as const,
-    category: "Volunteer",
-    audience: "Welcome team",
-    arrival: 1035,
-  };
-  // The two teams alternate Sundays. Keep occurrence IDs stable as the week rolls over.
-  const weeksSinceWelcome = Math.round(
-    (Date.parse(sunday) - Date.UTC(2026, 10, 29)) / (7 * 86400000),
-  );
-  const welcomeOffset = Math.abs(weeksSinceWelcome % 2);
-  const shifts = [
-    make("welcome-shift", next([0], 1080, welcomeOffset), {
-      ...shift,
-      title: "Welcome Team",
-      initial: "Pending",
-      text: "Meet the team lead in the lobby. Set out welcome cards and greet visitors at the main entrance.",
-    }),
-    make("hospitality-shift", next([0], 1080, 1 - welcomeOffset), {
-      ...shift,
-      title: "Hospitality Team",
-      audience: "Hospitality team",
-      initial: "Confirmed",
-      text: "Meet in the fellowship room to prepare refreshments and check the welcome table before worship.",
-    }),
-  ].sort(compare);
-  return { today, worship, services, events, shifts };
+  return { today, minute, worship, services, events };
 }

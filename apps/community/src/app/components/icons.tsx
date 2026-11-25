@@ -1,4 +1,5 @@
 const lines = {
+  bell: "M4 17h16l-2-3V9a6 6 0 0 0-12 0v5z M10 20a2 2 0 0 0 4 0",
   home: "M3 10.5 12 3l9 7.5 M5 9v12h5v-7h4v7h5V9",
   week: "M3 4h7l2 2 2-2h7v15h-7l-2 2-2-2H3z M12 6v15",
   events: "M4 6h16v15H4z M4 10h16 M8 3v5 M16 3v5 M8 14h2 M14 14h2",

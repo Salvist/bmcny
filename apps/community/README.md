@@ -1,39 +1,17 @@
 # BMC NY Community
 
-From this directory, install dependencies and start the development server:
+Start the app from this directory with `npm run dev -- --port 3001` and open [localhost:3001](http://localhost:3001).
 
-```sh
-npm ci
-npm run dev -- --port 3001
-```
+## Routes
 
-Open [localhost:3001](http://localhost:3001). The homepage is in `src/app/page.tsx`. Keep static assets in `public/` and project configuration and local `.env.*` files at the community app root.
+- `/` Home
+- `/services` Services
+- `/events` Events
+- `/profile` Profile
+- `/schedule` My Schedule
 
-## Project structure
+Each screen lives in its route's `page.tsx` under `src/app/`. Keep components used by a single route in that route's `components/` folder. The shared shell, browser state provider, and components used by multiple routes live in `src/app/components/`. Bulletin and scheduling logic lives in `src/app/model/`.
 
-We follow Next.js's [split by feature or route example](https://nextjs.org/docs/app/getting-started/project-structure#split-project-files-by-feature-or-route). Keep code specific to a route beside that route. Put components used across unrelated routes in `src/app/components/` and shared infrastructure in `src/app/lib/`. The `@/*` alias points to `src/`.
+## Verification
 
-For example, when the app adds events and shared UI, the tree could look like this:
-
-```text
-src/app/
-├── layout.tsx
-├── page.tsx
-├── globals.css
-├── favicon.ico
-├── components/
-│   ├── site-header.tsx
-│   └── ui/
-│       └── button.tsx
-├── lib/
-│   └── supabase/
-│       └── server.ts
-└── events/
-    ├── page.tsx
-    ├── [eventId]/
-    │   └── page.tsx
-    └── components/
-        └── event-card.tsx
-```
-
-Add directories as their first files are needed. Use `components/` to group route-specific UI, or keep a single component directly beside `page.tsx`.
+Run `npm run lint`, `node --test tests/scheduling.test.cjs`, and `npm run build` from this directory.

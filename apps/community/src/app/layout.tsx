@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CommunityApp from "@/app/components/community-app";
 
 export const metadata: Metadata = {
   title: "BMCNY Community",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <CommunityApp>{children}</CommunityApp>
+      </body>
     </html>
   );
 }
