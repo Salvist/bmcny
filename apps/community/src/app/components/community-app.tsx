@@ -149,7 +149,6 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
   const opened = item?.kind === "Assignment" ? personalShifts.find(d => d.id === item.id) : item;
   const schedule = new Map<string, Gathering>();
   for (const i of [
-    ...Object.values(demo.saved),
     ...Object.values(demo.registrations).map((r) => r.item),
     ...(demo.volunteer ? personalShifts : []),
   ])

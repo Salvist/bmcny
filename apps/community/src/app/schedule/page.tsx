@@ -33,15 +33,10 @@ export default function SchedulePage() {
           <div className="empty">
             <Icon name="schedule" size={30} />
             <h3>Your schedule is open</h3>
-            <p>
-              Save a gathering or register for an event to see it here.
-            </p>
+            <p>RSVP to an event to see it here.</p>
             <div className="actions">
               <Link href="/events" className="primary">
                 Browse events
-              </Link>
-              <Link href="/services" className="secondary">
-                Browse services
               </Link>
             </div>
           </div>

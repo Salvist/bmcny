@@ -113,7 +113,7 @@ export function MemberPage({ demo, provider, saveProfile, savePreferences, onPre
       <div>
         <section><h2>My Schedule</h2>
           {children || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming gatherings</h3>
-            <div className="actions"><Link href="/services">Browse services</Link><Link href="/events">Browse events</Link></div>
+            <div className="actions"><Link href="/events">Browse events</Link></div>
           </div>}
           <Link className="member-link" href="/schedule">View schedule <Icon name="arrow" size={16} /></Link>
         </section>

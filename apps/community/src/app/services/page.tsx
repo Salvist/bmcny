@@ -6,7 +6,7 @@ import { ServicesNavigation } from "@/app/components/services-navigation";
 import { time } from "@/app/model/bulletin";
 
 export default function ServicesPage() {
-  const { data, demo, setItem } = useCommunity();
+  const { data, setItem } = useCommunity();
   if (!data) return <BulletinLoading />;
 
   return (
@@ -29,7 +29,6 @@ export default function ServicesPage() {
                     <strong>{service.title}</strong>
                     <span className="meta">{service.online ? "Online via Zoom" : service.place}</span>
                   </span>
-                  {demo.saved[service.id] && <span className="tag">Saved</span>}
                   <Icon name="chevron" size={15} />
                 </button>
               ))}

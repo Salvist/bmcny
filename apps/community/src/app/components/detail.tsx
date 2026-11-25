@@ -38,11 +38,8 @@ export function Detail({
   onClose: () => void;
 }) {
   const [form, setForm] = useState(startRsvp);
-  const [intent, setIntent] = useState<"save" | "rsvp">();
-  const promptTitle = intent === "save" ? "Sign in to save this gathering" : "Sign in to RSVP";
+  const [signInPrompt, setSignInPrompt] = useState(false);
   const reg = demo.registrations[item.id]?.person;
-  const saved = !!demo.saved[item.id];
-  const occurrence = dateLabel(item.date, { month: "short", day: "numeric", year: "numeric" });
   const status = label(item, demo);
   function shift(next: Status) {
     change((s) => ({ ...s, shifts: { ...s.shifts, [item.id]: next } }));
@@ -195,33 +192,13 @@ export function Detail({
                 </button>
               </div>
             </form>
-          ) : (
+          ) : (item.rsvp || reg) && (
             <div className="actions">
               {item.rsvp && !reg && (
-                <button className="primary" onClick={() => signedIn ? setForm(true) : setIntent("rsvp")}>
+                <button className="primary" onClick={() => signedIn ? setForm(true) : setSignInPrompt(true)}>
                   RSVP
                 </button>
               )}
-              <button
-                className={item.rsvp ? "secondary" : "primary"}
-                aria-pressed={saved}
-                onClick={() => {
-                  if (!signedIn) {
-                    setIntent("save");
-                    return;
-                  }
-                  change((s) => {
-                    const items = { ...s.saved };
-                    if (saved) delete items[item.id];
-                    else items[item.id] = item;
-                    return { ...s, saved: items };
-                  });
-                }}
-              >
-                <Icon name={saved ? "check" : "schedule"} />
-                {saved ? "Remove saved item" : "Save to schedule"}
-                {item.kind === "Service" && ` · ${occurrence}`}
-              </button>
               {reg && (
                 <button
                   className="secondary"
@@ -238,23 +215,18 @@ export function Detail({
               )}
             </div>
           )}
-          {saved && <p role="status">Saved to your schedule</p>}
         </>
       )}
-      {intent && (
-        <Dialog title={promptTitle} onClose={() => setIntent(undefined)}>
-          <h2>{promptTitle}</h2>
-          <p>{item.title}{item.kind === "Service" && ` · ${occurrence}`}</p>
+      {signInPrompt && (
+        <Dialog title="Sign in to RSVP" onClose={() => setSignInPrompt(false)}>
+          <h2>Sign in to RSVP</h2>
+          <p>{item.title}</p>
           <AccountChoices onContinue={(provider) => {
             onSignIn(provider);
-            if (intent === "save") {
-              change((s) => ({ ...s, saved: { ...s.saved, [item.id]: item } }));
-            } else {
-              setForm(true);
-            }
-            setIntent(undefined);
+            setForm(true);
+            setSignInPrompt(false);
           }} />
-          <button className="text-btn preview-error" onClick={() => setIntent(undefined)}>Keep browsing</button>
+          <button className="text-btn preview-error" onClick={() => setSignInPrompt(false)}>Keep browsing</button>
         </Dialog>
       )}
     </Dialog>
