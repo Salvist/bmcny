@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCommunity } from "@/app/components/community-app";
+import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { Icon } from "@/app/components/icons";
 import { label, Rows } from "@/app/components/rows";
 import { compare, dateLabel, time, type Gathering } from "@/app/model/bulletin";
@@ -44,6 +44,7 @@ function ServiceLinks({
 }
 export default function HomePage() {
   const { data, demo, personalShifts, setItem } = useCommunity();
+  if (!data) return <BulletinLoading />;
   const { worship } = data;
   const agenda = [...data.events, ...data.services].sort(compare);
   const nextShift = personalShifts.find(i => label(i, demo) !== "Declined" &&

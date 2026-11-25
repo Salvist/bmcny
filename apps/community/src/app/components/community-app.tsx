@@ -30,7 +30,7 @@ const routes: Partial<Record<string, Tab>> = { "/": "week", "/services": "servic
 
 
 type CommunityState = ReturnType<typeof scheduleData> & {
-  data: ReturnType<typeof bulletin>;
+  data: ReturnType<typeof bulletin> | undefined;
   demo: Demo;
   provider?: Provider;
   personalShifts: Gathering[];
@@ -51,6 +51,10 @@ export function useCommunity() {
   const community = useContext(CommunityContext);
   if (!community) throw new Error("Community views must be rendered inside CommunityApp");
   return community;
+}
+
+export function BulletinLoading() {
+  return <p className="loading" role="status">Opening the bulletin…</p>;
 }
 
 export default function CommunityApp({ children }: { children: ReactNode }) {
@@ -134,14 +138,12 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
     setTools(true);
   };
   if (!tab) return children;
-  if (!data)
-    return (
-      <main className="loading" aria-busy="true">
-        Opening the bulletin…
-      </main>
-    );
-  const { rosters, gatherings } = scheduleData(data, demo.scheduling);
-  const personalShifts = assignments(rosters, demo.scheduling.member).filter(i => i.date >= data.today);
+  const { rosters, gatherings }: ReturnType<typeof scheduleData> = data
+    ? scheduleData(data, demo.scheduling)
+    : { rosters: {}, gatherings: [] };
+  const personalShifts = data
+    ? assignments(rosters, demo.scheduling.member).filter(i => i.date >= data.today)
+    : [];
   const opened = item?.kind === "Assignment" ? personalShifts.find(d => d.id === item.id) : item;
   const schedule = new Map<string, Gathering>();
   for (const i of [
@@ -196,14 +198,14 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
           </span>
         </header>
         <div className="page-heading">
-          <span className="eyebrow">
+          {data && <span className="eyebrow">
             {dateLabel(data.today, {
               weekday: "long",
               month: "long",
               day: "numeric",
               year: "numeric",
             })}
-          </span>
+          </span>}
           <h1>{section === "profile" && !signedIn ? tabs.profile : tab === "events" ? tabs.services : tabs[tab]}</h1>
         </div>
         {children}

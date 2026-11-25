@@ -1,12 +1,13 @@
 "use client";
 
-import { useCommunity } from "@/app/components/community-app";
+import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { ProfileSignIn } from "@/app/components/profile-sign-in";
 import { Rows } from "@/app/components/rows";
 import { MemberPage } from "./components/member-profile";
 
 export default function ProfilePage() {
   const { data, demo, provider, scheduleItems, signIn, change, preview, setItem } = useCommunity();
+  if (!data) return <BulletinLoading />;
   if (!provider) return <ProfileSignIn onContinue={signIn} />;
 
   const upcoming = scheduleItems.find((entry) =>

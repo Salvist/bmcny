@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCommunity } from "@/app/components/community-app";
+import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { Icon } from "@/app/components/icons";
 import { ProfileSignIn } from "@/app/components/profile-sign-in";
 import { label, Rows } from "@/app/components/rows";
@@ -14,6 +14,7 @@ export default function SchedulePage() {
     data, demo, provider, rosters, gatherings, personalShifts, scheduleItems,
     department, setDepartment, day, setDay, signIn, change, preview, setItem,
   } = useCommunity();
+  if (!data) return <BulletinLoading />;
   if (!provider) return <ProfileSignIn onContinue={signIn} />;
 
   const memberships = departments.filter(d => demo.scheduling.members[d].includes(demo.scheduling.member));

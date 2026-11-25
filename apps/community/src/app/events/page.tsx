@@ -1,11 +1,12 @@
 "use client";
 
-import { useCommunity } from "@/app/components/community-app";
+import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { Rows } from "@/app/components/rows";
 import { ServicesNavigation } from "@/app/components/services-navigation";
 
 export default function EventsPage() {
   const { data, demo, setItem } = useCommunity();
+  if (!data) return <BulletinLoading />;
 
   return (
     <section>
