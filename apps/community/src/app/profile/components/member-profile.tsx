@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { ProviderMark, type Provider } from "@/app/components/account";
 import { Dialog } from "@/app/components/detail-dialog";
 import { Icon } from "@/app/components/icons";
@@ -97,9 +97,9 @@ function Notifications({ demo, save, close }: { demo: Demo; save: Save<Preferenc
   </Dialog>;
 }
 
-export function MemberPage({ demo, provider, saveProfile, savePreferences, onPreview, onSignOut, serving, children }: {
+export function MemberPage({ demo, provider, saveProfile, savePreferences, onPreview, onSignOut }: {
   demo: Demo; provider: Provider; saveProfile: Save<MemberProfile>; savePreferences: Save<Preferences>;
-  onPreview: () => void; onSignOut: () => void; serving?: ReactNode; children: ReactNode;
+  onPreview: () => void; onSignOut: () => void;
 }) {
   const [panel, setPanel] = useState<"details" | "notifications" | "provider">();
   const close = () => setPanel(undefined);
@@ -109,28 +109,16 @@ export function MemberPage({ demo, provider, saveProfile, savePreferences, onPre
       <div><h2>{demo.profile.name}</h2><p>{demo.profile.email}</p></div>
       <button className="secondary" onClick={() => setPanel("details")}>Edit profile</button>
     </section>
-    <div className="member-columns">
-      <div>
-        <section><h2>My Schedule</h2>
-          {children || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming gatherings</h3>
-            <div className="actions"><Link href="/events">Browse events</Link></div>
-          </div>}
-          <Link className="member-link" href="/schedule">View schedule <Icon name="arrow" size={16} /></Link>
-        </section>
-        {serving !== undefined && <section className="member-serving"><h2>Serving</h2>
-          {serving || <div className="member-empty"><Icon name="schedule" /><h3>No upcoming assignments</h3></div>}
-          <Link className="member-link" href="/serving">View serving schedule <Icon name="arrow" size={16} /></Link>
-        </section>}
+    <section className="member-account"><h2>Account settings</h2>
+      <div className="member-settings">
+        <button onClick={() => setPanel("details")}><Icon name="person" />Personal details<Icon name="chevron" size={16}/></button>
+        <Link href="/schedule"><Icon name="events" />Schedule<Icon name="chevron" size={16}/></Link>
+        <Link href="/serving"><Icon name="schedule" />Serving<Icon name="chevron" size={16}/></Link>
+        <button onClick={() => setPanel("notifications")}><Icon name="bell" />Notifications<Icon name="chevron" size={16}/></button>
+        <button onClick={() => setPanel("provider")}><ProviderMark provider={provider}/>Sign-in method ({provider})<Icon name="chevron" size={16}/></button>
       </div>
-      <section><h2>Account settings</h2>
-        <div className="member-settings">
-          <button onClick={() => setPanel("details")}><Icon name="person" />Personal details<Icon name="chevron" size={16}/></button>
-          <button onClick={() => setPanel("notifications")}><Icon name="bell" />Notifications<Icon name="chevron" size={16}/></button>
-          <button onClick={() => setPanel("provider")}><ProviderMark provider={provider}/>Sign-in method ({provider})<Icon name="chevron" size={16}/></button>
-        </div>
-        <div className="member-footer"><button onClick={onSignOut}>Sign out</button><button onClick={onPreview}>Preview settings</button></div>
-      </section>
-    </div>
+      <div className="member-footer"><button onClick={onSignOut}>Sign out</button><button onClick={onPreview}>Preview settings</button></div>
+    </section>
     {panel === "details" && <ProfileEditor profile={demo.profile} save={saveProfile} close={close}/>}
     {panel === "notifications" && <Notifications demo={demo} save={savePreferences} close={close}/>}
     {panel === "provider" && <Dialog title="Sign-in method" onClose={close}><h2>Sign-in method</h2>

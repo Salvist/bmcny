@@ -159,6 +159,7 @@ i {
   justify-content: space-between;
   height: 72px;
   border-bottom: 1px solid var(--rule);
+  margin-bottom: 22px;
   color: var(--green);
 }
 .masthead span {
@@ -169,6 +170,21 @@ i {
 .masthead > span:first-child {
   font-weight: 650;
   font-size: 14px;
+}
+.masthead-logo {
+  height: 40px;
+  width: auto;
+  display: block;
+  padding-right: 10px;
+  border-right: 1px solid var(--rule);
+}
+.masthead h1 {
+  margin: 0;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.2;
 }
 .masthead .local {
   font-size: 12px;
@@ -194,9 +210,6 @@ i {
   color: white;
   background: var(--green);
 }
-.page-heading {
-  padding: 27px 0 22px;
-}
 .eyebrow,
 .hero-label,
 .row-category,
@@ -208,12 +221,6 @@ i {
 }
 .eyebrow {
   color: var(--green);
-}
-h1 {
-  font-size: clamp(44px, 4.6vw, 72px);
-  letter-spacing: -0.055em;
-  line-height: 1.07;
-  margin-top: 6px;
 }
 .hero {
   min-height: 268px;
@@ -300,6 +307,18 @@ h1 {
   gap: clamp(20px, 3vw, 44px);
   margin-top: 31px;
   align-items: start;
+}
+.home-previews {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 44px);
+  margin-top: 31px;
+  align-items: start;
+}
+.home-previews h2 {
+  font-size: clamp(26px, 2.3vw, 35px);
+  letter-spacing: -0.045em;
+  margin-bottom: 14px;
 }
 .section-head {
   display: flex;
@@ -653,19 +672,11 @@ hr {
   .masthead {
     height: 55px;
   }
-  .masthead > span:first-child:before {
-    content: "BMCNY";
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    padding-right: 9px;
-    border-right: 1px solid var(--rule);
+  .masthead-logo {
+    height: 32px;
   }
-  .masthead > span:first-child svg,
   .masthead .local {
     display: none;
-  }
-  .page-heading {
-    padding: 22px 0 18px;
   }
   .hero {
     min-height: 252px;
@@ -681,7 +692,8 @@ hr {
     font-size: 12px;
     gap: 9px;
   }
-  .home-grid {
+  .home-grid,
+  .home-previews {
     grid-template-columns: 1fr;
     margin-top: 23px;
   }
@@ -899,10 +911,11 @@ body:has(dialog[open]) {
   font: 30px var(--serif);
 }
 .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.member-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(24px,4vw,60px); margin-top: 32px; }
-.member-columns h2 { font-size: 29px; margin-bottom: 14px; }
+.member-account { margin-top: 32px; }
+.member-account h2 { font-size: 29px; margin-bottom: 14px; }
 .member-settings, .member-empty { border-top: 1px solid var(--rule); }
-.member-settings button {
+.member-settings button,
+.member-settings a {
   display: grid;
   grid-template-columns: 24px 1fr auto;
   gap: 13px;
@@ -912,7 +925,8 @@ body:has(dialog[open]) {
   padding: 16px 3px;
   border-bottom: 1px solid var(--rule);
 }
-.member-settings button:hover { background: var(--wash); }
+.member-settings button:hover,
+.member-settings a:hover { background: var(--wash); }
 .member-empty { padding: 22px 0; }
 .member-empty h3 { font-size: 23px; margin: 8px 0; }
 .member-link, .member-footer button, .member-empty a { color: var(--green); text-decoration: underline; text-underline-offset: 4px; }
@@ -929,7 +943,6 @@ body:has(dialog[open]) {
 .preference input:checked { background: var(--green); }
 .preference input:checked::before { transform: translateX(17px); }
 @media (max-width: 760px) {
-  .member-columns { grid-template-columns: 1fr; gap: 26px; }
   .member-identity { grid-template-columns: auto minmax(0,1fr); gap: 14px; }
   .member-identity button { grid-column: 1 / -1; }
   .member-avatar { width: 60px; height: 60px; font-size: 25px; }

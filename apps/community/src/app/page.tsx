@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BulletinLoading, useCommunity } from "@/app/components/community-app";
 import { Icon } from "@/app/components/icons";
-import { label, Rows } from "@/app/components/rows";
+import { Rows } from "@/app/components/rows";
 import { compare, dateLabel, time, type Gathering } from "@/app/model/bulletin";
 
 function ServiceLinks({
@@ -43,20 +43,18 @@ function ServiceLinks({
   );
 }
 export default function HomePage() {
-  const { data, demo, personalShifts, setItem } = useCommunity();
+  const { data, demo, provider, personalShifts, scheduleItems, setItem } = useCommunity();
   if (!data) return <BulletinLoading />;
   const { worship } = data;
   const agenda = [...data.events, ...data.services].sort(compare);
-  const nextShift = personalShifts.find(i => label(i, demo) !== "Declined" &&
-    (i.date > data.today || i.finish! > data.minute));
+  const upcoming = (entry: { date: string; arrival?: number; minutes: number }) =>
+    entry.date > data.today || (entry.date === data.today && (entry.arrival ?? entry.minutes) >= data.minute);
+  const nextGathering = scheduleItems.find((entry) => entry.kind !== "Assignment" && upcoming(entry));
+  const nextShift = demo.volunteer
+    ? personalShifts.find((entry) => upcoming(entry) && demo.shifts[entry.id] !== "Declined")
+    : undefined;
   return (
     <>
-      {demo.volunteer && nextShift && (
-        <section className="shift-call">
-          <span className="eyebrow">Your next assignment</span>
-          <Rows items={[nextShift]} demo={demo} open={setItem} />
-        </section>
-      )}
       <article className="hero">
         <div className="hero-content">
           <span className="hero-label">
@@ -83,6 +81,33 @@ export default function HomePage() {
           </button>
         </div>
       </article>
+      {provider && (
+        <div className="home-previews">
+          <section>
+            <h2>My Schedule</h2>
+            {nextGathering ? <Rows items={[nextGathering]} demo={demo} open={setItem} /> : (
+              <div className="member-empty">
+                <Icon name="schedule" />
+                <h3>No upcoming gatherings</h3>
+                <div className="actions"><Link href="/events">Browse events</Link></div>
+              </div>
+            )}
+            <Link className="member-link" href="/schedule">View schedule <Icon name="arrow" size={16} /></Link>
+          </section>
+          {demo.volunteer && (
+            <section>
+              <h2>Serving</h2>
+              {nextShift ? <Rows items={[nextShift]} demo={demo} open={setItem} /> : (
+                <div className="member-empty">
+                  <Icon name="schedule" />
+                  <h3>No upcoming assignments</h3>
+                </div>
+              )}
+              <Link className="member-link" href="/serving">View serving schedule <Icon name="arrow" size={16} /></Link>
+            </section>
+          )}
+        </div>
+      )}
       <div className="home-grid">
         <section>
           <div className="section-head">

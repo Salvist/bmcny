@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { bulletin, compare, dateLabel, emptyDemo, restoreDemo, type Demo, type Gathering } from "../model/bulletin";
+import { bulletin, compare, emptyDemo, restoreDemo, type Demo, type Gathering } from "../model/bulletin";
 import { assignments, directory, scheduleData, switchMember } from "../model/scheduling";
 import { Detail } from "./detail";
 import { Dialog } from "./detail-dialog";
@@ -155,6 +155,7 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
     schedule.set(i.id, i);
   const scheduleItems = [...schedule.values()].sort(compare);
   const section = tab === "events" ? "services" : tab === "schedule" || tab === "serving" ? "profile" : tab;
+  const pageTitle = section === "profile" && !signedIn ? tabs.profile : tab === "events" ? tabs.services : tabs[tab];
   const navigation = destinations.map(([k, icon]) => (
     <Link
       key={k}
@@ -192,23 +193,13 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
       <main className="content">
         <header className="masthead">
           <span>
-            <Icon name="week" size={17} /> Community bulletin
+            <img className="masthead-logo" src="/logo-mark.png" alt="" />
+            <h1>{pageTitle}</h1>
           </span>
           <span className="local">
             <i /> New York, NY
           </span>
         </header>
-        <div className="page-heading">
-          {data && <span className="eyebrow">
-            {dateLabel(data.today, {
-              weekday: "long",
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </span>}
-          <h1>{section === "profile" && !signedIn ? tabs.profile : tab === "events" ? tabs.services : tabs[tab]}</h1>
-        </div>
         {children}
         </main>
         <nav className="bottom-nav" aria-label="Mobile navigation">
