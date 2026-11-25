@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import {
   address,
   directions,
@@ -18,6 +19,7 @@ import type { Roster } from "../model/scheduling";
 export type Change = (update: (s: Demo) => Demo) => void;
 export function Detail({
   item,
+  startRsvp,
   roster,
   demo,
   change,
@@ -26,6 +28,7 @@ export function Detail({
   onClose,
 }: {
   item: Gathering;
+  startRsvp: boolean;
   roster?: Roster;
   demo: Demo;
   change: Change;
@@ -33,7 +36,7 @@ export function Detail({
   onSignIn: (provider: Provider) => void;
   onClose: () => void;
 }) {
-  const [form, setForm] = useState(false);
+  const [form, setForm] = useState(startRsvp);
   const [intent, setIntent] = useState<"save" | "rsvp">();
   const promptTitle = intent === "save" ? "Sign in to save this gathering" : "Sign in to RSVP";
   const reg = demo.registrations[item.id]?.person;
@@ -43,6 +46,15 @@ export function Detail({
   function shift(next: Status) {
     change((s) => ({ ...s, shifts: { ...s.shifts, [item.id]: next } }));
   }
+  if (startRsvp && !signedIn) {
+    return (
+      <Dialog title="Sign in to RSVP" onClose={onClose}>
+        <h2>Sign in to RSVP</h2>
+        <p>{item.title}</p>
+        <AccountChoices onContinue={onSignIn} />
+      </Dialog>
+    );
+  }
   return (
     <Dialog title={item.title} onClose={onClose}>
       <span className="eyebrow">
@@ -50,15 +62,10 @@ export function Detail({
       </span>
       <h2>{item.title}</h2>
       <p>{item.text}</p>
-      {item.kind === "Event" && (
-        <div
-          className={
-            "event-photo " +
-            (item.category === "Bible study"
-              ? "study-photo"
-              : "community-photo")
-          }
-        />
+      {item.kind === "Event" && item.image && (
+        <div className="event-photo">
+          <Image src={item.image} alt="" fill sizes="(max-width: 600px) 100vw, 520px" />
+        </div>
       )}
       <div className="facts">
         <div>

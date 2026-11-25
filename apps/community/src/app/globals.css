@@ -736,16 +736,79 @@ hr {
   }
 }
 .event-photo {
+  position: relative;
   height: 140px;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
   border-radius: 7px;
 }
-.study-photo {
-  background-image: url(/bible_study.webp);
+.event-photo img {
+  object-fit: cover;
 }
-.community-photo {
-  background-image: url(/bethany_members.webp);
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, max(250px, calc((100% - 36px) / 3))), 1fr));
+  gap: 18px;
+  max-width: 1160px;
+}
+@media (max-width: 600px) {
+  .event-grid { grid-template-columns: 1fr; }
+}
+.event-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 12px;
+}
+.event-card .event-photo {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+}
+.event-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+}
+.event-body h3 { font: 26px/1.1 var(--serif); }
+.event-body h3 button { padding: 0; font: inherit; text-align: left; }
+.event-body h3 button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 12px;
+}
+.event-body h3 button:focus-visible::after {
+  outline: 3px solid #b37723;
+  outline-offset: -3px;
+}
+.event-body p { color: var(--muted); line-height: 1.5; }
+.event-meta { display: grid; gap: 5px; }
+.event-meta span { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.event-meta svg, .event-body small { color: var(--green); }
+.event-actions {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+.event-actions > * {
+  min-height: 46px;
+  border: 0;
+  border-radius: 0;
+  padding: 10px 8px;
+}
+.event-actions .secondary {
+  background: var(--wash);
+}
+.event-actions > :focus-visible {
+  outline-offset: -4px;
 }
 
 body:has(dialog[open]) {

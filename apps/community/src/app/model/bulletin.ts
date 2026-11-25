@@ -16,6 +16,7 @@ export type Gathering = {
   audience: string;
   recurrence?: string;
   rsvp?: boolean;
+  image?: string;
   online?: boolean;
   gatheringTitle?: string;
   rosterId?: string;
@@ -161,6 +162,7 @@ export function bulletin(now: Date) {
     make("study", "2026-11-25", {
       ...event,
       title: "Community Bible Study",
+      image: "/bible_study.webp",
       minutes: 1140,
       category: "Bible study",
       text: "Bring your Bible and join a small-group conversation. First-time visitors are welcome.",
@@ -168,6 +170,7 @@ export function bulletin(now: Date) {
     make("table", "2026-11-28", {
       ...event,
       title: "Community Lunch",
+      image: "/bethany_members.webp",
       minutes: 720,
       category: "Fellowship",
       rsvp: true,

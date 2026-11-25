@@ -42,7 +42,7 @@ type CommunityState = ReturnType<typeof scheduleData> & {
   signIn: (value?: Provider) => void;
   change: (update: (demo: Demo) => Demo, requireStorage?: boolean) => boolean;
   preview: () => void;
-  setItem: (item: Gathering) => void;
+  setItem: (item: Gathering, action?: "rsvp") => void;
 };
 
 const CommunityContext = createContext<CommunityState | null>(null);
@@ -69,14 +69,18 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
   const demo = signedIn ? memberDemo : emptyDemo();
   const [data, setData] = useState<ReturnType<typeof bulletin>>();
   const [lastServiceView, setLastServiceView] = useState<ServiceView>("services");
-  const [item, setItem] = useState<Gathering>();
+  const [selection, setSelection] = useState<{ item: Gathering; action?: "rsvp" }>();
+  const item = selection?.item;
+  function setItem(item: Gathering, action?: "rsvp") {
+    setSelection({ item, action });
+  }
   const [tools, setTools] = useState(false);
   const [reset, setReset] = useState(false);
   const [department, setDepartment] = useState("");
   const [day, setDay] = useState("");
   if (pathname !== previousPath) {
     setPreviousPath(pathname);
-    setItem(undefined);
+    setSelection(undefined);
     setTools(false);
     if (currentServiceView) setLastServiceView(currentServiceView);
   }
@@ -217,12 +221,13 @@ export default function CommunityApp({ children }: { children: ReactNode }) {
           <Detail
             key={opened.id}
             item={opened}
+            startRsvp={selection?.action === "rsvp"}
             roster={opened.rosterId ? rosters[opened.rosterId] : undefined}
             demo={demo}
             change={change}
             signedIn={signedIn}
             onSignIn={signIn}
-            onClose={() => setItem(undefined)}
+            onClose={() => setSelection(undefined)}
           />
         )}
         {tools && (
